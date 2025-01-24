@@ -10,6 +10,6 @@ namespace Domain.Repositorys
     public interface IUserRepository
     {
        Task<Users> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-       Task<Users> AddUserToFollowers(Guid followerId, Guid followedId, CancellationToken cancellationToken = default);
+       Task<Users> AddUserToFollowers(Users follower, Users followed, CancellationToken cancellationToken = default);
     }
 }

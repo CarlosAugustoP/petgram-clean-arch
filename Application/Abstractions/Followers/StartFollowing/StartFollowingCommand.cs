@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Application.Abstractions.Messaging;
 using Application.Abstractions.Returns;
+using Domain.CustomExceptions;
 using Domain.Models;
-using Domain.Services;
+using Domain.Repositorys;
+using Infrastructure.UserData;
 
 namespace Application.Abstractions.Followers.StartFollowing
 {
@@ -18,17 +20,25 @@ namespace Application.Abstractions.Followers.StartFollowing
     }
     internal sealed class StartFollowingCommandHandler : ICommandHandler<StartFollowingCommand>
     {
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public StartFollowingCommandHandler(UserService userService)
+        public StartFollowingCommandHandler(IUserRepository userRepository)
         {
-            _userService = userService;
+            _userRepository = userRepository;
         }
 
         public async Task<Result<object>> Handle(StartFollowingCommand command, CancellationToken cancellationToken)
         {
-            var user = await _userService.UserFollowUser(command.FollowerId, command.FollowedId, cancellationToken);
-            return Result<object>.Success(user);
+            var follower = await _userRepository.GetByIdAsync(command.FollowerId, cancellationToken);
+            if (follower == null) {
+                throw new NotFoundException("Follower not found!");
+            }
+            var followed = await _userRepository.GetByIdAsync(command.FollowedId, cancellationToken);
+            if (followed == null)
+            {
+                throw new NotFoundException("Followed not found!");
+            }
+            return Result<object>.Success(await _userRepository.AddUserToFollowers(follower, followed, cancellationToken));
         }
-    }  
+    }
 }

@@ -6,21 +6,34 @@ using System.Threading.Tasks;
 
 using Domain.Models;
 using Domain.Repositorys;
+using Infrastructure.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.UserData
 {
     public class UserRepository : IUserRepository
     {
-        public UserRepository() { }
-
-        public Task<Users> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+        private readonly MainDBContext _db;
+        public UserRepository(MainDBContext db) {
+            _db = db;
         }
 
-        public Task<Users> AddUserToFollowers(Guid followerId, Guid followedId, CancellationToken cancellationToken)
+        public async Task<Users> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _db.Users.FindAsync(id);
+        }
+
+        public async Task<Users> AddUserToFollowers(Users follower, Users followed, CancellationToken cancellationToken)
+        {
+            followed.Followers.Add(follower);
+            follower.Following.Add(followed);
+            await _db.SaveChangesAsync(cancellationToken);
+            return followed;
+        }
+
+        public async Task<List<Users>> GetAllUsers()
+        {
+            return await _db.Users.ToListAsync();
         }
     }
 }
