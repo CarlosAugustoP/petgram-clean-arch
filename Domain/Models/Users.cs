@@ -11,7 +11,7 @@ namespace Domain.Models
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
-        public string profileImgUrl { get; set; }
+        public string ProfileImgUrl { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public string Bio { get; set; }

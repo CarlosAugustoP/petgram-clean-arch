@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Application.Abstractions.Messaging;
-using Application.Abstractions.Returns;
+using Application.Abstractions;
 using Domain.CustomExceptions;
 using Domain.Models;
 using Domain.Repositorys;
@@ -27,7 +27,7 @@ namespace Application.Abstractions.Followers.StartFollowing
             _userRepository = userRepository;
         }
 
-        public async Task<Result<object>> Handle(StartFollowingCommand command, CancellationToken cancellationToken)
+        public async Task<object> Handle(StartFollowingCommand command, CancellationToken cancellationToken)
         {
             var follower = await _userRepository.GetByIdAsync(command.FollowerId, cancellationToken);
             if (follower == null) {
@@ -38,7 +38,7 @@ namespace Application.Abstractions.Followers.StartFollowing
             {
                 throw new NotFoundException("Followed not found!");
             }
-            return Result<object>.Success(await _userRepository.AddUserToFollowers(follower, followed, cancellationToken));
+            return followed;
         }
     }
 }
