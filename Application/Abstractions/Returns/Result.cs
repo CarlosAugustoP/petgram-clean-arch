@@ -11,6 +11,8 @@ namespace Application.Abstractions.Returns
         public bool IsSuccess { get; private set; }
         public T Value { get; private set; }
 
+        public ICollection<string> Errors { get; private set; }
+        public Exception? exception { get; private set; }
         public Result(bool isSuccess, T value, string error)
         {
             IsSuccess = isSuccess;
