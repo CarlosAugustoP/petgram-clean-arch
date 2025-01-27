@@ -11,5 +11,7 @@ namespace Domain.Repositorys
     {
        Task<Users> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
        Task<Users> AddUserToFollowers(Users follower, Users followed, CancellationToken cancellationToken = default);
+       Task<Users> CreateUser (Users user, CancellationToken cancellationToken = default);
+
     }
 }
