@@ -8,12 +8,13 @@ namespace Domain.Models
 {
     public class Notification
     {
-        public DateTime sentAt { get; set; }
-        public string message { get; set; }
-        public string type { get; set; }
-        public Users? sender { get; set; }
-        public Users? receiver { get; set; }
-        public bool isRead { get; set; }
+        public Guid Id { get; set; }
+        public DateTime SentAt { get; set; }
+        public string Message { get; set; }
+        public string Type { get; set; }
+        public Users? Sender { get; set; }
+        public Users? Receiver { get; set; }
+        public bool IsRead { get; set; }
         public Notification() { }
 
     }

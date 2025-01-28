@@ -9,12 +9,12 @@ namespace Domain.Models
     public class Media
     {
         public Guid Id { get; set; }
-        public Post post { get; set; }
-        public string title { get; set; }
-        public string url { get; set; }
-        public string type { get; set; }
-        public string description { get; set; }
-        public DateTime createdAt { get; set; }
+        public Post Post { get; set; }
+        public string Title { get; set; }
+        public string Url { get; set; }
+        public string Type { get; set; }
+        public string Description { get; set; }
+        public DateTime CreatedAt { get; set; }
         public Media() { }
 
     }

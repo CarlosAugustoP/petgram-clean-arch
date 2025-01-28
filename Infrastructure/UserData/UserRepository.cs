@@ -39,6 +39,7 @@ namespace Infrastructure.UserData
         public async Task<Users> CreateUser(Users user, CancellationToken cancellationToken = default)
         {
             await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync(cancellationToken);
             return user;
         }
     }

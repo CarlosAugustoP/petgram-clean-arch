@@ -37,3 +37,5 @@ C:\Users\cpeixoto\source\repos\CleanArch\Application\obj\Debug\net8.0\refint\App
 C:\Users\cpeixoto\source\repos\CleanArch\Application\obj\Debug\net8.0\Application.pdb
 C:\Users\cpeixoto\source\repos\CleanArch\Application\obj\Debug\net8.0\Application.genruntimeconfig.cache
 C:\Users\cpeixoto\source\repos\CleanArch\Application\obj\Debug\net8.0\ref\Application.dll
+C:\Users\cpeixoto\source\repos\CleanArch\Application\bin\Debug\net8.0\MediatR.dll
+C:\Users\cpeixoto\source\repos\CleanArch\Application\bin\Debug\net8.0\MediatR.Contracts.dll

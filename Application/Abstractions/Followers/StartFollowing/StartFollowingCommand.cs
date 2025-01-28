@@ -10,10 +10,11 @@ using Domain.CustomExceptions;
 using Domain.Models;
 using Domain.Repositorys;
 using Infrastructure.UserData;
+using MediatR;
 
 namespace Application.Abstractions.Followers.StartFollowing
 {
-    public sealed record StartFollowingCommand : Messaging.ICommand
+    public sealed record StartFollowingCommand : IRequest<object>
     {
         public Guid FollowerId { get; init; }
         public Guid FollowedId { get; init; }

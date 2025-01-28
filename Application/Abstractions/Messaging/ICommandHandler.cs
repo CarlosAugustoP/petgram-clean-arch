@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace Application.Abstractions.Messaging
 {
-    public interface ICommandHandler<in TCommand>
-        where TCommand : ICommand
-    {
-        Task<object> Handle(TCommand command, CancellationToken cancellationToken);
-    }
+    
 
-    public interface ICommandHandler<in TCommand, TResponse>
-        where TCommand : ICommand<TResponse>
+    public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, object>
+        where TCommand : IRequest<object>
     {
-        Task<TResponse> Handle(TCommand command, CancellationToken cancellationToken);
     }
 } 

@@ -1,37 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Application.Abstractions.Messaging;
-using Domain.Models;
+using MediatR;
 using Domain.Repositorys;
+using Domain.Models;
 
 namespace Application.Abstractions.Users.AddNewUser
 {
-    public sealed record AddNewUserCommand : Messaging.ICommand
+    public sealed record AddNewUserCommand : IRequest<object>
     {
-        public AddNewUserCommand() { }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Name { get; set; }
+        public string Email { get; init; }
+        public string Password { get; init; }
+        public string Name { get; init; }
+
+        public AddNewUserCommand(string email, string password, string name)
+        {
+            Email = email;
+            Password = password;
+            Name = name;
+        }
     }
-    public class AddNewUserCommandHandler : ICommandHandler<AddNewUserCommand> 
+
+    public class AddNewUserCommandHandler : IRequestHandler<AddNewUserCommand, object>
     {
         private readonly IUserRepository _userRepository;
-        public AddNewUserCommandHandler(IUserRepository userRepository) {
-            _userRepository = userRepository;
+
+        public AddNewUserCommandHandler(IUserRepository userRepository)
+        {
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
+
         public async Task<object> Handle(AddNewUserCommand command, CancellationToken cancellationToken)
         {
-            Domain.Models.Users user = new Domain.Models.Users
+            var user = new Domain.Models.Users
             {
                 Email = command.Email,
                 Password = command.Password,
-                Name = command.Name,
+                Name = command.Name
             };
-            return await _userRepository.CreateUser(user);
+
+            var result = await _userRepository.CreateUser(user);
+            return result;
         }
-    
     }
 }
