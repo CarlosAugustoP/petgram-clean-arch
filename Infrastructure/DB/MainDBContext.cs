@@ -17,15 +17,7 @@ namespace Infrastructure.DB
         {
         }
 
-         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=1234;");
-            }
-        }
-        
-        public DbSet<Users> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Notification> Notifications { get; set; }

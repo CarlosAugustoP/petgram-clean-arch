@@ -9,7 +9,8 @@ namespace Domain.Models
     public class Pet
     {
         public Guid Id { get; set; }
-        public Users Owner { get; set; }
+        public Guid OwnerId { get; set; }
+        public User Owner { get; set; }
         public string Name { get; set; }
         public string ImgUrl { get; set; }
         public string Breed { get; set; }

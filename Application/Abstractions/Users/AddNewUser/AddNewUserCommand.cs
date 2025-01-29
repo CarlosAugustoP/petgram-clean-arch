@@ -32,11 +32,13 @@ namespace Application.Abstractions.Users.AddNewUser
 
         public async Task<object> Handle(AddNewUserCommand command, CancellationToken cancellationToken)
         {
-            var user = new Domain.Models.Users
+            var user = new User
             {
                 Email = command.Email,
                 Password = command.Password,
-                Name = command.Name
+                Name = command.Name,
+                // TODO change to default URL for profile image
+                ProfileImgUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
             };
 
             var result = await _userRepository.CreateUser(user);

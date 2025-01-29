@@ -13,12 +13,9 @@ C:\Users\cpeixoto\source\repos\CleanArch\API\obj\Debug\net8.0\refint\API.dll
 C:\Users\cpeixoto\source\repos\CleanArch\API\obj\Debug\net8.0\API.pdb
 C:\Users\cpeixoto\source\repos\CleanArch\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\cpeixoto\source\repos\CleanArch\API\obj\Debug\net8.0\ref\API.dll
-C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Application.deps.json
-C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Application.runtimeconfig.json
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Domain.deps.json
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Domain.runtimeconfig.json
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Domain.exe
-C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Application.exe
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\MediatR.dll
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\MediatR.Contracts.dll
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
@@ -92,3 +89,4 @@ C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Swashbuckle.AspNet
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\cpeixoto\source\repos\CleanArch\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\FluentValidation.dll

@@ -9,7 +9,8 @@ namespace Domain.Models
     public class Comment
     {
         public Guid Id { get; set; }
-        public Users Author { get; set; }
+        public Guid AuthorId { get; set; }
+        public User Author { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool isEdited { get; set; }

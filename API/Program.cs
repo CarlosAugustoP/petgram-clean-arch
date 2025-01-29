@@ -27,8 +27,14 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "API", Version = "v1" });
 });
 
+var localhost = Environment.GetEnvironmentVariable("DB_HOST") ?? throw new ArgumentNullException("DB_HOST");
+var port = Environment.GetEnvironmentVariable("DB_PORT") ?? throw new ArgumentNullException("DB_PORT");
+var database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? throw new ArgumentNullException("DB_DATABASE");
+var username = Environment.GetEnvironmentVariable("DB_USERNAME") ?? throw new ArgumentNullException("DB_USERNAME");
+var password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? throw new ArgumentNullException("DB_PASSWORD");
+
 builder.Services.AddDbContext<MainDBContext>(options =>
-    options.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=1234;"));
+    options.UseNpgsql($"Host={localhost};Port={port};Database={database};Username={username};Password={password};"));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();

@@ -18,12 +18,12 @@ namespace Infrastructure.UserData
             _db = db;
         }
 
-        public async Task<Users> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _db.Users.FindAsync(id);
         }
 
-        public async Task<Users> AddUserToFollowers(Users follower, Users followed, CancellationToken cancellationToken)
+        public async Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken)
         {
             followed.Followers.Add(follower);
             follower.Following.Add(followed);
@@ -31,12 +31,12 @@ namespace Infrastructure.UserData
             return followed;
         }
 
-        public async Task<List<Users>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
             return await _db.Users.ToListAsync();
         }
 
-        public async Task<Users> CreateUser(Users user, CancellationToken cancellationToken = default)
+        public async Task<User> CreateUser(User user, CancellationToken cancellationToken = default)
         {
             await _db.Users.AddAsync(user);
             await _db.SaveChangesAsync(cancellationToken);

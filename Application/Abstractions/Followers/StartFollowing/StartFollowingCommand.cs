@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Application.Abstractions.Messaging;
-using Application.Abstractions;
-using Domain.CustomExceptions;
-using Domain.Models;
+﻿using Domain.CustomExceptions;
 using Domain.Repositorys;
-using Infrastructure.UserData;
 using MediatR;
 
 namespace Application.Abstractions.Followers.StartFollowing
@@ -19,7 +9,7 @@ namespace Application.Abstractions.Followers.StartFollowing
         public Guid FollowerId { get; init; }
         public Guid FollowedId { get; init; }
     }
-    internal sealed class StartFollowingCommandHandler : ICommandHandler<StartFollowingCommand>
+    internal sealed class StartFollowingCommandHandler : IRequestHandler<StartFollowingCommand, object>
     {
         private readonly IUserRepository _userRepository;
 
@@ -30,15 +20,13 @@ namespace Application.Abstractions.Followers.StartFollowing
 
         public async Task<object> Handle(StartFollowingCommand command, CancellationToken cancellationToken)
         {
-            var follower = await _userRepository.GetByIdAsync(command.FollowerId, cancellationToken);
-            if (follower == null) {
-                throw new NotFoundException("Follower not found!");
-            }
-            var followed = await _userRepository.GetByIdAsync(command.FollowedId, cancellationToken);
-            if (followed == null)
-            {
-                throw new NotFoundException("Followed not found!");
-            }
+            var follower = await _userRepository.GetByIdAsync(command.FollowerId, cancellationToken)
+                ?? throw new NotFoundException("Follower not found!");
+            
+            var followed = await _userRepository.GetByIdAsync(command.FollowedId, cancellationToken)
+            ?? throw new NotFoundException("Followed not found!");
+            
+            await _userRepository.AddUserToFollowers(follower, followed);
             return followed;
         }
     }

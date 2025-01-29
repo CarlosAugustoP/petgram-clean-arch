@@ -9,9 +9,9 @@ namespace Domain.Repositorys
 {
     public interface IUserRepository
     {
-       Task<Users> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-       Task<Users> AddUserToFollowers(Users follower, Users followed, CancellationToken cancellationToken = default);
-       Task<Users> CreateUser (Users user, CancellationToken cancellationToken = default);
+       Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+       Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken = default);
+       Task<User> CreateUser (User user, CancellationToken cancellationToken = default);
 
     }
 }
