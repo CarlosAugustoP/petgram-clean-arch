@@ -42,6 +42,8 @@ namespace API.Controllers
             var userDto = _mapper.Map<UserDto>(result);
             return Ok(userDto);
         }
+
+        
     }
 }
 

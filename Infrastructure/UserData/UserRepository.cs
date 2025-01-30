@@ -42,5 +42,10 @@ namespace Infrastructure.UserData
             await _db.SaveChangesAsync(cancellationToken);
             return user;
         }
+
+        public async Task<User> GetUserByEmail (string email, CancellationToken cancellationToken = default)
+        {
+            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
     }
 }

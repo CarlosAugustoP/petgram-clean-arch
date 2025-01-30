@@ -90,3 +90,13 @@ C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Swashbuckle.AspNet
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\cpeixoto\source\repos\CleanArch\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\appsettings.json
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\BCrypt.Net.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Domain.Repositorys;
 using Domain.Models;
+using Application.Helper;
 
 namespace Application.Abstractions.Users.AddNewUser
 {
@@ -24,10 +25,11 @@ namespace Application.Abstractions.Users.AddNewUser
     public class AddNewUserCommandHandler : IRequestHandler<AddNewUserCommand, object>
     {
         private readonly IUserRepository _userRepository;
-
-        public AddNewUserCommandHandler(IUserRepository userRepository)
+        private readonly IPasswordHasher _passwordHasher;
+        public AddNewUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
         }
 
         public async Task<object> Handle(AddNewUserCommand command, CancellationToken cancellationToken)
@@ -35,7 +37,7 @@ namespace Application.Abstractions.Users.AddNewUser
             var user = new User
             {
                 Email = command.Email,
-                Password = command.Password,
+                Password = _passwordHasher.HashPassword(command.Password),
                 Name = command.Name,
                 // TODO change to default URL for profile image
                 ProfileImgUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"

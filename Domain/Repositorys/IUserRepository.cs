@@ -13,5 +13,6 @@ namespace Domain.Repositorys
        Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken = default);
        Task<User> CreateUser (User user, CancellationToken cancellationToken = default);
 
+       Task<User> GetUserByEmail(string email, CancellationToken cancellationToken = default);
     }
 }
