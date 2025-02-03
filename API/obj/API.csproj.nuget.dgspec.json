@@ -64,9 +64,17 @@
               "target": "Package",
               "version": "[3.30.2, )"
             },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.11.0, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[12.4.1, )"
+            },
+            "MediatR.Extensions.FluentValidation": {
+              "target": "Package",
+              "version": "[0.6.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",

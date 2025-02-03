@@ -1,4 +1,5 @@
-﻿using Application.Abstractions.Users.Login;
+﻿using API.Abstractions.Result;
+using Application.Abstractions.Users.Login;
 using Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,20 +19,18 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Logs in the user and returns an authentication token
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
             var result = await _mediator.Send(command);
-            if (result is string)
-            {
-                var token = _jwtService.GenerateToken((string)result, command.Email);
-                return Ok(token);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var token = _jwtService.GenerateToken(result.ToString()!, command.Email);
+            return Ok(Result<string>.Success(token));
         }
     }
 }

@@ -11,8 +11,10 @@
           "Application": "1.0.0",
           "CoreEx.AutoMapper": "3.30.2",
           "Domain": "1.0.0",
+          "FluentValidation.DependencyInjectionExtensions": "11.11.0",
           "Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
+          "MediatR.Extensions.FluentValidation": "0.6.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.11",
           "Microsoft.AspNetCore.Mvc": "2.3.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.3",
@@ -96,11 +98,23 @@
           }
         }
       },
-      "FluentValidation/11.7.0": {
+      "FluentValidation/11.11.0": {
         "runtime": {
-          "lib/net7.0/FluentValidation.dll": {
+          "lib/net8.0/FluentValidation.dll": {
             "assemblyVersion": "11.0.0.0",
-            "fileVersion": "11.7.0.0"
+            "fileVersion": "11.11.0.0"
+          }
+        }
+      },
+      "FluentValidation.DependencyInjectionExtensions/11.11.0": {
+        "dependencies": {
+          "FluentValidation": "11.11.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.11.0.0"
           }
         }
       },
@@ -121,6 +135,30 @@
           "lib/netstandard2.0/MediatR.Contracts.dll": {
             "assemblyVersion": "2.0.1.0",
             "fileVersion": "2.0.1.0"
+          }
+        }
+      },
+      "MediatR.Extensions/0.6.0": {
+        "dependencies": {
+          "MediatR": "12.4.1"
+        },
+        "runtime": {
+          "lib/net45/MediatR.Extensions.dll": {
+            "assemblyVersion": "0.6.0.0",
+            "fileVersion": "0.6.0.0"
+          }
+        }
+      },
+      "MediatR.Extensions.FluentValidation/0.6.0": {
+        "dependencies": {
+          "FluentValidation": "11.11.0",
+          "MediatR": "12.4.1",
+          "MediatR.Extensions": "0.6.0"
+        },
+        "runtime": {
+          "lib/net45/MediatR.Extensions.FluentValidation.dll": {
+            "assemblyVersion": "0.6.0.0",
+            "fileVersion": "0.6.0.0"
           }
         }
       },
@@ -1727,7 +1765,7 @@
         "dependencies": {
           "BCrypt.Net": "0.1.0",
           "Domain": "1.0.0",
-          "FluentValidation": "11.7.0",
+          "FluentValidation": "11.11.0",
           "Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.11",
@@ -1811,12 +1849,19 @@
       "path": "coreex.automapper/3.30.2",
       "hashPath": "coreex.automapper.3.30.2.nupkg.sha512"
     },
-    "FluentValidation/11.7.0": {
+    "FluentValidation/11.11.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vySY5WLvMx8eUq01IDM7iXriWoEkldvB/zEIGlkmoImJrC1m3YRdxcg9srFiy95sUzOHcgPcn2/5678zjhZCiA==",
-      "path": "fluentvalidation/11.7.0",
-      "hashPath": "fluentvalidation.11.7.0.nupkg.sha512"
+      "sha512": "sha512-cyIVdQBwSipxWG8MA3Rqox7iNbUNUTK5bfJi9tIdm4CAfH71Oo5ABLP4/QyrUwuakqpUEPGtE43BDddvEehuYw==",
+      "path": "fluentvalidation/11.11.0",
+      "hashPath": "fluentvalidation.11.11.0.nupkg.sha512"
+    },
+    "FluentValidation.DependencyInjectionExtensions/11.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-viTKWaMbL3yJYgGI0DiCeavNbE9UPMWFVK2XS9nYXGbm3NDMd0/L5ER4wBzmTtW3BYh3SrlSXm9RACiKZ6stlA==",
+      "path": "fluentvalidation.dependencyinjectionextensions/11.11.0",
+      "hashPath": "fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512"
     },
     "MediatR/12.4.1": {
       "type": "package",
@@ -1831,6 +1876,20 @@
       "sha512": "sha512-FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
       "path": "mediatr.contracts/2.0.1",
       "hashPath": "mediatr.contracts.2.0.1.nupkg.sha512"
+    },
+    "MediatR.Extensions/0.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YIFb8hW1JBTAV2teZrUfB+u3S5+900s/IiHJMDdVmkHjmpG4V29iRK8RAtcsOHDZ6xSVowFCm8D8+6mQbSwhgA==",
+      "path": "mediatr.extensions/0.6.0",
+      "hashPath": "mediatr.extensions.0.6.0.nupkg.sha512"
+    },
+    "MediatR.Extensions.FluentValidation/0.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YmkFJuIxVvNolii73YA9/MWU+A7A4XKXUQsqdbmoc1ysKLc76Vy3aavYc1ADwTaEkgQEWo6D5EHCSy2txJrQSw==",
+      "path": "mediatr.extensions.fluentvalidation/0.6.0",
+      "hashPath": "mediatr.extensions.fluentvalidation.0.6.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Antiforgery/2.3.0": {
       "type": "package",

@@ -106,15 +106,32 @@
           }
         }
       },
-      "FluentValidation/11.7.0": {
+      "FluentValidation/11.11.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/FluentValidation.dll": {
+          "lib/net8.0/FluentValidation.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net7.0/FluentValidation.dll": {
+          "lib/net8.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "FluentValidation.DependencyInjectionExtensions/11.11.0": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "11.11.0",
+          "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
             "related": ".xml"
           }
         }
@@ -147,6 +164,32 @@
           "lib/netstandard2.0/MediatR.Contracts.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "MediatR.Extensions/0.6.0": {
+        "type": "package",
+        "dependencies": {
+          "MediatR": "1.0.0"
+        },
+        "compile": {
+          "lib/net45/MediatR.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MediatR.Extensions.dll": {}
+        }
+      },
+      "MediatR.Extensions.FluentValidation/0.6.0": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "5.5.0",
+          "MediatR": "1.0.0",
+          "MediatR.Extensions": "0.6.0"
+        },
+        "compile": {
+          "lib/net45/MediatR.Extensions.FluentValidation.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MediatR.Extensions.FluentValidation.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/2.3.0": {
@@ -3509,16 +3552,16 @@
         "lib/net9.0/CoreEx.AutoMapper.xml"
       ]
     },
-    "FluentValidation/11.7.0": {
-      "sha512": "vySY5WLvMx8eUq01IDM7iXriWoEkldvB/zEIGlkmoImJrC1m3YRdxcg9srFiy95sUzOHcgPcn2/5678zjhZCiA==",
+    "FluentValidation/11.11.0": {
+      "sha512": "cyIVdQBwSipxWG8MA3Rqox7iNbUNUTK5bfJi9tIdm4CAfH71Oo5ABLP4/QyrUwuakqpUEPGtE43BDddvEehuYw==",
       "type": "package",
-      "path": "fluentvalidation/11.7.0",
+      "path": "fluentvalidation/11.11.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "fluent-validation-icon.png",
-        "fluentvalidation.11.7.0.nupkg.sha512",
+        "fluentvalidation.11.11.0.nupkg.sha512",
         "fluentvalidation.nuspec",
         "lib/net5.0/FluentValidation.dll",
         "lib/net5.0/FluentValidation.xml",
@@ -3526,10 +3569,29 @@
         "lib/net6.0/FluentValidation.xml",
         "lib/net7.0/FluentValidation.dll",
         "lib/net7.0/FluentValidation.xml",
+        "lib/net8.0/FluentValidation.dll",
+        "lib/net8.0/FluentValidation.xml",
         "lib/netstandard2.0/FluentValidation.dll",
         "lib/netstandard2.0/FluentValidation.xml",
         "lib/netstandard2.1/FluentValidation.dll",
         "lib/netstandard2.1/FluentValidation.xml"
+      ]
+    },
+    "FluentValidation.DependencyInjectionExtensions/11.11.0": {
+      "sha512": "viTKWaMbL3yJYgGI0DiCeavNbE9UPMWFVK2XS9nYXGbm3NDMd0/L5ER4wBzmTtW3BYh3SrlSXm9RACiKZ6stlA==",
+      "type": "package",
+      "path": "fluentvalidation.dependencyinjectionextensions/11.11.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512",
+        "fluentvalidation.dependencyinjectionextensions.nuspec",
+        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll",
+        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml",
+        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll",
+        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.xml"
       ]
     },
     "MediatR/12.4.1": {
@@ -3561,6 +3623,30 @@
         "lib/netstandard2.0/MediatR.Contracts.xml",
         "mediatr.contracts.2.0.1.nupkg.sha512",
         "mediatr.contracts.nuspec"
+      ]
+    },
+    "MediatR.Extensions/0.6.0": {
+      "sha512": "YIFb8hW1JBTAV2teZrUfB+u3S5+900s/IiHJMDdVmkHjmpG4V29iRK8RAtcsOHDZ6xSVowFCm8D8+6mQbSwhgA==",
+      "type": "package",
+      "path": "mediatr.extensions/0.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/MediatR.Extensions.dll",
+        "mediatr.extensions.0.6.0.nupkg.sha512",
+        "mediatr.extensions.nuspec"
+      ]
+    },
+    "MediatR.Extensions.FluentValidation/0.6.0": {
+      "sha512": "YmkFJuIxVvNolii73YA9/MWU+A7A4XKXUQsqdbmoc1ysKLc76Vy3aavYc1ADwTaEkgQEWo6D5EHCSy2txJrQSw==",
+      "type": "package",
+      "path": "mediatr.extensions.fluentvalidation/0.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/MediatR.Extensions.FluentValidation.dll",
+        "mediatr.extensions.fluentvalidation.0.6.0.nupkg.sha512",
+        "mediatr.extensions.fluentvalidation.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Antiforgery/2.3.0": {
@@ -9507,8 +9593,10 @@
       "Application >= 1.0.0",
       "CoreEx.AutoMapper >= 3.30.2",
       "Domain >= 1.0.0",
+      "FluentValidation.DependencyInjectionExtensions >= 11.11.0",
       "Infrastructure >= 1.0.0",
       "MediatR >= 12.4.1",
+      "MediatR.Extensions.FluentValidation >= 0.6.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.11",
       "Microsoft.AspNetCore.Mvc >= 2.3.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.3",
@@ -9579,9 +9667,17 @@
             "target": "Package",
             "version": "[3.30.2, )"
           },
+          "FluentValidation.DependencyInjectionExtensions": {
+            "target": "Package",
+            "version": "[11.11.0, )"
+          },
           "MediatR": {
             "target": "Package",
             "version": "[12.4.1, )"
+          },
+          "MediatR.Extensions.FluentValidation": {
+            "target": "Package",
+            "version": "[0.6.0, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
@@ -9630,6 +9726,26 @@
       "warningLevel": 1,
       "message": "O pacote 'BCrypt.Net 0.1.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
       "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'MediatR.Extensions 0.6.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "MediatR.Extensions",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'MediatR.Extensions.FluentValidation 0.6.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "MediatR.Extensions.FluentValidation",
       "targetGraphs": [
         "net8.0"
       ]

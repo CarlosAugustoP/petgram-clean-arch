@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lCvn/9ntQbQ=",
+  "dgSpecHash": "difwVlhaH2s=",
   "success": true,
   "projectFilePath": "C:\\Users\\cpeixoto\\source\\repos\\CleanArch\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -10,9 +10,12 @@
     "C:\\Users\\cpeixoto\\.nuget\\packages\\cloudnative.cloudevents.systemtextjson\\2.8.0\\cloudnative.cloudevents.systemtextjson.2.8.0.nupkg.sha512",
     "C:\\Users\\cpeixoto\\.nuget\\packages\\coreex\\3.30.2\\coreex.3.30.2.nupkg.sha512",
     "C:\\Users\\cpeixoto\\.nuget\\packages\\coreex.automapper\\3.30.2\\coreex.automapper.3.30.2.nupkg.sha512",
-    "C:\\Users\\cpeixoto\\.nuget\\packages\\fluentvalidation\\11.7.0\\fluentvalidation.11.7.0.nupkg.sha512",
+    "C:\\Users\\cpeixoto\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\cpeixoto\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.11.0\\fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512",
     "C:\\Users\\cpeixoto\\.nuget\\packages\\mediatr\\12.4.1\\mediatr.12.4.1.nupkg.sha512",
     "C:\\Users\\cpeixoto\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\cpeixoto\\.nuget\\packages\\mediatr.extensions\\0.6.0\\mediatr.extensions.0.6.0.nupkg.sha512",
+    "C:\\Users\\cpeixoto\\.nuget\\packages\\mediatr.extensions.fluentvalidation\\0.6.0\\mediatr.extensions.fluentvalidation.0.6.0.nupkg.sha512",
     "C:\\Users\\cpeixoto\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.3.0\\microsoft.aspnetcore.antiforgery.2.3.0.nupkg.sha512",
     "C:\\Users\\cpeixoto\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.3.0\\microsoft.aspnetcore.authentication.abstractions.2.3.0.nupkg.sha512",
     "C:\\Users\\cpeixoto\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.3.0\\microsoft.aspnetcore.authentication.core.2.3.0.nupkg.sha512",
@@ -203,6 +206,26 @@
       "warningLevel": 1,
       "message": "O pacote 'BCrypt.Net 0.1.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
       "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'MediatR.Extensions 0.6.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "MediatR.Extensions",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'MediatR.Extensions.FluentValidation 0.6.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "MediatR.Extensions.FluentValidation",
       "targetGraphs": [
         "net8.0"
       ]

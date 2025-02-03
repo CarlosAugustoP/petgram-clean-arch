@@ -9,6 +9,8 @@ using Application.Abstractions.Users.AddNewUser;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using API.Abstractions.Result;
+using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers
 {
 
@@ -26,6 +28,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("follow")]
         public async Task<IActionResult> UserFollowUser([FromBody] StartFollowingCommand command)
         {
@@ -33,14 +36,18 @@ namespace API.Controllers
             var userDto = _mapper.Map<UserDto>(result);
             return Ok(userDto);
         }
-
+        /// <summary>
+        /// Creates a new user, inserting it into the database
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("signup")]
         public async Task<IActionResult> Signup([FromBody] AddNewUserCommand command)
         {
             var result = await _mediator.Send(command);  
             var userDto = _mapper.Map<UserDto>(result);
-            return Ok(userDto);
+            return Created("api/User/signup", Result<UserDto>.Success(userDto));
         }
 
         

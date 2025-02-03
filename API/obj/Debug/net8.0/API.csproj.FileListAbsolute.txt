@@ -100,3 +100,8 @@ C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.Identity
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\API.xml
+C:\Users\cpeixoto\source\repos\CleanArch\API\obj\Debug\net8.0\API.xml
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\MediatR.Extensions.dll
+C:\Users\cpeixoto\source\repos\CleanArch\API\bin\Debug\net8.0\MediatR.Extensions.FluentValidation.dll

@@ -1,9 +1,6 @@
-using System.Data;
-using System.Linq; // Ensure this is included for LINQ methods
-using Application.Abstractions.Users.AddNewUser;
 using FluentValidation;
 
-namespace Application.Validators
+namespace Application.Abstractions.Users.AddNewUser
 {
     public class AddNewUserCommandValidator : AbstractValidator<AddNewUserCommand>
     {

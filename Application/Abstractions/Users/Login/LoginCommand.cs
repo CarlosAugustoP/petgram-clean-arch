@@ -38,7 +38,7 @@ namespace Application.Abstractions.Users.Login
             {
                 throw new NotFoundException("Invalid login credentials, try again.");
             }
-            return user.Id.ToString();
+            return user.Id;
         }
     }
 }
