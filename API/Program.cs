@@ -13,6 +13,7 @@ using System.Reflection;
 using FluentValidation;
 using MediatR;
 using API.Abstractions.Helpers;
+using Application.Abstractions.Users.Login;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IPasswordHasher, PasswordHelper>();
@@ -44,6 +45,8 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(StartFollowingCommand).Assembly); 
 });
 builder.Services.AddValidatorsFromAssembly(typeof(AddNewUserCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(LoginCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(StartFollowingCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();

@@ -21,6 +21,8 @@ SET DB_DATABASE=%DB_DATABASE%
 SET DB_USERNAME=%DB_USERNAME%
 SET DB_PASSWORD=%DB_PASSWORD%
 
+REM Start Docker containers
+docker-compose up -d
 dotnet watch run
 
 ENDLOCAL

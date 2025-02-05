@@ -12,7 +12,7 @@ namespace Domain.Repositorys
        Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
        Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken = default);
        Task<User> CreateUser (User user, CancellationToken cancellationToken = default);
-
+       Task<List<User>> GetAllUsers();
        Task<User> GetUserByEmail(string email, CancellationToken cancellationToken = default);
     }
 }

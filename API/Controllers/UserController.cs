@@ -27,6 +27,11 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Follows a user
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         [Route("follow")]
@@ -36,6 +41,7 @@ namespace API.Controllers
             var userDto = _mapper.Map<UserDto>(result);
             return Ok(userDto);
         }
+        
         /// <summary>
         /// Creates a new user, inserting it into the database
         /// </summary>
