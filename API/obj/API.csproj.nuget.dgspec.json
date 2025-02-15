@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\capv2\\Documents\\Dev\\API\\API.csproj": {}
+    "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\capv2\\Documents\\Dev\\API\\API.csproj": {
+    "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\capv2\\Documents\\Dev\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\capv2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\capv2\\Documents\\Dev\\API\\obj\\",
+        "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\capv2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -33,14 +29,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\capv2\\Documents\\Dev\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Application\\Application.csproj"
+              "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj"
               },
-              "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj"
+              "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\capv2\\Documents\\Dev\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -53,9 +49,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -85,6 +80,12 @@
               "target": "Package",
               "version": "[2.3.0, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.3, )"
@@ -113,25 +114,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\capv2\\Documents\\Dev\\Application\\Application.csproj": {
+    "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\capv2\\Documents\\Dev\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\capv2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\capv2\\Documents\\Dev\\Application\\obj\\",
+        "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\capv2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -146,11 +143,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj"
+              "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\capv2\\Documents\\Dev\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -163,9 +160,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -208,25 +204,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj": {
+    "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\capv2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\capv2\\Documents\\Dev\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\capv2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -251,9 +243,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -274,25 +265,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\capv2\\Documents\\Dev\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\capv2\\Documents\\Dev\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\capv2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\capv2\\Documents\\Dev\\Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\capv2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -307,8 +294,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\capv2\\Documents\\Dev\\Domain\\Domain.csproj"
+              "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj"
               }
             }
           }
@@ -321,9 +308,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -338,6 +324,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[9.0.2, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -360,7 +354,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

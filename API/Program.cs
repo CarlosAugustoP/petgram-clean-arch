@@ -63,11 +63,32 @@ var database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? throw new Ar
 var username = Environment.GetEnvironmentVariable("DB_USERNAME") ?? throw new ArgumentNullException("DB_USERNAME");
 var password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? throw new ArgumentNullException("DB_PASSWORD");
 
-builder.Services.AddDbContext<MainDBContext>(options =>
-    options.UseNpgsql($"Host={localhost};Port={port};Database={database};Username={username};Password={password};"));
+
+
+var connectionString = $"Host={localhost};Port={port};Database={database};Username={username};Password={password};";
+builder.Services.AddDbContext<MainDBContext>(options => 
+    options.UseNpgsql(connectionString));
+    
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var dbContext = services.GetRequiredService<MainDBContext>();
+        dbContext.Database.Migrate(); 
+
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+    }
+}
+
 
 if (app.Environment.IsDevelopment())
 {

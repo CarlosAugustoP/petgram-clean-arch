@@ -11,6 +11,13 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.UserController.UserFollowUser(Application.Abstractions.Followers.StartFollowing.StartFollowingCommand)">
+            <summary>
+            Follows a user
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.UserController.Signup(Application.Abstractions.Users.AddNewUser.AddNewUserCommand)">
             <summary>
             Creates a new user, inserting it into the database

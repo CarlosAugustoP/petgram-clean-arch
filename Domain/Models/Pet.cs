@@ -18,6 +18,7 @@ namespace Domain.Models
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime BirthDate { get; set; }
+        public int CuteMeter { get; set; }
         public List<Post> Posts { get; set; }
         public Pet()
         {

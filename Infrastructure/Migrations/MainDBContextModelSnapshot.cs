@@ -17,7 +17,7 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -64,25 +64,30 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid?>("CommentId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("PostId")
+                    b.Property<Guid?>("MomentId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("PostId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("CommentId");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("MomentId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PostId");
 
                     b.ToTable("Likes");
                 });
@@ -120,6 +125,69 @@ namespace Infrastructure.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Medias");
+                });
+
+            modelBuilder.Entity("Domain.Models.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Domain.Models.Moment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("ReportId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("mediaId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("ReportId");
+
+                    b.HasIndex("mediaId");
+
+                    b.ToTable("Moments");
                 });
 
             modelBuilder.Entity("Domain.Models.Notification", b =>
@@ -173,6 +241,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("CuteMeter")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -218,6 +289,12 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("PetId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("ReportId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Shares")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -228,10 +305,41 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PetId");
 
+                    b.HasIndex("ReportId");
+
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Domain.Models.Users", b =>
+            modelBuilder.Entity("Domain.Models.Report", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ReportedId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ReporterId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReporterId");
+
+                    b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -250,6 +358,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("MomentId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -263,10 +374,12 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MomentId");
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UsersUsers", b =>
+            modelBuilder.Entity("UserUser", b =>
                 {
                     b.Property<Guid>("FollowersId")
                         .HasColumnType("uuid");
@@ -278,12 +391,12 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("FollowingId");
 
-                    b.ToTable("UsersUsers");
+                    b.ToTable("UserUser");
                 });
 
             modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
-                    b.HasOne("Domain.Models.Users", "Author")
+                    b.HasOne("Domain.Models.User", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -302,25 +415,29 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Like", b =>
                 {
+                    b.HasOne("Domain.Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Comment", "Comment")
                         .WithMany()
                         .HasForeignKey("CommentId");
+
+                    b.HasOne("Domain.Models.Moment", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("MomentId");
 
                     b.HasOne("Domain.Models.Post", "Post")
                         .WithMany("Likes")
                         .HasForeignKey("PostId");
 
-                    b.HasOne("Domain.Models.Users", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Author");
 
                     b.Navigation("Comment");
 
                     b.Navigation("Post");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Media", b =>
@@ -334,13 +451,55 @@ namespace Infrastructure.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("Domain.Models.Message", b =>
+                {
+                    b.HasOne("Domain.Models.User", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("Domain.Models.Moment", b =>
+                {
+                    b.HasOne("Domain.Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Report", null)
+                        .WithMany("Moments")
+                        .HasForeignKey("ReportId");
+
+                    b.HasOne("Domain.Models.Media", "media")
+                        .WithMany()
+                        .HasForeignKey("mediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("media");
+                });
+
             modelBuilder.Entity("Domain.Models.Notification", b =>
                 {
-                    b.HasOne("Domain.Models.Users", "Receiver")
+                    b.HasOne("Domain.Models.User", "Receiver")
                         .WithMany()
                         .HasForeignKey("ReceiverId");
 
-                    b.HasOne("Domain.Models.Users", "Sender")
+                    b.HasOne("Domain.Models.User", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId");
 
@@ -351,7 +510,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Pet", b =>
                 {
-                    b.HasOne("Domain.Models.Users", "Owner")
+                    b.HasOne("Domain.Models.User", "Owner")
                         .WithMany("Pets")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -362,7 +521,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Post", b =>
                 {
-                    b.HasOne("Domain.Models.Users", "Author")
+                    b.HasOne("Domain.Models.User", "Author")
                         .WithMany("Posts")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -372,18 +531,40 @@ namespace Infrastructure.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("PetId");
 
+                    b.HasOne("Domain.Models.Report", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("ReportId");
+
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("UsersUsers", b =>
+            modelBuilder.Entity("Domain.Models.Report", b =>
                 {
-                    b.HasOne("Domain.Models.Users", null)
+                    b.HasOne("Domain.Models.User", "Reporter")
+                        .WithMany()
+                        .HasForeignKey("ReporterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reporter");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
+                {
+                    b.HasOne("Domain.Models.Moment", null)
+                        .WithMany("Viewers")
+                        .HasForeignKey("MomentId");
+                });
+
+            modelBuilder.Entity("UserUser", b =>
+                {
+                    b.HasOne("Domain.Models.User", null)
                         .WithMany()
                         .HasForeignKey("FollowersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Users", null)
+                    b.HasOne("Domain.Models.User", null)
                         .WithMany()
                         .HasForeignKey("FollowingId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -393,6 +574,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
                     b.Navigation("Replies");
+                });
+
+            modelBuilder.Entity("Domain.Models.Moment", b =>
+                {
+                    b.Navigation("Likes");
+
+                    b.Navigation("Viewers");
                 });
 
             modelBuilder.Entity("Domain.Models.Pet", b =>
@@ -409,7 +597,14 @@ namespace Infrastructure.Migrations
                     b.Navigation("Medias");
                 });
 
-            modelBuilder.Entity("Domain.Models.Users", b =>
+            modelBuilder.Entity("Domain.Models.Report", b =>
+                {
+                    b.Navigation("Moments");
+
+                    b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Navigation("Pets");
 

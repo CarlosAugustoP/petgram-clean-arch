@@ -17,6 +17,7 @@ namespace Domain.Models
         public List<Comment> Comments { get; set; }
         public DateTime CreatedAt { get; set; }
         public List<Like> Likes { get; set; }
+        public int Shares { get; set; }
         public Post()
         {
             

@@ -13,10 +13,6 @@ namespace Infrastructure.DB
         {
         }
 
-        public MainDBContext()
-        {
-        }
-
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Pet> Pets { get; set; }
@@ -24,5 +20,8 @@ namespace Infrastructure.DB
         public DbSet<Like> Likes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Media> Medias { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<Moment> Moments { get; set; }
     }
 }
