@@ -35,8 +35,8 @@
               "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj": {
                 "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -146,8 +146,8 @@
               "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj": {
                 "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -269,14 +269,14 @@
         }
       }
     },
-    "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj": {}
+    "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj": {
+    "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
         "projectName": "SharedKernel",
-        "projectPath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
+        "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\obj\\",
+        "outputPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\SharedKernel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",

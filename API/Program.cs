@@ -14,6 +14,7 @@ using FluentValidation;
 using MediatR;
 using API.Abstractions.Helpers;
 using Application.Abstractions.Users.Login;
+using API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IPasswordHasher, PasswordHelper>();
@@ -98,6 +99,7 @@ if (app.Environment.IsDevelopment())
 
 }
 app.UseMiddleware<ValidationExceptionMiddleware>();
+app.UseMiddleware<CustomExceptionsCatchingMiddleware>();
 app.UseHttpsRedirection();
 app.MapControllers();
 
