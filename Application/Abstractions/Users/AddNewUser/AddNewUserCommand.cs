@@ -44,16 +44,15 @@ namespace Application.Abstractions.Users.AddNewUser
                 // TODO change to default URL for profile image
                 ProfileImgUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
             };
-            try
-            {
-                var result = await _userRepository.CreateUser(user);
-                return result;
 
-            }
-            catch (DbUpdateException ex) when (ex.InnerException is Npgsql.PostgresException pgEx && pgEx.SqlState == "23505")
+            var existingUser = await _userRepository.GetUserByEmail(user.Email);
+            if (existingUser != null)
             {
                 throw new ConflictException("Found credentials for an existing account");
             }
+            
+            var result = await _userRepository.CreateUser(user);
+            return result;
         }
     }
 }
