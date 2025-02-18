@@ -437,6 +437,9 @@
         }
       },
       "Domain/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "9.0.1"
+        },
         "runtime": {
           "Domain.dll": {
             "assemblyVersion": "1.0.0",

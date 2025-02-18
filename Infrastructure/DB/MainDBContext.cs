@@ -23,5 +23,19 @@ namespace Infrastructure.DB
         public DbSet<Message> Messages { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Moment> Moments { get; set; }
-    }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //TODO: RECONFIGURE MODEL BUILDER
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+            modelBuilder.Entity<Moment>()
+                .HasOne(m => m.Author)
+                .WithMany(u => u.Moments)
+                .HasForeignKey(m => m.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+    }S
 }

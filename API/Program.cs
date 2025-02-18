@@ -15,13 +15,14 @@ using MediatR;
 using API.Abstractions.Helpers;
 using Application.Abstractions.Users.Login;
 using API.Middlewares;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IPasswordHasher, PasswordHelper>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"]);
 
+#region[Services]
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -37,7 +38,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+builder.Services.AddScoped<IPasswordHasher, PasswordHelper>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMediatR(cfg =>
@@ -53,11 +56,40 @@ builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Insert the JWT Token created during login",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
+
+#endregion
+
+#region[DataBase]
 var localhost = Environment.GetEnvironmentVariable("DB_HOST") ?? throw new ArgumentNullException("DB_HOST");
 var port = Environment.GetEnvironmentVariable("DB_PORT") ?? throw new ArgumentNullException("DB_PORT");
 var database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? throw new ArgumentNullException("DB_DATABASE");
@@ -69,8 +101,7 @@ var password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? throw new Ar
 var connectionString = $"Host={localhost};Port={port};Database={database};Username={username};Password={password};";
 builder.Services.AddDbContext<MainDBContext>(options => 
     options.UseNpgsql(connectionString));
-    
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+#endregion    
 
 var app = builder.Build();
 
@@ -98,8 +129,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
 
 }
+
+#region[Middleware]
 app.UseMiddleware<ValidationExceptionMiddleware>();
 app.UseMiddleware<CustomExceptionsCatchingMiddleware>();
+app.UseMiddleware<UserValidationMiddleware>();
+#endregion
+
 app.UseHttpsRedirection();
 app.MapControllers();
 

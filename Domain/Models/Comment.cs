@@ -14,7 +14,7 @@ namespace Domain.Models
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool isEdited { get; set; }
-        public List<Comment> Replies { get; set; }
+        public List<Comment>? Replies { get; set; }
         public Comment()
         {
         }

@@ -11,12 +11,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using API.Abstractions.Result;
 using Microsoft.AspNetCore.Authorization;
+using API.Abstractions.Helpers;
 namespace API.Controllers
 {
 
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : PetGramController
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
@@ -35,9 +36,13 @@ namespace API.Controllers
         [HttpPost]
         [Authorize]
         [Route("follow")]
-        public async Task<IActionResult> UserFollowUser([FromBody] StartFollowingCommand command)
+        public async Task<IActionResult> UserFollowUser([FromRoute] Guid followedId)
         {
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(new StartFollowingCommand
+            {
+                FollowerId = CurrentUser.Id,
+                FollowedId = followedId
+            });
             var userDto = _mapper.Map<UserDto>(result);
             return Ok(userDto);
         }

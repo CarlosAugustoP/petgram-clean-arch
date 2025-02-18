@@ -102,14 +102,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("PostId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Type")
@@ -245,7 +243,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ImgUrl")
@@ -374,6 +371,9 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("MomentId");
 
                     b.ToTable("Users");
@@ -473,7 +473,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Moment", b =>
                 {
                     b.HasOne("Domain.Models.User", "Author")
-                        .WithMany()
+                        .WithMany("Moments")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -606,6 +606,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
+                    b.Navigation("Moments");
+
                     b.Navigation("Pets");
 
                     b.Navigation("Posts");
