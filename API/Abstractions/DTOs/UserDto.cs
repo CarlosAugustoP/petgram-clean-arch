@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models;
-namespace API.Abstractions
+namespace API.Abstractions.DTOs
 {
     [AutoMap(typeof(User))]
     public class UserDto

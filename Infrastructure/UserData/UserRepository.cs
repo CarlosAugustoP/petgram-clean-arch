@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using SharedKernel.Common;
 using Domain.Models;
 using Domain.Repositorys;
 using Infrastructure.DB;
@@ -20,11 +15,30 @@ namespace Infrastructure.UserData
 
         public async Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _db.Users
-                .Include(u => u.Followers)
-                .Include(u => u.Following)
-                .FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
+
+        public async Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, int pageIndex = 1, int pageSize = 10)
+        {
+            var followersQuery = _db.Users
+                .Where(u => u.Id == userId)
+                .Include(u => u.Followers)
+                .SelectMany(u => u.Followers)
+                .AsQueryable();
+
+            return await PaginatedList<User>.CreateAsync(followersQuery, pageIndex, pageSize);
+        }
+
+        public async Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, int pageIndex = 1, int pageSize = 10)
+        {
+            var followingQuery = _db.Users
+                .Where(u => u.Id == userId)
+                .Include(u => u.Following)
+                .SelectMany(u => u.Following)
+                .AsQueryable();
+            return await PaginatedList<User>.CreateAsync(followingQuery, pageIndex, pageSize);
+        }
+
 
         public async Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken)
         {

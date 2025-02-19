@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using API.Abstractions;
 using Application.Abstractions.Followers.StartFollowing;
 using Application.Abstractions.Users.AddNewUser;
 using AutoMapper;
@@ -14,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using API.Abstractions.Helpers;
 using Application.Abstractions.Followers.GetFollowers;
 using Application.Abstractions.Followers.GetFollowingByUser;
+using API.Abstractions.DTOs;
 namespace API.Controllers
 {
 
