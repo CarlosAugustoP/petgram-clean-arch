@@ -14,7 +14,7 @@ namespace Domain.Models
         public Media Media { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<Like> Likes { get; set; }
+        public List<Like> Likes { get; set; } = new List<Like>();
         public int Shares { get; set; }
         public Moment()
         {

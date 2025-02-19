@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using API.Abstractions.Result;
 using Microsoft.AspNetCore.Authorization;
 using API.Abstractions.Helpers;
+using Application.Abstractions.Followers.GetFollowers;
+using Application.Abstractions.Followers.GetFollowingByUser;
 namespace API.Controllers
 {
 
@@ -21,7 +23,7 @@ namespace API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-    
+
         public UserController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
@@ -35,7 +37,7 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        [Route("follow")]
+        [Route("follow/{followedId}")]
         public async Task<IActionResult> UserFollowUser([FromRoute] Guid followedId)
         {
             var result = await _mediator.Send(new StartFollowingCommand
@@ -46,7 +48,7 @@ namespace API.Controllers
             var userDto = _mapper.Map<UserDto>(result);
             return Ok(userDto);
         }
-        
+
         /// <summary>
         /// Creates a new user, inserting it into the database
         /// </summary>
@@ -56,12 +58,35 @@ namespace API.Controllers
         [Route("signup")]
         public async Task<IActionResult> Signup([FromBody] AddNewUserCommand command)
         {
-            var result = await _mediator.Send(command);  
+            var result = await _mediator.Send(command);
             var userDto = _mapper.Map<UserDto>(result);
             return Created("api/User/signup", Result<UserDto>.Success(userDto));
         }
 
-        
+        [HttpGet]
+        [Authorize]
+        [Route("followers")]
+        public async Task<IActionResult> GetFollowers()
+        {
+            var followers = await _mediator.Send(new GetFollowersByUserQuery
+            {
+                UserId = CurrentUser.Id
+            });
+            return Ok(followers.Select(f => _mapper.Map<UserDto>(f)));
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("following")]
+        public async Task<IActionResult> GetFollowing()
+        {
+            var following = await _mediator.Send(new GetFollowingByUserQuery
+            {
+                UserId = CurrentUser.Id
+            });
+            return Ok(following.Select(f => _mapper.Map<UserDto>(f)));
+
+        }
     }
 }
 

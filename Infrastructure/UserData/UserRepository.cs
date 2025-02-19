@@ -20,7 +20,10 @@ namespace Infrastructure.UserData
 
         public async Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _db.Users.FindAsync(id);
+            return await _db.Users
+                .Include(u => u.Followers)
+                .Include(u => u.Following)
+                .FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
 
         public async Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken)

@@ -14,8 +14,8 @@ namespace Domain.Models
         public string Reason { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? Description { get; set; }
-        public List<Post> Posts { get; set; }
-        public List<Moment>? Moments { get; set; }
+        public List<Post> Posts { get; set; } = new List<Post>();
+        public List<Moment>? Moments { get; set; } = new List<Moment>();
         public Report()
         {
         }

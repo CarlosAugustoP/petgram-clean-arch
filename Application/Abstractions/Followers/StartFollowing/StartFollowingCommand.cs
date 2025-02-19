@@ -20,11 +20,13 @@ namespace Application.Abstractions.Followers.StartFollowing
 
         public async Task<object> Handle(StartFollowingCommand command, CancellationToken cancellationToken)
         {
+            Console.WriteLine("FollowerId: " + command.FollowerId);
+            Console.WriteLine("FollowedId: " + command.FollowedId); 
             var follower = await _userRepository.GetByIdAsync(command.FollowerId, cancellationToken)
                 ?? throw new NotFoundException("Follower not found!");
             
             var followed = await _userRepository.GetByIdAsync(command.FollowedId, cancellationToken)
-            ?? throw new NotFoundException("Followed not found!");
+                ?? throw new NotFoundException("Followed not found!");
             
             await _userRepository.AddUserToFollowers(follower, followed);
             return followed;

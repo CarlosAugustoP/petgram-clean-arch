@@ -21,9 +21,31 @@ namespace API.Middlewares
             if (context.User.Identity?.IsAuthenticated == true)
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                Console.WriteLine("MEU CU" +userId);
+                Console.WriteLine("MEU CU" +userId);
+                Console.WriteLine("MEU CU" +userId);
+                Console.WriteLine("MEU CU" +userId);
+                Console.WriteLine("MEU CU" +userId);
+                Console.WriteLine("MEU CU" +userId);
+                Console.WriteLine("MEU CU" +userId);
+                Console.WriteLine("MEU CU" +userId);
+                Console.WriteLine("MEU CU" +userId);
+
                 if (!string.IsNullOrEmpty(userId))
                 {
+                    Console.WriteLine("ROLA" +userId);
+                    Console.WriteLine("ROLA" +userId);
+                    Console.WriteLine("ROLA" +userId);
+                    Console.WriteLine("ROLA" +userId);
+                    Console.WriteLine("ROLA" +userId);
+                    Console.WriteLine("ROLA" +userId);
+
                     var user = await userRepository.GetByIdAsync(Guid.Parse(userId));
+                    Console.WriteLine("PENIS IMENSO" +user.Id);
+                    Console.WriteLine("PENIS IMENSO" +user.Id);
+                    Console.WriteLine("PENIS IMENSO" +user.Id);
+                    Console.WriteLine("PENIS IMENSO" +user.Id);
+                    
                     
                     if (user != null) 
                         context.Items["User"] = _mapper.Map<UserDto>(user);
