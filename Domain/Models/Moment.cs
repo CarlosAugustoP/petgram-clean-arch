@@ -1,3 +1,9 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace Domain.Models
 {
     public class Moment
@@ -5,12 +11,16 @@ namespace Domain.Models
         public Guid Id { get; set; }
         public Guid AuthorId { get; set; }
         public User Author { get; set; }
+        public Media Media { get; set; }
+        public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<Like>? Likes { get; set; }
-        public List<User>? Viewers { get; set; }
-        public Media media { get; set; }
+        public List<Like> Likes { get; set; }
+        public int Shares { get; set; }
         public Moment()
         {
+            
         }
+
+
     }
 }

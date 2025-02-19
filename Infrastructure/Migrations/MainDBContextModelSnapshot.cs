@@ -168,22 +168,29 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("MediaId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("ReportId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("mediaId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("Shares")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("ReportId");
+                    b.HasIndex("MediaId");
 
-                    b.HasIndex("mediaId");
+                    b.HasIndex("ReportId");
 
                     b.ToTable("Moments");
                 });
@@ -355,9 +362,6 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("MomentId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -373,8 +377,6 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
-
-                    b.HasIndex("MomentId");
 
                     b.ToTable("Users");
                 });
@@ -478,19 +480,19 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Models.Media", "Media")
+                        .WithMany()
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Report", null)
                         .WithMany("Moments")
                         .HasForeignKey("ReportId");
 
-                    b.HasOne("Domain.Models.Media", "media")
-                        .WithMany()
-                        .HasForeignKey("mediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Author");
 
-                    b.Navigation("media");
+                    b.Navigation("Media");
                 });
 
             modelBuilder.Entity("Domain.Models.Notification", b =>
@@ -549,13 +551,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Reporter");
                 });
 
-            modelBuilder.Entity("Domain.Models.User", b =>
-                {
-                    b.HasOne("Domain.Models.Moment", null)
-                        .WithMany("Viewers")
-                        .HasForeignKey("MomentId");
-                });
-
             modelBuilder.Entity("UserUser", b =>
                 {
                     b.HasOne("Domain.Models.User", null)
@@ -579,8 +574,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Moment", b =>
                 {
                     b.Navigation("Likes");
-
-                    b.Navigation("Viewers");
                 });
 
             modelBuilder.Entity("Domain.Models.Pet", b =>

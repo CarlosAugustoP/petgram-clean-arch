@@ -37,5 +37,6 @@ namespace Infrastructure.DB
                 .HasForeignKey(m => m.AuthorId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
-    }S
+
+    }
 }
