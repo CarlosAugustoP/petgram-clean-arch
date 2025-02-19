@@ -63,6 +63,10 @@ namespace API.Controllers
             return Created("api/User/signup", Result<UserDto>.Success(userDto));
         }
 
+        /// <summary>
+        /// Fetches all the followers for the current user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize]
         [Route("followers")]
@@ -74,7 +78,10 @@ namespace API.Controllers
             });
             return Ok(followers.Select(f => _mapper.Map<UserDto>(f)));
         }
-
+        /// <summary>
+        /// Fetches all the users that the current user is following
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize]
         [Route("following")]

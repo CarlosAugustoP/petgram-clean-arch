@@ -25,5 +25,17 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.UserController.GetFollowers">
+            <summary>
+            Fetches all the followers for the current user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserController.GetFollowing">
+            <summary>
+            Fetches all the users that the current user is following
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

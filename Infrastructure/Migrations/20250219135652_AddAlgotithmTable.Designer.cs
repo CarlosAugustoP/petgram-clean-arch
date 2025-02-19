@@ -3,6 +3,7 @@ using System;
 using Infrastructure.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(MainDBContext))]
-    partial class MainDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250219135652_AddAlgotithmTable")]
+    partial class AddAlgotithmTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,44 +317,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Domain.Models.Preference", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("BirdMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CatMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DogMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FishMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("InsectMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ReptileMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RodentMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Preference");
-                });
-
             modelBuilder.Entity("Domain.Models.Report", b =>
                 {
                     b.Property<Guid>("Id")
@@ -578,17 +543,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("Domain.Models.Preference", b =>
-                {
-                    b.HasOne("Domain.Models.User", "User")
-                        .WithOne("Preference")
-                        .HasForeignKey("Domain.Models.Preference", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.Models.Report", b =>
                 {
                     b.HasOne("Domain.Models.User", "Reporter")
@@ -653,9 +607,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Pets");
 
                     b.Navigation("Posts");
-
-                    b.Navigation("Preference")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
