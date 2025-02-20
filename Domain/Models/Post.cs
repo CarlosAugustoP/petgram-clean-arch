@@ -23,6 +23,21 @@ namespace Domain.Models
             
         }
 
-
+        public Post(Guid id, Guid authorId, User author,
+            string title, List<Media> medias, string content,
+            List<Comment> comments, DateTime createdAt, List<Like> likes,
+            int shares)
+        {
+            Id = id;
+            AuthorId = authorId;
+            Author = author;
+            Title = title;
+            Medias = medias;
+            Content = content;
+            Comments = comments;
+            CreatedAt = createdAt;
+            Likes = likes;
+            Shares = shares;
+        }
     }
 }

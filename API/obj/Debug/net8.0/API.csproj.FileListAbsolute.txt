@@ -603,3 +603,8 @@ C:\Users\capv2\Source\Repos\petgram-clean-arch\API\obj\Debug\net8.0\API.xml
 C:\Users\capv2\Source\Repos\petgram-clean-arch\API\obj\Debug\net8.0\API.pdb
 C:\Users\capv2\Source\Repos\petgram-clean-arch\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\capv2\Source\Repos\petgram-clean-arch\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.deps.json
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.runtimeconfig.json
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.exe
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.dll
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.pdb

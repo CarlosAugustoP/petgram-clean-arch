@@ -82,3 +82,8 @@ C:\Users\capv2\Source\Repos\petgram-clean-arch\Application\obj\Debug\net8.0\Appl
 C:\Users\capv2\Source\Repos\petgram-clean-arch\Application\obj\Debug\net8.0\refint\Application.dll
 C:\Users\capv2\Source\Repos\petgram-clean-arch\Application\obj\Debug\net8.0\Application.pdb
 C:\Users\capv2\Source\Repos\petgram-clean-arch\Application\obj\Debug\net8.0\ref\Application.dll
+C:\Users\capv2\source\repos\petgram-clean-arch\Application\bin\Debug\net8.0\SharedKernel.deps.json
+C:\Users\capv2\source\repos\petgram-clean-arch\Application\bin\Debug\net8.0\SharedKernel.runtimeconfig.json
+C:\Users\capv2\source\repos\petgram-clean-arch\Application\bin\Debug\net8.0\SharedKernel.exe
+C:\Users\capv2\source\repos\petgram-clean-arch\Application\bin\Debug\net8.0\SharedKernel.dll
+C:\Users\capv2\source\repos\petgram-clean-arch\Application\bin\Debug\net8.0\SharedKernel.pdb

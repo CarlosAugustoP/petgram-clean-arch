@@ -2,15 +2,17 @@ using Domain.CustomExceptions;
 using Domain.Models;
 using Domain.Repositorys;
 using MediatR;
-
+using SharedKernel.Common;
 namespace Application.Abstractions.Followers.GetFollowingByUser
 {
-    public class GetFollowingByUserQuery : IRequest<List<User>>
+    public sealed record GetFollowingByUserQuery : IRequest<PaginatedList<User>>
     {
         public Guid UserId { get; set; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
     }
 
-    public class GetFollowingByUserQueryHandler : IRequestHandler<GetFollowingByUserQuery, List<User>>
+    internal sealed class GetFollowingByUserQueryHandler : IRequestHandler<GetFollowingByUserQuery, PaginatedList<User>>
     {
         private readonly IUserRepository _userRepository;
 
@@ -19,12 +21,9 @@ namespace Application.Abstractions.Followers.GetFollowingByUser
             _userRepository = userRepository;
         }
 
-        public async Task<List<User>> Handle(GetFollowingByUserQuery query, CancellationToken cancellationToken)
+        public async Task<PaginatedList<User>> Handle(GetFollowingByUserQuery query, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(query.UserId, cancellationToken)
-                ?? throw new NotFoundException("User not found!");
-
-            return user.Following;
+           return await _userRepository.GetUserFollowingAsync(query.UserId, query.PageIndex, query.PageSize);
         }
     }
 }

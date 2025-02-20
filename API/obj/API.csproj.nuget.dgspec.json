@@ -201,7 +201,7 @@
             },
             "Microsoft.Extensions.Options": {
               "target": "Package",
-              "version": "[9.0.1, )"
+              "version": "[9.0.2, )"
             }
           },
           "imports": [
@@ -252,7 +252,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj": {
+                "projectPath": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -352,13 +356,13 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.1, )"
+              "version": "[9.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.1, )"
+              "version": "[9.0.2, )"
             },
             "Microsoft.Extensions.Configuration.EnvironmentVariables": {
               "target": "Package",
@@ -442,7 +446,7 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.1, )"
             }
           },
           "imports": [

@@ -33,7 +33,7 @@ namespace Application.Abstractions.Users.Login
         public async Task<object> Handle (LoginCommand command, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetUserByEmail(command.Email)
-                ?? throw new NotFoundException("Invalid login credentials, try again.");
+                ?? throw new NotFoundException("Could not find the email, try again.");
             if (!_passwordHasher.VerifyPassword(command.Password, user.Password))
             {
                 throw new NotFoundException("Invalid login credentials, try again.");

@@ -19,6 +19,7 @@
           "Microsoft.AspNetCore.Mvc": "2.3.0",
           "Microsoft.EntityFrameworkCore.Design": "9.0.2",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.3",
+          "SharedKernel": "1.0.0",
           "Swashbuckle.AspNetCore": "7.2.0"
         },
         "runtime": {
@@ -1563,7 +1564,8 @@
           "Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.11",
-          "Microsoft.Extensions.Options": "9.0.2"
+          "Microsoft.Extensions.Options": "9.0.2",
+          "SharedKernel": "1.0.0"
         },
         "runtime": {
           "Application.dll": {
@@ -1574,7 +1576,8 @@
       },
       "Domain/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "9.0.2"
+          "Microsoft.EntityFrameworkCore.Abstractions": "9.0.2",
+          "SharedKernel": "1.0.0"
         },
         "runtime": {
           "Domain.dll": {
@@ -1589,10 +1592,22 @@
           "Microsoft.EntityFrameworkCore": "9.0.2",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "9.0.2",
           "Microsoft.Extensions.Configuration.Json": "9.0.2",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.3"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.3",
+          "SharedKernel": "1.0.0"
         },
         "runtime": {
           "Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SharedKernel/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.2"
+        },
+        "runtime": {
+          "SharedKernel.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -2632,6 +2647,11 @@
       "sha512": ""
     },
     "Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SharedKernel/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

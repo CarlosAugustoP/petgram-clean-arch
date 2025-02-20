@@ -25,13 +25,13 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.UserController.GetFollowers">
+        <member name="M:API.Controllers.UserController.GetFollowers(API.Abstractions.Requests.PageRequest)">
             <summary>
             Fetches all the followers for the current user
             </summary>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.UserController.GetFollowing">
+        <member name="M:API.Controllers.UserController.GetFollowing(API.Abstractions.Requests.PageRequest)">
             <summary>
             Fetches all the users that the current user is following
             </summary>
