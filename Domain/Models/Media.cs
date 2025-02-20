@@ -18,5 +18,16 @@ namespace Domain.Models
         public DateTime CreatedAt { get; set; }
         public Media() { }
 
+        public Media(Guid id, Guid postId, Post post, string? title, string url, string type, string? description, DateTime createdAt)
+        {
+            Id = id;
+            PostId = postId;
+            Post = post;
+            Title = title;
+            Url = url;
+            Type = type;
+            Description = description;
+            CreatedAt = createdAt;
+        }
     }
 }

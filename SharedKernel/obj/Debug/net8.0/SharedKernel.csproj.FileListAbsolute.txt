@@ -41,3 +41,4 @@ C:\Users\capv2\source\repos\petgram-clean-arch\SharedKernel\bin\Debug\net8.0\Mic
 C:\Users\capv2\source\repos\petgram-clean-arch\SharedKernel\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\capv2\source\repos\petgram-clean-arch\SharedKernel\obj\Debug\net8.0\SharedKernel.csproj.AssemblyReference.cache
 C:\Users\capv2\source\repos\petgram-clean-arch\SharedKernel\obj\Debug\net8.0\SharedKe.80CED6BF.Up2Date
+C:\Users\capv2\source\repos\petgram-clean-arch\SharedKernel\bin\Debug\net8.0\Microsoft.AspNetCore.Http.Features.dll

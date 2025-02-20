@@ -1,0 +1,213 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\application\\abstractions\\posts\\createpostcommand\\createpostcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|solutionrelative:application\\abstractions\\posts\\createpostcommand\\createpostcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\application\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|solutionrelative:application\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9F15DD7-CB5D-4A94-9AB5-94BD5BAF823B}|SharedKernel\\SharedKernel.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\sharedkernel\\utils\\files\\filediscriminator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9F15DD7-CB5D-4A94-9AB5-94BD5BAF823B}|SharedKernel\\SharedKernel.csproj|solutionrelative:sharedkernel\\utils\\files\\filediscriminator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF2733BE-D106-4F83-B22F-61210F1EA95A}|Domain\\Domain.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\domain\\customexceptions\\badrequestexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF2733BE-D106-4F83-B22F-61210F1EA95A}|Domain\\Domain.csproj|solutionrelative:domain\\customexceptions\\badrequestexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF2733BE-D106-4F83-B22F-61210F1EA95A}|Domain\\Domain.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\domain\\models\\media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF2733BE-D106-4F83-B22F-61210F1EA95A}|Domain\\Domain.csproj|solutionrelative:domain\\models\\media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\application\\services\\supabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|solutionrelative:application\\services\\supabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\application\\abstractions\\followers\\getfollowingbyuser\\getfollowingbyuserquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|solutionrelative:application\\abstractions\\followers\\getfollowingbyuser\\getfollowingbyuserquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF2733BE-D106-4F83-B22F-61210F1EA95A}|Domain\\Domain.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\domain\\customexceptions\\conflictexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF2733BE-D106-4F83-B22F-61210F1EA95A}|Domain\\Domain.csproj|solutionrelative:domain\\customexceptions\\conflictexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF2733BE-D106-4F83-B22F-61210F1EA95A}|Domain\\Domain.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\domain\\customexceptions\\apiexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF2733BE-D106-4F83-B22F-61210F1EA95A}|Domain\\Domain.csproj|solutionrelative:domain\\customexceptions\\apiexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9F15DD7-CB5D-4A94-9AB5-94BD5BAF823B}|SharedKernel\\SharedKernel.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\sharedkernel\\utils\\files\\fileconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9F15DD7-CB5D-4A94-9AB5-94BD5BAF823B}|SharedKernel\\SharedKernel.csproj|solutionrelative:sharedkernel\\utils\\files\\fileconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9F15DD7-CB5D-4A94-9AB5-94BD5BAF823B}|SharedKernel\\SharedKernel.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\sharedkernel\\sharedkernel.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D9F15DD7-CB5D-4A94-9AB5-94BD5BAF823B}|SharedKernel\\SharedKernel.csproj|solutionrelative:sharedkernel\\sharedkernel.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|c:\\users\\capv2\\source\\repos\\petgram-clean-arch\\application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}|Application\\Application.csproj|solutionrelative:application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Media.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\Models\\Media.cs",
+              "RelativeDocumentMoniker": "Domain\\Models\\Media.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\Models\\Media.cs",
+              "RelativeToolTip": "Domain\\Models\\Media.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAABQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T14:37:32.851Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FileDiscriminator.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\SharedKernel\\Utils\\Files\\FileDiscriminator.cs",
+              "RelativeDocumentMoniker": "SharedKernel\\Utils\\Files\\FileDiscriminator.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\SharedKernel\\Utils\\Files\\FileDiscriminator.cs",
+              "RelativeToolTip": "SharedKernel\\Utils\\Files\\FileDiscriminator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T14:31:06.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "JwtService.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\Services\\JwtService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\JwtService.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\Services\\JwtService.cs",
+              "RelativeToolTip": "Application\\Services\\JwtService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T14:27:02.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CreatePostCommand.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\Application\\Abstractions\\Posts\\CreatePostCommand\\CreatePostCommand.cs",
+              "RelativeDocumentMoniker": "Application\\Abstractions\\Posts\\CreatePostCommand\\CreatePostCommand.cs",
+              "ToolTip": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\Application\\Abstractions\\Posts\\CreatePostCommand\\CreatePostCommand.cs",
+              "RelativeToolTip": "Application\\Abstractions\\Posts\\CreatePostCommand\\CreatePostCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T14:22:04.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GetFollowingByUserQuery.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\Abstractions\\Followers\\GetFollowingByUser\\GetFollowingByUserQuery.cs",
+              "RelativeDocumentMoniker": "Application\\Abstractions\\Followers\\GetFollowingByUser\\GetFollowingByUserQuery.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\Abstractions\\Followers\\GetFollowingByUser\\GetFollowingByUserQuery.cs",
+              "RelativeToolTip": "Application\\Abstractions\\Followers\\GetFollowingByUser\\GetFollowingByUserQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T14:22:01.673Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ConflictException.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\CustomExceptions\\ConflictException.cs",
+              "RelativeDocumentMoniker": "Domain\\CustomExceptions\\ConflictException.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\CustomExceptions\\ConflictException.cs",
+              "RelativeToolTip": "Domain\\CustomExceptions\\ConflictException.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T14:11:33.168Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BadRequestException.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\CustomExceptions\\BadRequestException.cs",
+              "RelativeDocumentMoniker": "Domain\\CustomExceptions\\BadRequestException.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\CustomExceptions\\BadRequestException.cs",
+              "RelativeToolTip": "Domain\\CustomExceptions\\BadRequestException.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T14:11:18.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SupabaseService.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\Services\\SupabaseService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\SupabaseService.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\Services\\SupabaseService.cs",
+              "RelativeToolTip": "Application\\Services\\SupabaseService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T13:40:47.204Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ApiException.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\CustomExceptions\\ApiException.cs",
+              "RelativeDocumentMoniker": "Domain\\CustomExceptions\\ApiException.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\CustomExceptions\\ApiException.cs",
+              "RelativeToolTip": "Domain\\CustomExceptions\\ApiException.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T14:11:30.999Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FileConverter.cs",
+              "DocumentMoniker": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\SharedKernel\\Utils\\Files\\FileConverter.cs",
+              "RelativeDocumentMoniker": "SharedKernel\\Utils\\Files\\FileConverter.cs",
+              "ToolTip": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\SharedKernel\\Utils\\Files\\FileConverter.cs",
+              "RelativeToolTip": "SharedKernel\\Utils\\Files\\FileConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAkwAgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T13:54:51.563Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SharedKernel.csproj",
+              "DocumentMoniker": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
+              "RelativeDocumentMoniker": "SharedKernel\\SharedKernel.csproj",
+              "ToolTip": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
+              "RelativeToolTip": "SharedKernel\\SharedKernel.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-20T13:54:22.663Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Application.csproj",
+              "DocumentMoniker": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\Application\\Application.csproj",
+              "RelativeDocumentMoniker": "Application\\Application.csproj",
+              "ToolTip": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\Application\\Application.csproj",
+              "RelativeToolTip": "Application\\Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-20T13:35:51.486Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

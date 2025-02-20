@@ -76,3 +76,4 @@ C:\Users\capv2\source\repos\petgram-clean-arch\Domain\bin\Debug\net8.0\Microsoft
 C:\Users\capv2\source\repos\petgram-clean-arch\Domain\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\capv2\source\repos\petgram-clean-arch\Domain\bin\Debug\net8.0\SharedKernel.dll
 C:\Users\capv2\source\repos\petgram-clean-arch\Domain\bin\Debug\net8.0\SharedKernel.pdb
+C:\Users\capv2\source\repos\petgram-clean-arch\Domain\bin\Debug\net8.0\Microsoft.AspNetCore.Http.Features.dll
