@@ -633,6 +633,15 @@
           }
         }
       },
+      "Profanity.Detector/0.1.8": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/ProfanityFilter.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ProfanityFilter.dll": {}
+        }
+      },
       "Supabase/1.1.1": {
         "type": "package",
         "dependencies": {
@@ -1860,6 +1869,18 @@
         "postgresql.png"
       ]
     },
+    "Profanity.Detector/0.1.8": {
+      "sha512": "4rfonJb74vncmdyobz71Wm0N5YeKtReOMIr0P8z/IRP9iJsVcoRfFFfgANopaFjmHI1lZyZL+ps8AKwF1rNjHg==",
+      "type": "package",
+      "path": "profanity.detector/0.1.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/ProfanityFilter.dll",
+        "profanity.detector.0.1.8.nupkg.sha512",
+        "profanity.detector.nuspec"
+      ]
+    },
     "Supabase/1.1.1": {
       "sha512": "LW9O05IiZBW3YUDT/gndPKvzT3I7PVgx0j87+AdJu7mT42m7oh2nOnjuDR9pU0E9FE2Ke/QGovrH/u5OjGn7lg==",
       "type": "package",
@@ -2260,29 +2281,25 @@
       "MediatR >= 12.4.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.11",
       "Microsoft.Extensions.Options >= 9.0.2",
+      "Profanity.Detector >= 0.1.8",
       "SharedKernel >= 1.0.0",
       "Supabase >= 1.1.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\capv2\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\pc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj",
-      "packagesPath": "C:\\Users\\capv2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Application\\obj\\",
+      "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\Application.csproj",
+      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Application\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\capv2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2297,14 +2314,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj"
+            "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Domain\\Domain.csproj"
             },
-            "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj"
             },
-            "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj": {
-              "projectPath": "C:\\Users\\capv2\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj"
+            "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj": {
+              "projectPath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj"
             }
           }
         }
@@ -2317,9 +2334,8 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+        "auditMode": "direct"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -2345,6 +2361,10 @@
             "target": "Package",
             "version": "[9.0.2, )"
           },
+          "Profanity.Detector": {
+            "target": "Package",
+            "version": "[0.1.8, )"
+          },
           "Supabase": {
             "target": "Package",
             "version": "[1.1.1, )"
@@ -2366,7 +2386,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

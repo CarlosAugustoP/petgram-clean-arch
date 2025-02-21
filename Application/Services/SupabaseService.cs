@@ -16,7 +16,7 @@ namespace Application.Services
     {
         Task<string> UploadFileAsync(Stream fileStream, string fileName, string bucketName);
     }
-    internal class SupabaseService
+    public class SupabaseService : ISupabaseService
     {
         private readonly string _supabaseKey;
         private readonly string _supabaseUrl;

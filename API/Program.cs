@@ -53,6 +53,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(LoginCommandValidator).Assembl
 builder.Services.AddValidatorsFromAssembly(typeof(StartFollowingCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<ISupabaseService, SupabaseService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

@@ -20,19 +20,12 @@ namespace Application.Abstractions.Posts.CreatePostCommand
         public string Title { get; set; }
         public List<IFormFile> MediaFiles { get; set; }
         public string Content { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public List<Like> Likes { get; set; } = new List<Like>();
-        public int Shares { get; set; }
 
-        public CreatePostCommand(string title, List<IFormFile> mediaFiles, string content,
-            DateTime createdAt, List<Like> likes, int shares, Guid userId)
+        public CreatePostCommand(string title, List<IFormFile> mediaFiles, string content, Guid userId)
         {
             Title = title;
             MediaFiles = mediaFiles;
             Content = content;
-            CreatedAt = createdAt;
-            Likes = likes;
-            Shares = shares;
             UserId = userId;
         }
     }
@@ -41,13 +34,15 @@ namespace Application.Abstractions.Posts.CreatePostCommand
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
         private readonly ISupabaseService _supabaseService;
+        private readonly IMediaRepository _mediaRepository;
 
         public CreatePostCommandHandler(IPostRepository postRepository, ISupabaseService supabaseService
-        , IUserRepository userRepository)
+        , IUserRepository userRepository, IMediaRepository mediaRepository)
         {
             _postRepository = postRepository;
             _supabaseService = supabaseService;
             _userRepository = userRepository;
+            _mediaRepository = mediaRepository;
         }
         public async Task<Post> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
@@ -61,18 +56,15 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 throw new NotFoundException("Could not find the requested user");
 
             var postId = Guid.NewGuid();
+            
             var post = new Post(
-                postId,
-                request.UserId,
+                postId, request.UserId,
                 await _userRepository.GetByIdAsync(request.UserId),
-                request.Title,
-                new List<Media>(),
-                request.Content,
-                new List<Comment>(),
-                request.CreatedAt,
-                request.Likes,
-                request.Shares
+                request.Title, new List<Media>(), request.Content,
+                new List<Comment>(), DateTime.Now, new List<Like>(),
+                0
             );
+
             foreach (var media in request.MediaFiles)
             {
                 string fileType;
@@ -91,14 +83,13 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 }
 
                 var url = _supabaseService.UploadFileAsync(media.OpenReadStream(), media.FileName, fileType).Result;
-                var mediaDb = new Media(Guid.NewGuid(), postId, post, media.FileName, url, fileType, null, DateTime.Now);
-
-                // media repository create media here
+                
+                var mediaDb = await _mediaRepository.CreateMedia(
+                    new Media(Guid.NewGuid(), postId, post, media.FileName, url, fileType, null, DateTime.Now)
+                );
                 post.Medias.Add(mediaDb);
-
             }
             await _postRepository.CreatePost(post);
-
             return post;
         }
     }

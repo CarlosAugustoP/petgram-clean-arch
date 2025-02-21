@@ -624,24 +624,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\capv2\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\pc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
+      "projectUniqueName": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
       "projectName": "SharedKernel",
-      "projectPath": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
-      "packagesPath": "C:\\Users\\capv2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\capv2\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\obj\\",
+      "projectPath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\SharedKernel.csproj",
+      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\SharedKernel\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\capv2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -666,9 +661,8 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+        "auditMode": "direct"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -699,7 +693,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
