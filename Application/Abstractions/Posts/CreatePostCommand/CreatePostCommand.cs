@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
 using Application.Services;
 using Domain.CustomExceptions;
 using Domain.Models;
@@ -10,7 +6,6 @@ using Domain.Repositorys;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using SharedKernel.Utils.Files;
-using Supabase.Storage;
 
 namespace Application.Abstractions.Posts.CreatePostCommand
 {
@@ -50,6 +45,8 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                  throw new NotFoundException("Could not find the requested user");
 
             var postId = Guid.NewGuid();
+            
+            ConcurrentBag<Media> medias = new();
 
             var post = new Post(
                 postId, request.UserId,
@@ -72,11 +69,12 @@ namespace Application.Abstractions.Posts.CreatePostCommand
 
                 var mediaDb = await _mediaRepository.CreateMedia(
                     new Media(Guid.NewGuid(), postId, post, media.FileName, url, fileType, null, DateTime.Now)
+                    ,cancellationToken
                 );
-                lock (post.Medias)
-                post.Medias.Add(mediaDb);
+                medias.Add(mediaDb);
             });
-            await _postRepository.CreatePost(post);
+            post.Medias = medias.ToList();
+            await _postRepository.CreatePost(post, cancellationToken);
             return post;
         }
     }
