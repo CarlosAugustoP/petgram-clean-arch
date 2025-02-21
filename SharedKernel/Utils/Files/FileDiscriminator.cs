@@ -21,5 +21,15 @@ namespace SharedKernel.Utils.Files
             return VideoMimeTypes.Contains(file.ContentType);
         }
 
+        public static string DetermineMediaType(IFormFile media)
+        {
+            if (IsImage(media)) return "image";
+            if (IsVideo(media)) return "video";
+            //TODO add more file types
+            else throw new ArgumentException("Unsupported file type");
+        }
+
+
+
     }
 }

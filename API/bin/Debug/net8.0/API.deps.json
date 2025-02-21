@@ -1349,6 +1349,14 @@
           }
         }
       },
+      "Profanity.Detector/0.1.8": {
+        "runtime": {
+          "lib/netstandard2.0/ProfanityFilter.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Supabase/1.1.1": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
@@ -1692,6 +1700,7 @@
           "MediatR": "12.4.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.11",
           "Microsoft.Extensions.Options": "9.0.2",
+          "Profanity.Detector": "0.1.8",
           "SharedKernel": "1.0.0",
           "Supabase": "1.1.1"
         },
@@ -2575,6 +2584,13 @@
       "sha512": "sha512-1A6HpMPbzK+quxdtug1aDHI4BSRTgpi7OaDt8WQh7SFJd2sSQ0nNTZ7sYrwyxVf4AdKdN7XJL9tpiiJjRUaa4g==",
       "path": "npgsql.entityframeworkcore.postgresql/9.0.3",
       "hashPath": "npgsql.entityframeworkcore.postgresql.9.0.3.nupkg.sha512"
+    },
+    "Profanity.Detector/0.1.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4rfonJb74vncmdyobz71Wm0N5YeKtReOMIr0P8z/IRP9iJsVcoRfFFfgANopaFjmHI1lZyZL+ps8AKwF1rNjHg==",
+      "path": "profanity.detector/0.1.8",
+      "hashPath": "profanity.detector.0.1.8.nupkg.sha512"
     },
     "Supabase/1.1.1": {
       "type": "package",

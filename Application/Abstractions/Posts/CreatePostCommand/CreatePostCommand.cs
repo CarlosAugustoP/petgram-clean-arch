@@ -46,49 +46,36 @@ namespace Application.Abstractions.Posts.CreatePostCommand
         }
         public async Task<Post> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
-            // TODO firebase service, indepent media for post creation,
-            // i can send a list of medias, see if they are imsges or videos,
-            // send to firebase get the url and save the post with the urls,
-            // then persist them in their own table and connect to the post.
-            // Also add a constructor for media 
-
-            var user = await _userRepository.GetByIdAsync(request.UserId) ??
-                throw new NotFoundException("Could not find the requested user");
+            var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken) ??
+                 throw new NotFoundException("Could not find the requested user");
 
             var postId = Guid.NewGuid();
-            
+
             var post = new Post(
                 postId, request.UserId,
-                await _userRepository.GetByIdAsync(request.UserId),
-                request.Title, new List<Media>(), request.Content,
-                new List<Comment>(), DateTime.Now, new List<Like>(),
-                0
+                user, request.Title, new List<Media>(),
+                request.Content, new List<Comment>(), DateTime.Now, new List<Like>(), 0
             );
 
-            foreach (var media in request.MediaFiles)
+            await Parallel.ForEachAsync(request.MediaFiles, cancellationToken, async (media, token) =>
             {
                 string fileType;
+                try
+                {
+                    fileType = FileDiscriminator.DetermineMediaType(media);
+                }
+                catch (ArgumentException e)
+                {
+                    throw new BadRequestException(e.Message);
+                }
+                var url = await _supabaseService.UploadFileAsync(media.OpenReadStream(), media.FileName, fileType);
 
-                if (FileDiscriminator.IsImage(media))
-                {
-                    fileType = "image";
-                }
-                else if (FileDiscriminator.IsVideo(media))
-                {
-                    fileType = "video";
-                }
-                else
-                {
-                    throw new BadRequestException("File type not supported");
-                }
-
-                var url = _supabaseService.UploadFileAsync(media.OpenReadStream(), media.FileName, fileType).Result;
-                
                 var mediaDb = await _mediaRepository.CreateMedia(
                     new Media(Guid.NewGuid(), postId, post, media.FileName, url, fileType, null, DateTime.Now)
                 );
+                lock (post.Medias)
                 post.Medias.Add(mediaDb);
-            }
+            });
             await _postRepository.CreatePost(post);
             return post;
         }

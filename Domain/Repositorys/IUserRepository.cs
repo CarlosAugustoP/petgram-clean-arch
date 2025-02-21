@@ -9,12 +9,12 @@ namespace Domain.Repositorys
 {
     public interface IUserRepository
     {
-       Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-       Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken = default);
-       Task<User> CreateUser (User user, CancellationToken cancellationToken = default);
+       Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+       Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken);
+       Task<User> CreateUser (User user, CancellationToken cancellationToken);
        Task<List<User>> GetAllUsers();
-       Task<User> GetUserByEmail(string email, CancellationToken cancellationToken = default);
-       Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, int pageIndex = 1, int pageSize = 10);
-       Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, int pageIndex = 1, int pageSize = 10);
+       Task<User> GetUserByEmail(string email, CancellationToken cancellationToken);
+       Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
+    Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
     }
 }

@@ -19,41 +19,41 @@ namespace Infrastructure.PostData
         {
             _db = db;
         }
-        public async Task<Post> CreatePost(Post post)
+        public async Task<Post> CreatePost(Post post, CancellationToken cancellationToken)
         {
-            await _db.Posts.AddAsync(post);
-            await _db.SaveChangesAsync();   
+            await _db.Posts.AddAsync(post, cancellationToken);
+            await _db.SaveChangesAsync(cancellationToken);   
             return post;
         }
 
-        public async Task<Post> DeletePost(Post post)
+        public async Task<Post> DeletePost(Post post, CancellationToken cancellationToken)
         {
             _db.Remove(post);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync(cancellationToken);
             return post!;
         }
 
-        public async Task<Post?> GetPostById(Guid id)
+        public async Task<Post?> GetPostById(Guid id, CancellationToken cancellationToken)
         {
             return await _db.Posts.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task<PaginatedList<Pet>> GetPostsByPetId(Guid id)
+        public Task<PaginatedList<Pet>> GetPostsByPetId(Guid id, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public Task<PaginatedList<Post>> GetPostsByUser(Guid userId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PaginatedList<Post>> GetPostsByUser(Guid userId)
+        public Task<PaginatedList<Post>> GetPostsByUserPreference(Preference preference, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PaginatedList<Post>> GetPostsByUserPreference(Preference preference)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Post> UpdatePost(Post post)
+        public Task<Post> UpdatePost(Post post, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

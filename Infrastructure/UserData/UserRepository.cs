@@ -18,7 +18,7 @@ namespace Infrastructure.UserData
             return await _db.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
 
-        public async Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, int pageIndex = 1, int pageSize = 10)
+        public async Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
         {
             var followersQuery = _db.Users
                 .Where(u => u.Id == userId)
@@ -26,17 +26,17 @@ namespace Infrastructure.UserData
                 .SelectMany(u => u.Followers)
                 .AsQueryable();
 
-            return await PaginatedList<User>.CreateAsync(followersQuery, pageIndex, pageSize);
+            return await PaginatedList<User>.CreateAsync(followersQuery, pageIndex, pageSize, cancellationToken);
         }
 
-        public async Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, int pageIndex = 1, int pageSize = 10)
+        public async Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
         {
             var followingQuery = _db.Users
                 .Where(u => u.Id == userId)
                 .Include(u => u.Following)
                 .SelectMany(u => u.Following)
                 .AsQueryable();
-            return await PaginatedList<User>.CreateAsync(followingQuery, pageIndex, pageSize);
+            return await PaginatedList<User>.CreateAsync(followingQuery, pageIndex, pageSize, cancellationToken);
         }
 
 
@@ -55,14 +55,14 @@ namespace Infrastructure.UserData
 
         public async Task<User> CreateUser(User user, CancellationToken cancellationToken = default)
         {
-            await _db.Users.AddAsync(user);
+            await _db.Users.AddAsync(user, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);
             return user;
         }
 
         public async Task<User> GetUserByEmail (string email, CancellationToken cancellationToken = default)
         {
-            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
     }
 }

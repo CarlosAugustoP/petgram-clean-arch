@@ -31,7 +31,7 @@ namespace Application.Services
 
         public async Task<string> UploadFileAsync(Stream fileStream, string fileName, string bucketName)
         {
-            
+            fileName = $"{fileName}-{Guid.NewGuid()}";
             var storage = _supabaseClient.Storage.From(bucketName);
             var fileToBytes = FileConverter.StreamToByteArray(fileStream);
             var response = await storage.Upload(fileToBytes, fileName);

@@ -24,7 +24,7 @@ namespace Application.Abstractions.Followers.GetFollowers
 
         public async Task<PaginatedList<User>> Handle(GetFollowersByUserQuery query, CancellationToken cancellationToken)
         {
-            return await _userRepository.GetUserFollowersAsync(query.UserId, query.PageIndex, query.PageSize);
+            return await _userRepository.GetUserFollowersAsync(query.UserId, cancellationToken, query.PageIndex, query.PageSize);
         }
     }
 }

@@ -10,13 +10,13 @@ namespace Domain.Repositorys
 {
     public interface IPostRepository
     {
-        Task<Post> CreatePost(Post post);
-        Task<Post> UpdatePost(Post post);
-        Task<Post> DeletePost(Post post);
-        Task<Post?> GetPostById(Guid id);
-        Task<PaginatedList<Post>> GetPostsByUserPreference(Preference preference);
-        Task<PaginatedList<Post>> GetPostsByUser(Guid userId);
-        Task<PaginatedList<Pet>>GetPostsByPetId(Guid id);
+        Task<Post> CreatePost(Post post, CancellationToken cancellationToken = default);
+        Task<Post> UpdatePost(Post post, CancellationToken cancellationToken = default);
+        Task<Post> DeletePost(Post post, CancellationToken cancellationToken = default);
+        Task<Post?> GetPostById(Guid id, CancellationToken cancellationToken = default);
+        Task<PaginatedList<Post>> GetPostsByUserPreference(Preference preference, CancellationToken cancellationToken = default);
+        Task<PaginatedList<Post>> GetPostsByUser(Guid userId, CancellationToken cancellationToken = default);
+        Task<PaginatedList<Pet>>GetPostsByPetId(Guid id, CancellationToken cancellationToken = default);   
        
     }
 }

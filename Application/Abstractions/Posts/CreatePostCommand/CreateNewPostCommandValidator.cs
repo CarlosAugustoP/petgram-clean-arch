@@ -25,7 +25,7 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 .WithMessage("Your post contains inappropriate language.")
                 .NotNull()
                 .WithMessage("Every post needs a title");
-
+                
         }
     }
 }

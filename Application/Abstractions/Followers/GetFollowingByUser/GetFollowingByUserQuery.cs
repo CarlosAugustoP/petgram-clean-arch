@@ -23,7 +23,7 @@ namespace Application.Abstractions.Followers.GetFollowingByUser
 
         public async Task<PaginatedList<User>> Handle(GetFollowingByUserQuery query, CancellationToken cancellationToken)
         {
-           return await _userRepository.GetUserFollowingAsync(query.UserId, query.PageIndex, query.PageSize);
+           return await _userRepository.GetUserFollowingAsync(query.UserId, cancellationToken, query.PageIndex, query.PageSize);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace API.Middlewares
                 if (!string.IsNullOrEmpty(userId))
                 {
 
-                    var user = await userRepository.GetByIdAsync(Guid.Parse(userId));
+                    var user = await userRepository.GetByIdAsync(Guid.Parse(userId), CancellationToken.None);
                     
                     if (user != null) 
                         context.Items["User"] = _mapper.Map<UserDto>(user);
