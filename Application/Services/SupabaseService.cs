@@ -37,7 +37,7 @@ namespace Application.Services
             var response = await storage.Upload(fileToBytes, fileName);
             if (response != null)
             {
-                return $"{storage.GetPublicUrl}/object/public/{bucketName}/{fileName}";
+                return $"{_supabaseUrl}/storage/v1/object/public/{bucketName}/{fileName}";
             }else
             {
                 throw new BadRequestException("Could not process the image");

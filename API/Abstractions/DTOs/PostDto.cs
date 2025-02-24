@@ -13,6 +13,9 @@ namespace API.Abstractions.DTOs
         public int Comments { get; set; }
         public int Shares { get; set; }
 
+        public PostDto()
+        {
+        }	
         public PostDto(Guid id, Guid authorId, string title, string content, int likes, int shares, List<MediaDTO> medias, int comments)
         {
             Id = id;
@@ -25,7 +28,7 @@ namespace API.Abstractions.DTOs
             Comments = comments;
         }
 
-        public PostDto map(Post post)
+        public PostDto Map(Post post)
         {
             var mediaList = new List<MediaDTO>(); 
             foreach (var media in post.Medias){

@@ -1,5 +1,7 @@
 ﻿using System.Linq.Expressions;
+using API.Abstractions.DTOs;
 using API.Abstractions.Helpers;
+using API.Abstractions.Result;
 using Application.Abstractions.Posts.CreatePostCommand;
 using AutoMapper;
 using MediatR;
@@ -30,7 +32,9 @@ namespace API.Controllers
         public async Task<IActionResult> CreatePost([FromForm] CreatePostCommand command){
             var req = new CreatePostCommand(command.Title, command.MediaFiles, command.Content);
             req.SetUserId(CurrentUser.Id);
-            return Ok(await _mediator.Send(req));
+            var result = await _mediator.Send(req);
+            var postDto = new PostDto().Map(result);
+            return Created("api/Post", Result<PostDto>.Success(postDto));
         }
         
     }

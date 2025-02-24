@@ -16,7 +16,7 @@ namespace Domain.Repositorys
         Task<Post?> GetPostById(Guid id, CancellationToken cancellationToken);
         Task<PaginatedList<Post>> GetPostsByUserPreference(Preference preference, CancellationToken cancellationToken);
         Task<PaginatedList<Post>> GetPostsByUser(Guid userId, CancellationToken cancellationToken);
-        Task<PaginatedList<Pet>>GetPostsByPetId(Guid id, CancellationToken cancellationToken);   
+        Task<PaginatedList<Pet>>GetPostsByPetId(Guid id, CancellationToken cancellationToken); 
        
     }
 }

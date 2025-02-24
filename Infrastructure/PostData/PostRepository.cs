@@ -38,6 +38,13 @@ namespace Infrastructure.PostData
             return await _db.Posts.FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<Post> UpdatePost(Post post, CancellationToken cancellationToken)
+        {
+            _db.Posts.Update(post);
+            await _db.SaveChangesAsync(cancellationToken);
+            return post;
+        }
+
         public Task<PaginatedList<Pet>> GetPostsByPetId(Guid id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
@@ -53,9 +60,5 @@ namespace Infrastructure.PostData
             throw new NotImplementedException();
         }
 
-        public Task<Post> UpdatePost(Post post, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

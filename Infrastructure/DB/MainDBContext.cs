@@ -40,6 +40,11 @@ namespace Infrastructure.DB
                 .HasOne(u => u.Preference)
                 .WithOne(p => p.User)
                 .HasForeignKey<Preference>(p => p.UserId);
+            modelBuilder.Entity<Media>()
+                .HasOne(m => m.Post)
+                .WithMany(p => p.Medias)
+                .HasForeignKey(m => m.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
     }
