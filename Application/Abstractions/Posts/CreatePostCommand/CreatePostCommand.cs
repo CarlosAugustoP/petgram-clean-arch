@@ -11,16 +11,19 @@ namespace Application.Abstractions.Posts.CreatePostCommand
 {
     public sealed record CreatePostCommand : IRequest<Post>
     {
-        public Guid UserId { get; set; }
         public string Title { get; set; }
         public List<IFormFile> MediaFiles { get; set; }
         public string Content { get; set; }
+        public Guid UserId { get; private set; }
 
-        public CreatePostCommand(string title, List<IFormFile> mediaFiles, string content, Guid userId)
+        public CreatePostCommand(string title, List<IFormFile> mediaFiles, string content)
         {
             Title = title;
             MediaFiles = mediaFiles;
             Content = content;
+        }
+        public void SetUserId(Guid userId)
+        {
             UserId = userId;
         }
     }
@@ -65,7 +68,7 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 {
                     throw new BadRequestException(e.Message);
                 }
-                var url = await _supabaseService.UploadFileAsync(media.OpenReadStream(), media.FileName, fileType);
+                var url = await _supabaseService.UploadFileAsync(media.OpenReadStream(), media.FileName, "petgram-posts");
 
                 var mediaDb = await _mediaRepository.CreateMedia(
                     new Media(Guid.NewGuid(), postId, post, media.FileName, url, fileType, null, DateTime.Now)

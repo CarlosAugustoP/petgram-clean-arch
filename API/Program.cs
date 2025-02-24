@@ -16,6 +16,9 @@ using API.Abstractions.Helpers;
 using Application.Abstractions.Users.Login;
 using API.Middlewares;
 using Microsoft.OpenApi.Models;
+using Application.Abstractions.Posts.CreatePostCommand;
+using Infrastructure.PostData;
+using Infrastructure.MediaData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +44,10 @@ builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSet
 builder.Services.AddScoped<IPasswordHasher, PasswordHelper>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMediaRepository, MediaRepository>();
+builder.Services.AddScoped<ProfanityFilter.ProfanityFilter>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMediatR(cfg =>
@@ -49,11 +56,15 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(StartFollowingCommand).Assembly); 
 });
 builder.Services.AddValidatorsFromAssembly(typeof(AddNewUserCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommand).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(LoginCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(StartFollowingCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddAuthorization();
-builder.Services.AddScoped<ISupabaseService, SupabaseService>();
+
+var supabaseKey = Environment.GetEnvironmentVariable("SUPABASE_KEY") ?? throw new ArgumentNullException("SUPABASE_KEY");
+var supabaseUrl = Environment.GetEnvironmentVariable("SUPABASE_URL") ?? throw new ArgumentNullException("SUPABASE_URL");
+builder.Services.AddSingleton<ISupabaseService, SupabaseService>(sup => new SupabaseService(supabaseKey, supabaseUrl));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

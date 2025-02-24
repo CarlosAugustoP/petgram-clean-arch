@@ -636,3 +636,4 @@ C:\Users\pc\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\System.Reactive
 C:\Users\pc\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\Websocket.Client.dll
 C:\Users\pc\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.dll
 C:\Users\pc\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.pdb
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\ProfanityFilter.dll

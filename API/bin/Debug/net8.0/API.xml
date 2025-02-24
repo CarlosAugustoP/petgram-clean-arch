@@ -11,6 +11,14 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.PostController.CreatePost(Application.Abstractions.Posts.CreatePostCommand.CreatePostCommand)">
+            <summary>
+            Creates a Post based on a user's request
+            </summary>
+            <returns>
+            The Created Post
+            </returns>
+        </member>
         <member name="M:API.Controllers.UserController.UserFollowUser(System.Guid)">
             <summary>
             Follows a user
