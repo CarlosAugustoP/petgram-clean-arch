@@ -83,7 +83,7 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 }
                 catch(Exception e)
                 {
-
+                    throw new ApiException(e.Message);
                 };
                
                
