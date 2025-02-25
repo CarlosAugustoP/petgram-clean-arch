@@ -73,13 +73,20 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 {
                     throw new BadRequestException(e.Message);
                 }
-                var url = await _supabaseService.UploadFileAsync(media.OpenReadStream(), media.FileName, "petgram-posts");
-
-                var mediaDb = await _mediaRepository.CreateMedia(
+                try 
+                {
+                    var url = await _supabaseService.UploadFileAsync(media.OpenReadStream(), media.FileName, "petgram-posts");
+                    var mediaDb = await _mediaRepository.CreateMedia(
                     new Media(Guid.NewGuid(), post.Id, null!, media.FileName, url, fileType, null, DateTime.UtcNow)
-                    , cancellationToken
-                );
-                medias.Add(mediaDb);
+                    , cancellationToken);
+                    medias.Add(mediaDb);
+                }
+                catch(Exception e)
+                {
+
+                };
+               
+               
             });
             post.Medias = medias.ToList();
             await _postRepository.UpdatePost(post, cancellationToken);

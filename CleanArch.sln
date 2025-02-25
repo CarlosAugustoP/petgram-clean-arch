@@ -3,26 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{12F319F1-D1B9-4718-96DA-41C1EC54D1C4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3135DDE0-1227-470A-9382-947452169C65} = {3135DDE0-1227-470A-9382-947452169C65}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{AF2733BE-D106-4F83-B22F-61210F1EA95A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{AF2733BE-D106-4F83-B22F-61210F1EA95A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BBCD51C7-2F5E-4A7D-B8B2-77042EA97DE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "SharedKernel\SharedKernel.csproj", "{D9F15DD7-CB5D-4A94-9AB5-94BD5BAF823B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "SharedKernel\SharedKernel.csproj", "{D9F15DD7-CB5D-4A94-9AB5-94BD5BAF823B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3135DDE0-1227-470A-9382-947452169C65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3135DDE0-1227-470A-9382-947452169C65}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AF2733BE-D106-4F83-B22F-61210F1EA95A} = {AF2733BE-D106-4F83-B22F-61210F1EA95A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{38D739EB-5AE1-4251-9274-963080294831}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{38D739EB-5AE1-4251-9274-963080294831}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{8C8B6032-0F35-4057-BC27-E6EDFEF5FDC9}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
