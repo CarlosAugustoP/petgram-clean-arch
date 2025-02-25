@@ -13,7 +13,7 @@ namespace Domain.CustomExceptions
         public string ErrorMessage { get; set; }
         public string ErrorDetails { get; set; }
 
-        public ApiException(string message, int statusCode = 500, string errorCode = "UNKNOWN_ERROR", string errorDetails = "")
+        public ApiException(string message, int statusCode = 500, string errorCode = "INTERNAL_SERVER_ERROR", string errorDetails = "")
             : base(message)
         {
             StatusCode = statusCode;

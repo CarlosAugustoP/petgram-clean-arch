@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fgyd6ayEtEY=",
+  "dgSpecHash": "PmHNMZu449s=",
   "success": true,
-  "projectFilePath": "C:\\Users\\pc\\Source\\Repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\pc\\source\\repos\\petgram-clean-arch\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pc\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\pc\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.3.0\\microsoft.aspnetcore.http.features.2.3.0.nupkg.sha512",
