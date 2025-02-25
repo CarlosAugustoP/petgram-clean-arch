@@ -19,6 +19,13 @@
             The Created Post
             </returns>
         </member>
+        <member name="M:API.Controllers.PostController.GetPostById(System.Guid)">
+            <summary>
+            Gets a Post by its Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.UserController.UserFollowUser(System.Guid)">
             <summary>
             Follows a user

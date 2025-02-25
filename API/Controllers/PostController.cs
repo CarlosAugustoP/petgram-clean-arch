@@ -3,6 +3,7 @@ using API.Abstractions.DTOs;
 using API.Abstractions.Helpers;
 using API.Abstractions.Result;
 using Application.Abstractions.Posts.CreatePostCommand;
+using Application.Abstractions.Posts.GetPostByIdQuery;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,19 @@ namespace API.Controllers
             var result = await _mediator.Send(req);
             var postDto = new PostDto().Map(result);
             return Created("api/Post", Result<PostDto>.Success(postDto));
+        }
+
+        /// <summary>
+        /// Gets a Post by its Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetPostById(Guid id){
+            var result = await _mediator.Send(new GetPostByIdQuery(id));
+            var postDto = new PostDto().Map(result);
+            return Ok(Result<PostDto>.Success(postDto));
         }
         
     }

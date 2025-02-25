@@ -1,4 +1,6 @@
-﻿using Domain.Models;
+﻿using System.Runtime.Intrinsics.Arm;
+using API.Abstractions.DTOs.Media;
+using Domain.Models;
 
 namespace API.Abstractions.DTOs
 {
@@ -35,7 +37,7 @@ namespace API.Abstractions.DTOs
                 mediaList.Add(new MediaDTO(media.Id, media.Url, media.Type));
             }
             return new PostDto(post.Id, post.AuthorId, post.Title, post.Content,
-                post.Likes.Count, post.Shares, mediaList, post.Comments.Count);
+                post.LikesCount, post.Shares, mediaList, post.CommentsCount);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using API.Abstractions.DTOs;
+using API.Abstractions.DTOs.User;
 using AutoMapper;
 using Domain.Repositorys;
 

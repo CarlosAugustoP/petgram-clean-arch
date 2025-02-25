@@ -13,8 +13,8 @@ using Microsoft.AspNetCore.Authorization;
 using API.Abstractions.Helpers;
 using Application.Abstractions.Followers.GetFollowers;
 using Application.Abstractions.Followers.GetFollowingByUser;
-using API.Abstractions.DTOs;
 using API.Abstractions.Requests;
+using API.Abstractions.DTOs.User;
 namespace API.Controllers
 {
 

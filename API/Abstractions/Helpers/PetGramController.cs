@@ -1,4 +1,4 @@
-﻿using API.Abstractions.DTOs;
+﻿using API.Abstractions.DTOs.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Abstractions.Helpers

@@ -1,9 +1,10 @@
 using AutoMapper;
 
-namespace API.Abstractions.DTOs
+namespace API.Abstractions.DTOs.Media
 {
     [AutoMap(typeof(Domain.Models.Media))]
-    public class MediaDTO {
+    public class MediaDTO
+    {
         public Guid Id { get; set; }
         public string Url { get; set; }
         public string Type { get; set; }
