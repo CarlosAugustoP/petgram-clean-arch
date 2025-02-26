@@ -35,26 +35,20 @@ namespace Application.Abstractions.Posts.CreatePostCommand
     internal sealed class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, Post>
     {
         private readonly IPostRepository _postRepository;
-        private readonly IUserRepository _userRepository;
         private readonly ISupabaseService _supabaseService;
         private readonly IMediaRepository _mediaRepository;
 
-        public CreatePostCommandHandler(IPostRepository postRepository, ISupabaseService supabaseService
-        , IUserRepository userRepository, IMediaRepository mediaRepository)
+        public CreatePostCommandHandler(IPostRepository postRepository, ISupabaseService supabaseService,
+         IMediaRepository mediaRepository)
         {
             _postRepository = postRepository;
             _supabaseService = supabaseService;
-            _userRepository = userRepository;
             _mediaRepository = mediaRepository;
         }
         public async Task<Post> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken) ??
-                 throw new NotFoundException("Could not find the requested user");
-
              var post = new Post(
-                Guid.NewGuid(), request.UserId,
-                user, request.Title, new List<Media>(),
+                Guid.NewGuid(), request.UserId, null , request.Title, new List<Media>(),
                 request.Content, new List<Comment>(), DateTime.UtcNow, new List<Like>(), 0
             );
 

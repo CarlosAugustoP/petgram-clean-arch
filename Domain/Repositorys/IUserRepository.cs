@@ -15,6 +15,6 @@ namespace Domain.Repositorys
        Task<List<User>> GetAllUsers();
        Task<User> GetUserByEmail(string email, CancellationToken cancellationToken);
        Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
-    Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
+       Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
     }
 }

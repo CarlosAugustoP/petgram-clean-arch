@@ -55,10 +55,9 @@ namespace Infrastructure.PostData
             throw new NotImplementedException();
         }
 
-        public Task<PaginatedList<Post>> GetPostsByUserPreference(Preference preference, CancellationToken cancellationToken)
+        public Task<PaginatedList<Post>> GetPostsByUserPreference(Preference preference, CancellationToken cancellationToken, List<Post> posts)
         {
             throw new NotImplementedException();
         }
-
     }
 }

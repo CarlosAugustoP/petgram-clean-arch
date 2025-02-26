@@ -19,6 +19,7 @@ using Microsoft.OpenApi.Models;
 using Application.Abstractions.Posts.CreatePostCommand;
 using Infrastructure.PostData;
 using Infrastructure.MediaData;
+using Infrastructure.LikeData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,7 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 builder.Services.AddScoped<IMediaRepository, MediaRepository>();
 builder.Services.AddScoped<ProfanityFilter.ProfanityFilter>();
 builder.Services.AddControllers();

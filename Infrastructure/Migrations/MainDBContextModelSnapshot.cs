@@ -41,11 +41,17 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LikeCount")
+                        .HasColumnType("integer");
+
                     b.Property<Guid?>("PostId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("isEdited")
-                        .HasColumnType("boolean");
+                    b.Property<int>("RepliesCount")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -178,9 +184,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("MediaId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ReportId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Shares")
                         .HasColumnType("integer");
 
@@ -189,8 +192,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("MediaId");
-
-                    b.HasIndex("ReportId");
 
                     b.ToTable("Moments");
                 });
@@ -283,6 +284,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("CommentsCount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("text");
@@ -290,10 +294,10 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("PetId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("LikesCount")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("ReportId")
+                    b.Property<Guid?>("PetId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Shares")
@@ -308,8 +312,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("PetId");
-
-                    b.HasIndex("ReportId");
 
                     b.ToTable("Posts");
                 });
@@ -419,6 +421,36 @@ namespace Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("MomentReport", b =>
+                {
+                    b.Property<Guid>("MomentsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ReportsId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("MomentsId", "ReportsId");
+
+                    b.HasIndex("ReportsId");
+
+                    b.ToTable("MomentReport");
+                });
+
+            modelBuilder.Entity("PostReport", b =>
+                {
+                    b.Property<Guid>("PostsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ReportsId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("PostsId", "ReportsId");
+
+                    b.HasIndex("ReportsId");
+
+                    b.ToTable("PostReport");
+                });
+
             modelBuilder.Entity("UserUser", b =>
                 {
                     b.Property<Guid>("FollowersId")
@@ -462,7 +494,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Models.Comment", "Comment")
-                        .WithMany()
+                        .WithMany("Likes")
                         .HasForeignKey("CommentId");
 
                     b.HasOne("Domain.Models.Moment", null)
@@ -524,10 +556,6 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Report", null)
-                        .WithMany("Moments")
-                        .HasForeignKey("ReportId");
-
                     b.Navigation("Author");
 
                     b.Navigation("Media");
@@ -571,10 +599,6 @@ namespace Infrastructure.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("PetId");
 
-                    b.HasOne("Domain.Models.Report", null)
-                        .WithMany("Posts")
-                        .HasForeignKey("ReportId");
-
                     b.Navigation("Author");
                 });
 
@@ -600,6 +624,36 @@ namespace Infrastructure.Migrations
                     b.Navigation("Reporter");
                 });
 
+            modelBuilder.Entity("MomentReport", b =>
+                {
+                    b.HasOne("Domain.Models.Moment", null)
+                        .WithMany()
+                        .HasForeignKey("MomentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Report", null)
+                        .WithMany()
+                        .HasForeignKey("ReportsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PostReport", b =>
+                {
+                    b.HasOne("Domain.Models.Post", null)
+                        .WithMany()
+                        .HasForeignKey("PostsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Report", null)
+                        .WithMany()
+                        .HasForeignKey("ReportsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("UserUser", b =>
                 {
                     b.HasOne("Domain.Models.User", null)
@@ -617,6 +671,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
+                    b.Navigation("Likes");
+
                     b.Navigation("Replies");
                 });
 
@@ -637,13 +693,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("Medias");
-                });
-
-            modelBuilder.Entity("Domain.Models.Report", b =>
-                {
-                    b.Navigation("Moments");
-
-                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>

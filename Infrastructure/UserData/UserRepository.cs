@@ -64,5 +64,6 @@ namespace Infrastructure.UserData
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
+
     }
 }
