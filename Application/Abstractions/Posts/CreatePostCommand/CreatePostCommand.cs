@@ -47,6 +47,14 @@ namespace Application.Abstractions.Posts.CreatePostCommand
         }
         public async Task<Post> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
+            if (request.MediaFiles.Count == 0){
+                throw new BadRequestException("Post must have at least one media file");
+            }
+
+            if (request.MediaFiles.Count > 10){
+                throw new BadRequestException("Post can have at most 10 media files");
+            }
+
              var post = new Post(
                 Guid.NewGuid(), request.UserId, null , request.Title, new List<Media>(),
                 request.Content, new List<Comment>(), DateTime.UtcNow, new List<Like>(), 0

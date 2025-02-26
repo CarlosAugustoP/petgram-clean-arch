@@ -5,13 +5,13 @@ using MediatR;
 
 namespace Application.Abstractions.Likes.LikePostCommand
 {
-    public sealed record LikePostCommand : IRequest<Like>
+    public sealed record LikePostCommand : IRequest<Post>
     {
         public Guid UserId { get; set; }
         public Guid PostId { get; set; }
     }
 
-    internal sealed class LikePostCommandHandler : IRequestHandler<LikePostCommand, Like>
+    internal sealed class LikePostCommandHandler : IRequestHandler<LikePostCommand, Post>
     {
         private readonly ILikeRepository _likeRepository;
         private readonly IUserRepository _userRepository;
@@ -23,7 +23,7 @@ namespace Application.Abstractions.Likes.LikePostCommand
             _postRepository = postRepository;
             _userRepository = userRepository;
         }
-        public async Task<Like> Handle(LikePostCommand request, CancellationToken cancellationToken)
+        public async Task<Post> Handle(LikePostCommand request, CancellationToken cancellationToken)
         {
             var post = await _postRepository.GetPostById(request.PostId, cancellationToken) ??
                 throw new NotFoundException("Post not found for the given id");
@@ -36,11 +36,13 @@ namespace Application.Abstractions.Likes.LikePostCommand
                 Guid.NewGuid(), request.UserId, await _userRepository.GetByIdAsync(request.UserId, cancellationToken),
                 post, request.PostId, null, DateTime.UtcNow, null
             );
-                return await _likeRepository.LikePost(like, cancellationToken);
+                await _likeRepository.LikePost(like, cancellationToken);
+                return post;
             }
             else if (post.LikesCount > 0)
             {
-                return await _likeRepository.DislikePost(alreadyLiked, cancellationToken);            
+                await _likeRepository.DislikePost(alreadyLiked, cancellationToken);            
+                return post;
             }
             else
             {

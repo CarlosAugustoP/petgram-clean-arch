@@ -35,7 +35,7 @@ namespace Infrastructure.PostData
 
         public async Task<Post?> GetPostById(Guid id, CancellationToken cancellationToken)
         {
-            return await _db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            return await _db.Posts.Include(x => x.Medias).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Post> UpdatePost(Post post, CancellationToken cancellationToken)

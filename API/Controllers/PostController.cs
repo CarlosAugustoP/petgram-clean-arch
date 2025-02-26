@@ -2,10 +2,12 @@
 using API.Abstractions.DTOs;
 using API.Abstractions.Helpers;
 using API.Abstractions.Result;
+using Application.Abstractions.Likes.LikePostCommand;
 using Application.Abstractions.Posts.CreatePostCommand;
 using Application.Abstractions.Posts.GetPostByIdQuery;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -47,6 +49,19 @@ namespace API.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetPostById(Guid id){
             var result = await _mediator.Send(new GetPostByIdQuery(id));
+            var postDto = new PostDto().Map(result);
+            return Ok(Result<PostDto>.Success(postDto));
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("like/{postId}")]
+        public async Task<IActionResult> LikePostById(Guid postId){
+            var command = new LikePostCommand {
+                UserId = CurrentUser.Id,
+                PostId = postId
+            };
+            var result = await _mediator.Send(command);
             var postDto = new PostDto().Map(result);
             return Ok(Result<PostDto>.Success(postDto));
         }
