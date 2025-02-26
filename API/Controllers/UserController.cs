@@ -68,10 +68,10 @@ namespace API.Controllers
         /// Fetches all the followers for the current user
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         [Route("followers")]
-        public async Task<IActionResult> GetFollowers([FromBody] PageRequest pageRequest)
+        public async Task<IActionResult> GetFollowers([FromQuery] PageRequest pageRequest)
         {
           var followers = await _mediator.Send(new GetFollowersByUserQuery
             {
@@ -85,10 +85,10 @@ namespace API.Controllers
         /// Fetches all the users that the current user is following
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         [Route("following")]
-        public async Task<IActionResult> GetFollowing([FromBody] PageRequest pageRequest)
+        public async Task<IActionResult> GetFollowing([FromQuery] PageRequest pageRequest)
         {
             var following = await _mediator.Send(new GetFollowingByUserQuery
             {

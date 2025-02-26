@@ -26,7 +26,7 @@ namespace API.Abstractions.DTOs.Likes
         {
             return new LikeDto(
                 like.Id,
-                new UserDto(like.Author.Id, like.Author.ProfileImgUrl!, like.Author.Name)
+                new UserDto(like.AuthorId, like.Author.ProfileImgUrl!, like.Author.Name)
             );
         }
         

@@ -19,43 +19,43 @@ namespace Infrastructure.PostData
         {
             _db = db;
         }
-        public async Task<Post> CreatePost(Post post, CancellationToken cancellationToken)
+        public async Task<Post> CreatePostAsync(Post post, CancellationToken cancellationToken)
         {
             await _db.Posts.AddAsync(post, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);   
             return post;
         }
 
-        public async Task<Post> DeletePost(Post post, CancellationToken cancellationToken)
+        public async Task<Post> DeletePostAsync(Post post, CancellationToken cancellationToken)
         {
             _db.Remove(post);
             await _db.SaveChangesAsync(cancellationToken);
             return post!;
         }
 
-        public async Task<Post?> GetPostById(Guid id, CancellationToken cancellationToken)
+        public async Task<Post?> GetPostByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _db.Posts.Include(x => x.Medias).FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<Post> UpdatePost(Post post, CancellationToken cancellationToken)
+        public async Task<Post> UpdatePostAsync(Post post, CancellationToken cancellationToken)
         {
             _db.Posts.Update(post);
             await _db.SaveChangesAsync(cancellationToken);
             return post;
         }
 
-        public Task<PaginatedList<Pet>> GetPostsByPetId(Guid id, CancellationToken cancellationToken)
+        public Task<PaginatedList<Pet>> GetPostsByPetIdAsync(Guid id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
         
-        public Task<PaginatedList<Post>> GetPostsByUser(Guid userId, CancellationToken cancellationToken)
+        public Task<PaginatedList<Post>> GetPostsByUserAsync(Guid userId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PaginatedList<Post>> GetPostsByUserPreference(Preference preference, CancellationToken cancellationToken, List<Post> posts)
+        public Task<PaginatedList<Post>> GetPostsByUserPreferenceAsync(Preference preference, CancellationToken cancellationToken, List<Post> posts)
         {
             throw new NotImplementedException();
         }

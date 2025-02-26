@@ -2,11 +2,11 @@
 
 namespace Application.Abstractions.Posts.CreatePostCommand
 {
-    public class CreateNewPostCommandValidator : AbstractValidator<CreatePostCommand>
+    public class CreatePostCommandValidator : AbstractValidator<CreatePostCommand>
     {
         private readonly ProfanityFilter.ProfanityFilter _profanityFilter;
 
-        public CreateNewPostCommandValidator(ProfanityFilter.ProfanityFilter profanityFilter)
+        public CreatePostCommandValidator(ProfanityFilter.ProfanityFilter profanityFilter)
         {
             _profanityFilter = profanityFilter ?? throw new ArgumentNullException(nameof(profanityFilter));
 

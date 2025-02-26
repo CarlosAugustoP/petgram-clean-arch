@@ -23,7 +23,7 @@ namespace Application.Abstractions.Posts.GetPostByIdQuery
         public async Task<Post> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
         {
 
-            var post = await _postRepository.GetPostById(request.Id, cancellationToken);
+            var post = await _postRepository.GetPostByIdAsync(request.Id, cancellationToken);
             if (post == null)
             {
                 throw new NotFoundException("Could not find the requested post");

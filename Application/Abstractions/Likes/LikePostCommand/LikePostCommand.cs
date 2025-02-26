@@ -25,10 +25,10 @@ namespace Application.Abstractions.Likes.LikePostCommand
         }
         public async Task<Post> Handle(LikePostCommand request, CancellationToken cancellationToken)
         {
-            var post = await _postRepository.GetPostById(request.PostId, cancellationToken) ??
+            var post = await _postRepository.GetPostByIdAsync(request.PostId, cancellationToken) ??
                 throw new NotFoundException("Post not found for the given id");
 
-            var alreadyLiked = await _likeRepository.GetLikeByUserAndPost(request.UserId, request.PostId, cancellationToken);
+            var alreadyLiked = await _likeRepository.GetLikeByUserAndPostAsync(request.UserId, request.PostId, cancellationToken);
 
             if (alreadyLiked == null)
             {
@@ -36,12 +36,12 @@ namespace Application.Abstractions.Likes.LikePostCommand
                 Guid.NewGuid(), request.UserId, await _userRepository.GetByIdAsync(request.UserId, cancellationToken),
                 post, request.PostId, null, DateTime.UtcNow, null
             );
-                await _likeRepository.LikePost(like, cancellationToken);
+                await _likeRepository.LikePostAsync(like, cancellationToken);
                 return post;
             }
             else if (post.LikesCount > 0)
             {
-                await _likeRepository.DislikePost(alreadyLiked, cancellationToken);            
+                await _likeRepository.DislikePostAsync(alreadyLiked, cancellationToken);            
                 return post;
             }
             else

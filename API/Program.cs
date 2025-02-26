@@ -20,6 +20,7 @@ using Application.Abstractions.Posts.CreatePostCommand;
 using Infrastructure.PostData;
 using Infrastructure.MediaData;
 using Infrastructure.LikeData;
+using Infrastructure.CommentData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +50,7 @@ builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 builder.Services.AddScoped<IMediaRepository, MediaRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ProfanityFilter.ProfanityFilter>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
@@ -61,6 +63,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(AddNewUserCommandValidator).As
 builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommand).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(LoginCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(StartFollowingCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddAuthorization();
 

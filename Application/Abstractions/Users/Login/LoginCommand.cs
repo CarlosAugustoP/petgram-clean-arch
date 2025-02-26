@@ -32,7 +32,7 @@ namespace Application.Abstractions.Users.Login
         }
         public async Task<object> Handle (LoginCommand command, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByEmail(command.Email, cancellationToken)
+            var user = await _userRepository.GetUserByEmailAsync(command.Email, cancellationToken)
                 ?? throw new NotFoundException("Could not find the email, try again.");
             if (!_passwordHasher.VerifyPassword(command.Password, user.Password))
             {

@@ -13,7 +13,7 @@ namespace Domain.Models
         public User? Author { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
-        public bool IsEdited { get; set; }
+        public bool IsEdited { get; set; } = false;
         public List<Comment>? Replies { get; set; } = new List<Comment>();
         public List<Like>? Likes { get; set; } = new List<Like>();
         public int LikeCount { get; set; }
@@ -23,16 +23,15 @@ namespace Domain.Models
         {
         }
 
-        public Comment(Guid id, Guid authorId, User author, string content, DateTime createdAt, bool isEdited, List<Comment> replies, List<Like> likes)
+        public Comment(Guid id, Guid authorId, User author, string content, DateTime createdAt, List<Comment> replies, List<Like> likes)
         {
             Id = id;
             AuthorId = authorId;
             Author = author;
             Content = content;
             CreatedAt = createdAt;
-            IsEdited = isEdited;
             Replies = replies;
             Likes = likes;
-    }
+        }
     }
 }

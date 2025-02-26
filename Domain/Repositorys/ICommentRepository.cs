@@ -4,11 +4,11 @@ namespace Domain.Repositorys
 {
     public interface ICommentRepository
     {
-        Task<Comment> CreateComment(Comment comment, CancellationToken cancellationToken);
-        Task<Comment> UpdateComment(Comment comment, CancellationToken cancellationToken);
-        Task<Comment> DeleteComment(Comment comment, CancellationToken cancellationToken);
-        Task<Comment> GetCommentById(Guid id, CancellationToken cancellationToken);
-        Task<List<Comment>> GetCommentsByPostId(Guid postId, CancellationToken cancellationToken);
-        Task<List<Comment>> GetCommentsByUserId(Guid userId, CancellationToken cancellationToken);
+        Task<Comment> CreateCommentAsync(Comment comment, CancellationToken cancellationToken);
+        Task<Comment> UpdateCommentAsync(Comment comment, CancellationToken cancellationToken);
+        Task<Comment> DeleteCommentAsync(Comment comment, CancellationToken cancellationToken);
+        Task<Comment> GetCommentByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<List<Comment>> GetCommentsByPostIdAsync(Guid postId, CancellationToken cancellationToken);
+        Task<List<Comment>> GetCommentsByUserIdAsync(Guid userId, CancellationToken cancellationToken);
     }
 }

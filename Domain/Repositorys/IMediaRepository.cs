@@ -9,6 +9,6 @@ namespace Domain.Repositorys
 {
     public interface IMediaRepository
     {
-        Task<Media> CreateMedia (Media media, CancellationToken cancellationToken);
+        Task<Media> CreateMediaAsync (Media media, CancellationToken cancellationToken);
     }
 }

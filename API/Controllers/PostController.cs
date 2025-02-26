@@ -1,7 +1,13 @@
 ﻿using System.Linq.Expressions;
 using API.Abstractions.DTOs;
+using API.Abstractions.DTOs.Likes;
+using API.Abstractions.DTOs.Comments;
+
 using API.Abstractions.Helpers;
+using API.Abstractions.Requests;
 using API.Abstractions.Result;
+using Application.Abstractions.Comments;
+using Application.Abstractions.Likes.GetLikesByPostQuery;
 using Application.Abstractions.Likes.LikePostCommand;
 using Application.Abstractions.Posts.CreatePostCommand;
 using Application.Abstractions.Posts.GetPostByIdQuery;
@@ -52,7 +58,11 @@ namespace API.Controllers
             var postDto = new PostDto().Map(result);
             return Ok(Result<PostDto>.Success(postDto));
         }
-
+        /// <summary>
+        /// Likes a Post by its Id
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         [Route("like/{postId}")]
@@ -64,6 +74,29 @@ namespace API.Controllers
             var result = await _mediator.Send(command);
             var postDto = new PostDto().Map(result);
             return Ok(Result<PostDto>.Success(postDto));
+        }
+        /// <summary>
+        /// Gets all the likes for a Post by its Id
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("view-likes/{postId}")]
+        public async Task<IActionResult> GetLikesByPostId([FromRoute] Guid postId, [FromQuery] PageRequest query){
+            var result = await _mediator.Send(new GetLikesByPostQuery(postId, query.PageIndex, query.PageSize));
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result, Newtonsoft.Json.Formatting.Indented));
+            var likesDto = result.Items.Select(l => new LikeDto().Map(l)).ToList();
+            return Ok(Result<List<LikeDto>>.Success(likesDto));
+        }
+
+        [HttpPost]
+        [Route("comment")] 
+        public async Task<IActionResult> CreateComment([FromBody] CreateCommentCommand command){
+            var result = await _mediator.Send(command);
+            command.SetUserId(CurrentUser.Id);
+            var commentDto = new CommentDto().Map(result);
+            return Created("api/Post", Result<CommentDto>.Success(commentDto));
         }
         
     }

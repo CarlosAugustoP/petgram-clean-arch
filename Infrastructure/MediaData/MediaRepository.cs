@@ -16,7 +16,7 @@ namespace Infrastructure.MediaData
             _db = db;
         }
 
-        public async Task<Media> CreateMedia(Media media, CancellationToken cancellationToken)
+        public async Task<Media> CreateMediaAsync(Media media, CancellationToken cancellationToken)
         {
             await _db.Medias.AddAsync(media, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);

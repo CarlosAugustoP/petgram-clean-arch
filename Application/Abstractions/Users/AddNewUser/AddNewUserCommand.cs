@@ -45,13 +45,13 @@ namespace Application.Abstractions.Users.AddNewUser
                 ProfileImgUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
             };
 
-            var existingUser = await _userRepository.GetUserByEmail(user.Email, cancellationToken);
+            var existingUser = await _userRepository.GetUserByEmailAsync(user.Email, cancellationToken);
             if (existingUser != null)
             {
                 throw new ConflictException("Found credentials for an existing account");
             }
             
-            var result = await _userRepository.CreateUser(user, cancellationToken);
+            var result = await _userRepository.CreateUserAsync(user, cancellationToken);
             return result;
         }
     }

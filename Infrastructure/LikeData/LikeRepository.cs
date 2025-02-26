@@ -13,7 +13,7 @@ namespace Infrastructure.LikeData
         {
             _db = db;
         }
-        public async Task<Like> LikeComment(Like like, CancellationToken cancellationToken)
+        public async Task<Like> LikeCommentAsync(Like like, CancellationToken cancellationToken)
         {
             var likedComment = like.Comment!;
             like.Comment!.LikeCount++;
@@ -22,7 +22,7 @@ namespace Infrastructure.LikeData
             await _db.SaveChangesAsync(cancellationToken);
             return like; 
         }
-        public async Task<Like> LikePost(Like like, CancellationToken cancellationToken)
+        public async Task<Like> LikePostAsync(Like like, CancellationToken cancellationToken)
         {
             var likedPost = like.Post!;
             like.Post!.LikesCount++;
@@ -32,7 +32,7 @@ namespace Infrastructure.LikeData
             return like;
         }
 
-        public async Task<Like> DislikePost(Like like, CancellationToken cancellationToken)
+        public async Task<Like> DislikePostAsync(Like like, CancellationToken cancellationToken)
         {
             var dislikedPost = like.Post!;
             like.Post!.LikesCount--;
@@ -42,24 +42,25 @@ namespace Infrastructure.LikeData
             return like;
         }
 
-        public async Task<Like?> GetLikeById(Guid id, CancellationToken cancellationToken)
+        public async Task<Like?> GetLikeByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _db.Likes.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         }
 
-        public async Task<PaginatedList<Like>> GetLikesByPostId(Guid postId, int pageIndex, int pageSize, CancellationToken cancellationToken)
+        public async Task<PaginatedList<Like>> GetLikesByPostIdAsync(Guid postId, int pageIndex, int pageSize, CancellationToken cancellationToken)
         {
-            var query = _db.Likes.Where(x => x.PostId == postId).AsQueryable();
+            var query = _db.Likes.Include(x => x.Author).Where(x => x.PostId == postId).AsQueryable();
+            var list = await query.ToListAsync(cancellationToken);
             return await PaginatedList<Like>.CreateAsync(query, pageIndex, pageSize, cancellationToken);
         }
 
-        public async Task<PaginatedList<Like>> GetLikesByUserId(Guid userId, int pageIndex, int pageSize, CancellationToken cancellationToken)
+        public async Task<PaginatedList<Like>> GetLikesByUserIdAsync(Guid userId, int pageIndex, int pageSize, CancellationToken cancellationToken)
         {
             var query = _db.Likes.Where(x=> x.AuthorId == userId).AsQueryable();
             return await PaginatedList<Like>.CreateAsync(query, pageIndex, pageSize, cancellationToken);
         }
 
-        public async Task<Like> DislikeComment(Like like, CancellationToken cancellationToken)
+        public async Task<Like> DislikeCommentAsync(Like like, CancellationToken cancellationToken)
         {
            var dislikedComment = like.Comment!;
            like.Comment!.LikeCount--;
@@ -68,13 +69,7 @@ namespace Infrastructure.LikeData
            await _db.SaveChangesAsync(cancellationToken);
            return like;
         }
-
-        public async Task<bool> HasLiked(Guid userId, Guid postId, CancellationToken cancellationToken)
-        {
-            return await _db.Likes.AnyAsync(l => l.AuthorId == userId && l.PostId == postId, cancellationToken);
-        }
-
-        public async Task<Like?> GetLikeByUserAndPost(Guid userId, Guid postId, CancellationToken cancellationToken)
+        public async Task<Like?> GetLikeByUserAndPostAsync(Guid userId, Guid postId, CancellationToken cancellationToken)
         {
             return await _db.Likes.FirstOrDefaultAsync(l => l.AuthorId == userId && l.PostId == postId, cancellationToken);
         }

@@ -26,6 +26,21 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.PostController.LikePostById(System.Guid)">
+            <summary>
+            Likes a Post by its Id
+            </summary>
+            <param name="postId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.PostController.GetLikesByPostId(System.Guid,API.Abstractions.Requests.PageRequest)">
+            <summary>
+            Gets all the likes for a Post by its Id
+            </summary>
+            <param name="postId"></param>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.UserController.UserFollowUser(System.Guid)">
             <summary>
             Follows a user

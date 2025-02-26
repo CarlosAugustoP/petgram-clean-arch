@@ -26,7 +26,7 @@ namespace Application.Abstractions.Followers.StartFollowing
             var followed = await _userRepository.GetByIdAsync(command.FollowedId, cancellationToken)
                 ?? throw new NotFoundException("Followed not found!");
             
-            await _userRepository.AddUserToFollowers(follower, followed, cancellationToken);
+            await _userRepository.AddUserToFollowersAsync(follower, followed, cancellationToken);
             return followed;
         }
     }

@@ -40,7 +40,7 @@ namespace Infrastructure.UserData
         }
 
 
-        public async Task<User> AddUserToFollowers(User follower, User followed, CancellationToken cancellationToken)
+        public async Task<User> AddUserToFollowersAsync(User follower, User followed, CancellationToken cancellationToken)
         {
             followed.Followers.Add(follower);
             follower.Following.Add(followed);
@@ -53,14 +53,14 @@ namespace Infrastructure.UserData
             return await _db.Users.ToListAsync();
         }
 
-        public async Task<User> CreateUser(User user, CancellationToken cancellationToken = default)
+        public async Task<User> CreateUserAsync(User user, CancellationToken cancellationToken = default)
         {
             await _db.Users.AddAsync(user, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);
             return user;
         }
 
-        public async Task<User> GetUserByEmail (string email, CancellationToken cancellationToken = default)
+        public async Task<User> GetUserByEmailAsync (string email, CancellationToken cancellationToken = default)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }

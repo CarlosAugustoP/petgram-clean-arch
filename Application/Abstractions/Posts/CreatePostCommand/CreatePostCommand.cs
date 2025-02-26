@@ -60,7 +60,7 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 request.Content, new List<Comment>(), DateTime.UtcNow, new List<Like>(), 0
             );
 
-            await _postRepository.CreatePost(post, cancellationToken);
+            await _postRepository.CreatePostAsync(post, cancellationToken);
 
             ConcurrentBag<Media> medias = new();
            
@@ -78,7 +78,7 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 try 
                 {
                     var url = await _supabaseService.UploadFileAsync(media.OpenReadStream(), media.FileName, "petgram-posts");
-                    var mediaDb = await _mediaRepository.CreateMedia(
+                    var mediaDb = await _mediaRepository.CreateMediaAsync(
                     new Media(Guid.NewGuid(), post.Id, null!, media.FileName, url, fileType, null, DateTime.UtcNow)
                     , cancellationToken);
                     medias.Add(mediaDb);
@@ -91,7 +91,7 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                
             });
             post.Medias = medias.ToList();
-            await _postRepository.UpdatePost(post, cancellationToken);
+            await _postRepository.UpdatePostAsync(post, cancellationToken);
             return post;
         }
     }
