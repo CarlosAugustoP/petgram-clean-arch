@@ -12,20 +12,18 @@ namespace API.Abstractions.DTOs.Comments
         public Guid Id { get; set; }
         public string Content { get; set; }
         public UserDto Author { get; set; }
-        public int Likes { get; set; }
-        public int Replies { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsEdited { get; set; }
         public int LikesCount { get; set; }
         public int RepliesCount { get; set; }
 
-        public CommentDto(Guid id, string content, UserDto author, int likes, int replies, DateTime createdAt, bool isEdited)
+        public CommentDto(Guid id, string content, UserDto author, int likesCount, int repliesCount, DateTime createdAt, bool isEdited)
         {
             Id = id;
             Content = content;
             Author = author;
-            Likes = likes;
-            Replies = replies;
+            LikesCount = likesCount;
+            RepliesCount = repliesCount;
             CreatedAt = createdAt;
             IsEdited = isEdited;
         }
@@ -39,7 +37,7 @@ namespace API.Abstractions.DTOs.Comments
             return new CommentDto(
                 comment.Id,
                 comment.Content,
-                new UserDto(comment.Author.Id, comment.Author.ProfileImgUrl!, comment.Author.Name),
+                new UserDto(comment.Author!.Id, comment.Author.ProfileImgUrl!, comment.Author.Name),
                 comment.LikeCount,
                 comment.RepliesCount,
                 comment.CreatedAt,

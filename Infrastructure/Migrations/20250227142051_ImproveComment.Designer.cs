@@ -3,6 +3,7 @@ using System;
 using Infrastructure.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(MainDBContext))]
-    partial class MainDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250227142051_ImproveComment")]
+    partial class ImproveComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +34,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("BaseCommentId")
+                    b.Property<Guid?>("CommentId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Content")
@@ -47,7 +50,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("LikeCount")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("PostId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("RepliesCount")
@@ -57,7 +60,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("BaseCommentId");
+                    b.HasIndex("CommentId");
 
                     b.HasIndex("PostId");
 
@@ -474,17 +477,17 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Comment", "BaseComment")
+                    b.HasOne("Domain.Models.Comment", null)
                         .WithMany("Replies")
-                        .HasForeignKey("BaseCommentId");
+                        .HasForeignKey("CommentId");
 
                     b.HasOne("Domain.Models.Post", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
-
-                    b.Navigation("BaseComment");
 
                     b.Navigation("Post");
                 });

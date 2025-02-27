@@ -21,6 +21,12 @@ using Infrastructure.PostData;
 using Infrastructure.MediaData;
 using Infrastructure.LikeData;
 using Infrastructure.CommentData;
+using Application.Abstractions.Comments;
+using Application.Abstractions.Followers.GetFollowers;
+using Application.Abstractions.Followers.GetFollowingByUser;
+using Application.Abstractions.Likes.GetLikesByPostQuery;
+using Application.Abstractions.Likes.LikePostCommand;
+using Application.Abstractions.Posts.GetPostByIdQuery;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +70,11 @@ builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommand).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(LoginCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(StartFollowingCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CreateCommentCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(GetFollowingByUserQueryValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(GetLikesByPostQueryValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(LikePostCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(GetPostByIdQueryValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddAuthorization();
 

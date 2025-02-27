@@ -85,7 +85,6 @@ namespace API.Controllers
         [Route("view-likes/{postId}")]
         public async Task<IActionResult> GetLikesByPostId([FromRoute] Guid postId, [FromQuery] PageRequest query){
             var result = await _mediator.Send(new GetLikesByPostQuery(postId, query.PageIndex, query.PageSize));
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result, Newtonsoft.Json.Formatting.Indented));
             var likesDto = result.Items.Select(l => new LikeDto().Map(l)).ToList();
             return Ok(Result<List<LikeDto>>.Success(likesDto));
         }
@@ -93,8 +92,8 @@ namespace API.Controllers
         [HttpPost]
         [Route("comment")] 
         public async Task<IActionResult> CreateComment([FromBody] CreateCommentCommand command){
-            var result = await _mediator.Send(command);
             command.SetUserId(CurrentUser.Id);
+            var result = await _mediator.Send(command);
             var commentDto = new CommentDto().Map(result);
             return Created("api/Post", Result<CommentDto>.Success(commentDto));
         }

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.CustomExceptions;
 using Domain.Models;
 using Domain.Repositorys;
@@ -22,14 +18,9 @@ namespace Application.Abstractions.Posts.GetPostByIdQuery
         }
         public async Task<Post> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
         {
-
-            var post = await _postRepository.GetPostByIdAsync(request.Id, cancellationToken);
-            if (post == null)
-            {
-                throw new NotFoundException("Could not find the requested post");
-            }
+            var post = await _postRepository.GetPostByIdAsync(request.Id, cancellationToken)
+                ?? throw new NotFoundException("Post not found for the given id");
             return post;
-
         }
     }
 

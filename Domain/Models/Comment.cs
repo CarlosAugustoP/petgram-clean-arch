@@ -18,20 +18,35 @@ namespace Domain.Models
         public List<Like>? Likes { get; set; } = new List<Like>();
         public int LikeCount { get; set; }
         public int RepliesCount { get; set; }
+        public Post? Post { get; set; }
+        public Guid? PostId { get; set; }
+        public Comment? BaseComment { get; set; }
+        public Guid? BaseCommentId { get; set; }
 
         public Comment()
         {
         }
-
-        public Comment(Guid id, Guid authorId, User author, string content, DateTime createdAt, List<Comment> replies, List<Like> likes)
+        // crie um construtor especifico para criação de um comentario num post
+        public Comment(Guid id, Guid authorId, User author, string content, DateTime createdAt, Post? post, Guid postId)
         {
             Id = id;
             AuthorId = authorId;
             Author = author;
             Content = content;
             CreatedAt = createdAt;
-            Replies = replies;
-            Likes = likes;
+            Post = post;
+            PostId = postId;
         }
+
+        // public Comment(Guid id, Guid authorId, User author, string content, DateTime createdAt, Post post, Guid postId)
+        // {
+        //     Id = id;
+        //     AuthorId = authorId;
+        //     Author = author;
+        //     Content = content;
+        //     CreatedAt = createdAt;
+        //     Post = post;
+        //     PostId = postId;
+        // }
     }
 }

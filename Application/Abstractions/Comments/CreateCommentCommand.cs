@@ -44,14 +44,15 @@ namespace Application.Abstractions.Comments
                 throw new NotFoundException("User not found for the given id");
                 
             var comment = new Comment(
-                Guid.NewGuid(), 
-                request.UserId, 
-                user, 
-                request.Content, 
-                DateTime.UtcNow, 
-                new List<Comment>(), 
-                new List<Like>()
+                Guid.NewGuid(),
+                request.UserId,
+                user,
+                request.Content,
+                DateTime.UtcNow,
+                null,
+                request.PostId
             );
+            
             var createdComment = await _commentRepository.CreateCommentAsync(comment, cancellationToken);
             return createdComment;
         }
