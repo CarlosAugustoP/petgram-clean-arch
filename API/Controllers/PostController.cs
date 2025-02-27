@@ -89,6 +89,11 @@ namespace API.Controllers
             return Ok(Result<List<LikeDto>>.Success(likesDto));
         }
 
+        /// <summary>
+        /// Creates a comment on a Post
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("comment")] 
         public async Task<IActionResult> CreateComment([FromBody] CreateCommentCommand command){
