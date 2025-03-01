@@ -104,7 +104,12 @@ namespace API.Controllers
             var commentDto = new CommentDto().Map(result);
             return Created("api/Post", Result<CommentDto>.Success(commentDto));
         }
-
+        /// <summary>
+        /// Gets all the comments for a Post
+        /// </summary>
+        /// <param name="pageRequest"></param>
+        /// <param name="postId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("comments/{postId}")]
         public async Task<IActionResult> GetPostComments([FromQuery] PageRequest pageRequest, [FromRoute] Guid postId)
