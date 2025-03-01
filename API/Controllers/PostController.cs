@@ -6,7 +6,6 @@ using API.Abstractions.DTOs.Comments;
 using API.Abstractions.Helpers;
 using API.Abstractions.Requests;
 using API.Abstractions.Result;
-using Application.Abstractions.Comments;
 using Application.Abstractions.Likes.GetLikesByPostQuery;
 using Application.Abstractions.Likes.LikePostCommand;
 using Application.Abstractions.Posts.CreatePostCommand;
@@ -15,6 +14,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Application.Abstractions.Comments.CreateCommentCommand;
+using Application.Abstractions.Comments.GetCommentsFromPostQuery;
 
 namespace API.Controllers
 {
@@ -95,13 +96,25 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("comment")] 
-        public async Task<IActionResult> CreateComment([FromBody] CreateCommentCommand command){
+        [Authorize]
+        [Route("comments")] 
+        public async Task<IActionResult> CreatePostComment([FromBody] CreateCommentCommand command){
             command.SetUserId(CurrentUser.Id);
             var result = await _mediator.Send(command);
             var commentDto = new CommentDto().Map(result);
             return Created("api/Post", Result<CommentDto>.Success(commentDto));
         }
+
+        [HttpGet]
+        [Route("comments/{postId}")]
+        public async Task<IActionResult> GetPostComments([FromQuery] PageRequest pageRequest, [FromRoute] Guid postId)
+        {
+            var result = await _mediator.Send(new GetCommentsFromPostQuery(postId, pageRequest.PageIndex, pageRequest.PageSize));
+            var commentsDto = result.Items.Select(c => new CommentDto().Map(c)).ToList();
+            return Ok(Result<List<CommentDto>>.Success(commentsDto));
+        }
+
+
         
     }
 }

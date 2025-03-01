@@ -16,7 +16,7 @@ namespace Infrastructure.LikeData
         public async Task<Like> LikeCommentAsync(Like like, CancellationToken cancellationToken)
         {
             var likedComment = like.Comment!;
-            like.Comment!.LikeCount++;
+            like.Comment!.LikeCount++; 
             _db.Comments.Update(likedComment);
             await _db.AddAsync(like, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);
@@ -74,6 +74,9 @@ namespace Infrastructure.LikeData
             return await _db.Likes.FirstOrDefaultAsync(l => l.AuthorId == userId && l.PostId == postId, cancellationToken);
         }
 
-        
+        public Task<Like?> GetLikeByUserAndCommentAsync(Guid userId, Guid commentId, CancellationToken cancellationToken)
+        {
+            return _db.Likes.FirstOrDefaultAsync(l => l.AuthorId == userId && l.CommentId == commentId, cancellationToken);
+        }
     }
 }

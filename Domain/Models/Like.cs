@@ -28,5 +28,15 @@ namespace Domain.Models
             CreatedAt = createdAt;
             CommentId = commentId;
         }
+
+        public Like(Guid id, Guid authorId, User? author, Comment? comment, DateTime createdAt, Guid? commentId)
+        {
+            Id = id;
+            AuthorId = authorId;
+            Author = author;
+            Comment = comment;
+            CreatedAt = createdAt;
+            CommentId = commentId;
+        }
     }
 }

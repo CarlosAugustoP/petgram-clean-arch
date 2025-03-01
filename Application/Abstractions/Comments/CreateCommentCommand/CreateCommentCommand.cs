@@ -3,7 +3,7 @@ using Domain.Models;
 using Domain.Repositorys;
 using MediatR;
 
-namespace Application.Abstractions.Comments
+namespace Application.Abstractions.Comments.CreateCommentCommand
 {
     public sealed record CreateCommentCommand : IRequest<Comment>
     {
@@ -20,7 +20,7 @@ namespace Application.Abstractions.Comments
         {
             UserId = userId;
         }
-        
+
     }
 
     internal sealed class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, Comment>
@@ -42,7 +42,7 @@ namespace Application.Abstractions.Comments
 
             var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken) ??
                 throw new NotFoundException("User not found for the given id");
-                
+
             var comment = new Comment(
                 Guid.NewGuid(),
                 request.UserId,
@@ -52,7 +52,7 @@ namespace Application.Abstractions.Comments
                 null,
                 request.PostId
             );
-            
+
             var createdComment = await _commentRepository.CreateCommentAsync(comment, cancellationToken);
             return createdComment;
         }

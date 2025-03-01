@@ -13,6 +13,7 @@ namespace Domain.Repositorys
         Task<PaginatedList<Like>> GetLikesByPostIdAsync(Guid postId, int pageIndex, int pageSize, CancellationToken cancellationToken);
         Task<PaginatedList<Like>> GetLikesByUserIdAsync(Guid userId,  int pageIndex, int pageSize, CancellationToken cancellationToken);
         Task<Like?> GetLikeByUserAndPostAsync(Guid userId, Guid postId, CancellationToken cancellationToken);
+        Task<Like?> GetLikeByUserAndCommentAsync(Guid userId, Guid commentId, CancellationToken cancellationToken);
 
     }
 }

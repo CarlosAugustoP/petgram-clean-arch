@@ -38,15 +38,16 @@ namespace Domain.Models
             PostId = postId;
         }
 
-        // public Comment(Guid id, Guid authorId, User author, string content, DateTime createdAt, Post post, Guid postId)
-        // {
-        //     Id = id;
-        //     AuthorId = authorId;
-        //     Author = author;
-        //     Content = content;
-        //     CreatedAt = createdAt;
-        //     Post = post;
-        //     PostId = postId;
-        // }
+        // crie um construtor especifico para criação de um comentario numa resposta
+        public Comment(Guid id, Guid authorId, User author, string content, DateTime createdAt, Comment baseComment, Guid baseCommentId, bool isReply)
+        {
+            Id = id;
+            AuthorId = authorId;
+            Author = author;
+            Content = content;
+            CreatedAt = createdAt;
+            BaseComment = baseComment;
+            BaseCommentId = baseCommentId;
+        }
     }
 }

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Domain.Models;
 using Domain.Repositorys;
 using Infrastructure.DB;
+using Microsoft.EntityFrameworkCore;
+using SharedKernel.Common;
 
 namespace Infrastructure.CommentData
 {
@@ -17,24 +19,37 @@ namespace Infrastructure.CommentData
         }
         public async Task<Comment> CreateCommentAsync(Comment comment, CancellationToken cancellationToken)
         {
-            await _db.Comments.AddAsync(comment);
-            await _db.SaveChangesAsync();
+
+            await _db.Comments.AddAsync(comment, cancellationToken);
+            await _db.SaveChangesAsync(cancellationToken);
             return comment;
         }
 
-        public Task<Comment> DeleteCommentAsync(Comment comment, CancellationToken cancellationToken)
+        public async Task<Comment> CreateReplyAsync(Comment comment, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            comment.BaseComment!.RepliesCount++;
+            await _db.Comments.AddAsync(comment, cancellationToken);
+            await _db.SaveChangesAsync(cancellationToken);
+            return comment;
         }
 
-        public Task<Comment> GetCommentByIdAsync(Guid id, CancellationToken cancellationToken)
+
+        public async Task<Comment> DeleteCommentAsync(Comment comment, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            _db.Comments.Remove(comment);
+            await _db.SaveChangesAsync(cancellationToken);
+            return comment;
         }
 
-        public Task<List<Comment>> GetCommentsByPostIdAsync(Guid postId, CancellationToken cancellationToken)
+        public async Task<Comment?> GetCommentByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _db.Comments.FindAsync(id, cancellationToken);
+        }
+
+        public Task<PaginatedList<Comment>> GetCommentsByPostIdAsync(Guid postId, int pageIndex, int pageSize, CancellationToken cancellationToken)
+        {
+            var query = _db.Comments.Include(x => x.Author).Where(c => c.PostId == postId).AsQueryable();
+            return PaginatedList<Comment>.CreateAsync(query, pageIndex, pageSize, cancellationToken);
         }
 
         public Task<List<Comment>> GetCommentsByUserIdAsync(Guid userId, CancellationToken cancellationToken)
@@ -42,9 +57,13 @@ namespace Infrastructure.CommentData
             throw new NotImplementedException();
         }
 
-        public Task<Comment> UpdateCommentAsync(Comment comment, CancellationToken cancellationToken)
+        public async Task<Comment> UpdateCommentAsync(Comment comment, string content, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            comment.Content = content;
+            comment.IsEdited = true; 
+            _db.Comments.Update(comment);
+            await _db.SaveChangesAsync(cancellationToken);
+            return comment;
         }
     }
 }

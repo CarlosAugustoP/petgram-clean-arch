@@ -11,6 +11,34 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.CommentController.ReplyToComment(Application.Abstractions.Comments.CreateReplyCommand.CreateReplyCommand)">
+            <summary>
+            Replies to a comment
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.CommentController.LikeComment(System.Guid)">
+            <summary>
+            Adds a like to a comment
+            </summary>
+            <param name="commentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.CommentController.DeleteComment(System.Guid)">
+            <summary>
+            Deletes a comment or reply
+            </summary>
+            <param name="commentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.CommentController.EditComment(Application.Abstractions.Comments.UpdateCommentCommand.UpdateCommentCommand)">
+            <summary>
+            Edits a comment
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.PostController.CreatePost(Application.Abstractions.Posts.CreatePostCommand.CreatePostCommand)">
             <summary>
             Creates a Post based on a user's request
@@ -39,6 +67,13 @@
             </summary>
             <param name="postId"></param>
             <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.PostController.CreatePostComment(Application.Abstractions.Comments.CreateCommentCommand.CreateCommentCommand)">
+            <summary>
+            Creates a comment on a Post
+            </summary>
+            <param name="command"></param>
             <returns></returns>
         </member>
         <member name="M:API.Controllers.UserController.UserFollowUser(System.Guid)">

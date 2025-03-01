@@ -21,12 +21,12 @@ using Infrastructure.PostData;
 using Infrastructure.MediaData;
 using Infrastructure.LikeData;
 using Infrastructure.CommentData;
-using Application.Abstractions.Comments;
 using Application.Abstractions.Followers.GetFollowers;
 using Application.Abstractions.Followers.GetFollowingByUser;
 using Application.Abstractions.Likes.GetLikesByPostQuery;
 using Application.Abstractions.Likes.LikePostCommand;
 using Application.Abstractions.Posts.GetPostByIdQuery;
+using Application.Abstractions.Comments.CreateCommentCommand;
 
 var builder = WebApplication.CreateBuilder(args);
 

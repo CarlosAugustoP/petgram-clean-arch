@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace Application.Abstractions.Comments
+namespace Application.Abstractions.Comments.CreateCommentCommand
 {
     public class CreateCommentCommandValidator : AbstractValidator<CreateCommentCommand>
     {
