@@ -27,6 +27,7 @@ using Application.Abstractions.Likes.GetLikesByPostQuery;
 using Application.Abstractions.Likes.LikePostCommand;
 using Application.Abstractions.Posts.GetPostByIdQuery;
 using Application.Abstractions.Comments.CreateCommentCommand;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +76,8 @@ builder.Services.AddValidatorsFromAssembly(typeof(GetFollowingByUserQueryValidat
 builder.Services.AddValidatorsFromAssembly(typeof(GetLikesByPostQueryValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(LikePostCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(GetPostByIdQueryValidator).Assembly);
+var smtpKey = Environment.GetEnvironmentVariable("SMTP_KEY") ?? throw new ArgumentNullException("Invalid smtp key");
+builder.Services.AddSingleton<IEmailService, EmailService>(ems => new EmailService(smtpKey));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddAuthorization();
 
@@ -130,6 +133,12 @@ var connectionString = $"Host={localhost};Port={port};Database={database};Userna
 builder.Services.AddDbContext<MainDBContext>(options => 
     options.UseNpgsql(connectionString));
 #endregion    
+
+#region [Redis]
+var pass = Environment.GetEnvironmentVariable("REDIS_PASSWORD") ?? throw new ArgumentNullException("Could not find redis variable");
+builder.Services.AddSingleton(ConnectionMultiplexer.Connect($"localhost:6379, password={pass}"));
+builder.Services.AddScoped<IRedisService, RedisService>();
+#endregion
 
 var app = builder.Build();
 

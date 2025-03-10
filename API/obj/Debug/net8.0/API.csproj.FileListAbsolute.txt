@@ -637,3 +637,7 @@ C:\Users\pc\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\Websocket.Clien
 C:\Users\pc\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.dll
 C:\Users\pc\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\SharedKernel.pdb
 C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\ProfanityFilter.dll
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\NetTopologySuite.dll
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\NRedisStack.dll
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\capv2\source\repos\petgram-clean-arch\API\bin\Debug\net8.0\StackExchange.Redis.dll

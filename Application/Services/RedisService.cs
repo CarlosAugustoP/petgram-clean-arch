@@ -1,0 +1,42 @@
+using StackExchange.Redis;
+using System.Text.Json;
+
+namespace Application.Services{
+    public interface IRedisService {
+        public Task SetCodeAsync(string email, string code, int expiryMinutes);
+        public Task SetObjectAsync<T>(string key, T value, int expiryMinutes);
+        public Task<T?> GetObjectAsync<T>(string key);
+        public Task<string?> GetCodeAsync(string email);
+        public Task<bool> ValidateAndDeleteCodeAsync(string email, string code);
+        
+    }
+    public class RedisService : IRedisService{
+        private readonly IDatabase _db;
+
+        public RedisService(ConnectionMultiplexer redis)
+        {
+            _db = redis.GetDatabase();
+        }
+
+        public async Task SetCodeAsync(string email, string code, int expiryMinutes){
+            await _db.StringSetAsync(email, code, TimeSpan.FromMinutes(expiryMinutes));
+        }
+
+        public async Task SetObjectAsync<T>(string key, T value, int expiryMinutes){
+            var json = JsonSerializer.Serialize(value);
+            await _db.StringSetAsync(key, json, TimeSpan.FromMinutes(expiryMinutes));
+        }
+
+        public async Task<string?> GetCodeAsync(string email){
+            return await _db.StringGetAsync(email);
+        }
+
+        public async Task<bool> ValidateAndDeleteCodeAsync(string email, string code){
+            return await GetCodeAsync(email) == code;
+        }
+        public async Task<T?> GetObjectAsync<T>(string key){
+            var json = await _db.StringGetAsync(key);   
+            return json.HasValue ? JsonSerializer.Deserialize<T>(json!) : default;
+        }
+    }
+}

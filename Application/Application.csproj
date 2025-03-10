@@ -16,9 +16,11 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net" Version="0.1.0" />
     <PackageReference Include="FluentValidation" Version="11.7.0" />
+    <PackageReference Include="MailKit" Version="4.11.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.2" />
+    <PackageReference Include="NRedisStack" Version="0.13.2" />
     <PackageReference Include="Profanity.Detector" Version="0.1.8" />
     <PackageReference Include="Supabase" Version="1.1.1" />
   </ItemGroup>

@@ -7,6 +7,7 @@ using Domain.Models;
 using Application.Helper;
 using Microsoft.EntityFrameworkCore;
 using Domain.CustomExceptions;
+using Application.Services;
 
 namespace Application.Abstractions.Users.AddNewUser
 {
@@ -28,10 +29,14 @@ namespace Application.Abstractions.Users.AddNewUser
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher _passwordHasher;
-        public AddNewUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher)
+        private readonly IEmailService _emailService;
+        private readonly IRedisService _redisService;
+        public AddNewUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IRedisService redisService, IEmailService emailService)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
+            _redisService = redisService ?? throw new ArgumentNullException(nameof(redisService));
+            _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
         }
 
         public async Task<object> Handle(AddNewUserCommand command, CancellationToken cancellationToken)
@@ -50,9 +55,20 @@ namespace Application.Abstractions.Users.AddNewUser
             {
                 throw new ConflictException("Found credentials for an existing account");
             }
+
+            // generate code
+            await _redisService.SetObjectAsync(user.Email, user, 10 );
             
-            var result = await _userRepository.CreateUserAsync(user, cancellationToken);
-            return result;
+            var code = new Random().Next(100000, 999999).ToString();
+            try 
+            {
+                await _redisService.SetCodeAsync(user.Email, code , 10);
+                await _emailService.SendEmail(user.Email, $"A warm welcome from our crew here at pegram! Here is your 6-digit verification token: {code}", "Verification code");
+            }catch(Exception)
+            {
+                throw new BadRequestException("Seems like your email is invalid!");
+            }
+            return new Dictionary<string,string>{{"Redis key:", user.Email}};
         }
     }
 }

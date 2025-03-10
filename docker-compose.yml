@@ -5,8 +5,24 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
+      POSTGRES_PASSWORD: "1234"
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: redis-container
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=1234
+    command: ["redis-server", "--requirepass", "1234"]
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
+    driver: local

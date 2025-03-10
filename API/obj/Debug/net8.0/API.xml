@@ -76,6 +76,14 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.PostController.GetPostComments(API.Abstractions.Requests.PageRequest,System.Guid)">
+            <summary>
+            Gets all the comments for a Post
+            </summary>
+            <param name="pageRequest"></param>
+            <param name="postId"></param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.UserController.UserFollowUser(System.Guid)">
             <summary>
             Follows a user
