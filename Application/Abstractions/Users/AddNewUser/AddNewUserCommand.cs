@@ -43,12 +43,19 @@ namespace Application.Abstractions.Users.AddNewUser
         {
             var user = new User
             {
+                Id = Guid.NewGuid(),
                 Email = command.Email,
                 Password = _passwordHasher.HashPassword(command.Password),
                 Name = command.Name,
                 // TODO change to default URL for profile image
                 ProfileImgUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
             };
+           
+            var existsOnRedis = await _redisService.GetCodeAsync(user.Email);
+            
+            if (existsOnRedis != null){
+                return "A user is already registered and set to receive a token"; 
+            }
 
             var existingUser = await _userRepository.GetUserByEmailAsync(user.Email, cancellationToken);
             if (existingUser != null)
@@ -57,18 +64,22 @@ namespace Application.Abstractions.Users.AddNewUser
             }
 
             // generate code
-            await _redisService.SetObjectAsync(user.Email, user, 10 );
-            
+            await _redisService.SetObjectAsync(user.Id.ToString(), user, 10);
+
             var code = new Random().Next(100000, 999999).ToString();
-            try 
+            try
             {
-                await _redisService.SetCodeAsync(user.Email, code , 10);
-                await _emailService.SendEmail(user.Email, $"A warm welcome from our crew here at pegram! Here is your 6-digit verification token: {code}", "Verification code");
-            }catch(Exception)
+                await _redisService.SetCodeAsync(user.Email, code, 10);
+                await _emailService.SendEmail(user.Email,
+                    $"A warm welcome from our crew here at pegram! Here is your 6-digit verification token: {code}",
+                    "Verification code");
+            }
+            catch (Exception)
             {
                 throw new BadRequestException("Seems like your email is invalid!");
             }
-            return new Dictionary<string,string>{{"Redis key:", user.Email}};
+
+            return new Dictionary<string, string> { {user.Id.ToString(), user.Email } };
         }
     }
 }

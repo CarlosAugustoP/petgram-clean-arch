@@ -60,8 +60,15 @@ namespace API.Controllers
         public async Task<IActionResult> Signup([FromBody] AddNewUserCommand command)
         {
             var result = await _mediator.Send(command);
-            var userDto = _mapper.Map<UserDto>(result);
-            return Created("api/User/signup", Result<UserDto>.Success(userDto));
+            if (result is string)
+            {
+                return Ok(Result<string>.Success(result.ToString()!));
+            }else if (result is Dictionary<string,string>)
+            { 
+                return Created("api/User/signup", Result<Dictionary<string,string>>.Success(
+                    (Dictionary<string, string>)result));
+            }
+            else return StatusCode(500, "Internal Server Error");
         }
 
         /// <summary>
@@ -97,8 +104,8 @@ namespace API.Controllers
                 PageSize = pageRequest.PageSize
             });
             return Ok(following.Items.Select(f => _mapper.Map<UserDto>(f)));
-
         }
+
     }
 }
 

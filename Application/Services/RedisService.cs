@@ -1,3 +1,4 @@
+using Domain.CustomExceptions;
 using StackExchange.Redis;
 using System.Text.Json;
 
@@ -21,6 +22,7 @@ namespace Application.Services{
         public async Task SetCodeAsync(string email, string code, int expiryMinutes){
             await _db.StringSetAsync(email, code, TimeSpan.FromMinutes(expiryMinutes));
         }
+        
 
         public async Task SetObjectAsync<T>(string key, T value, int expiryMinutes){
             var json = JsonSerializer.Serialize(value);
@@ -32,7 +34,12 @@ namespace Application.Services{
         }
 
         public async Task<bool> ValidateAndDeleteCodeAsync(string email, string code){
-            return await GetCodeAsync(email) == code;
+            var c = await GetCodeAsync(email) 
+                ?? throw new NotFoundException("Could not find the given code for the specified key");
+            
+            bool result = c == code;
+            if (result) await _db.KeyDeleteAsync(email);
+            return result;
         }
         public async Task<T?> GetObjectAsync<T>(string key){
             var json = await _db.StringGetAsync(key);   
