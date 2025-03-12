@@ -38,10 +38,15 @@ namespace API.Controllers
             return Ok(Result<string>.Success(token));
         }
 
+        /// <summary>
+        /// Actually creates the user, moving the object from redis to 
+        /// </summary>
+        /// <param name="vtc"></param>
+        /// <returns></returns>
         [HttpPost]
-        [Route("validate/{userId}/{email}")]
-        public async Task<IActionResult> ValidateToken([FromRoute] Guid userId, [FromRoute] string email, [FromBody] string token){
-            var result = await _mediator.Send(new ValidateTokenCommand(email,token, userId));
+        [Route("validate-token")]
+        public async Task<IActionResult> ValidateToken([FromBody] ValidateTokenCommand vtc){
+            var result = await _mediator.Send(vtc);
             var userDto = _mapper.Map<UserDto>(result);
             return Ok(Result<UserDto>.Success(userDto));
        }

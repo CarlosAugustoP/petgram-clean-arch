@@ -27,9 +27,10 @@ namespace Application.Abstractions.Comments.DeleteCommentCommand
         private readonly ICommentRepository _commentRepository;
         private readonly IUserRepository _userRepository;
 
-        public DeleteCommentCommandHandler(ICommentRepository commentRepository)
+        public DeleteCommentCommandHandler(ICommentRepository commentRepository, IUserRepository userRepository)
         {
             _commentRepository = commentRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<Comment> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)

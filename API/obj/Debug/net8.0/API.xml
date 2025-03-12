@@ -11,6 +11,13 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.AuthController.ValidateToken(Application.Abstractions.Users.ValidateToken.ValidateTokenCommand)">
+            <summary>
+            Actually creates the user, moving the object from redis to 
+            </summary>
+            <param name="vtc"></param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.CommentController.ReplyToComment(Application.Abstractions.Comments.CreateReplyCommand.CreateReplyCommand)">
             <summary>
             Replies to a comment

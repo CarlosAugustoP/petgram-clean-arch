@@ -29,6 +29,11 @@ using Application.Abstractions.Posts.GetPostByIdQuery;
 using Application.Abstractions.Comments.CreateCommentCommand;
 using StackExchange.Redis;
 using Application.Abstractions.Users.ValidateToken;
+using Application.Abstractions.Comments.DeleteCommentCommand;
+using Application.Abstractions.Comments.CreateReplyCommand;
+using Application.Abstractions.Comments.GetCommentsFromPostQuery;
+using Application.Abstractions.Comments.LikeCommentCommand;
+using Application.Abstractions.Comments.UpdateCommentCommand;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,7 +73,7 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(StartFollowingCommand).Assembly); 
 });
 builder.Services.AddValidatorsFromAssembly(typeof(AddNewUserCommandValidator).Assembly);
-builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommand).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(LoginCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(StartFollowingCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommandValidator).Assembly);
@@ -78,6 +83,13 @@ builder.Services.AddValidatorsFromAssembly(typeof(GetLikesByPostQueryValidator).
 builder.Services.AddValidatorsFromAssembly(typeof(LikePostCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(GetPostByIdQueryValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(ValidateTokenCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(GetFollowersByUserQueryValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(DeleteCommentCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CreateReplyCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(GetCommentsFromPostQueryValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(LikeCommentCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(UpdateCommentCommandValidator).Assembly);
+
 
 var smtpKey = Environment.GetEnvironmentVariable("SMTP_KEY") ?? throw new ArgumentNullException("Invalid smtp key");
 builder.Services.AddSingleton<IEmailService, EmailService>(ems => new EmailService(smtpKey));

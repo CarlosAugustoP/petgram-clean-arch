@@ -15,10 +15,12 @@ namespace Application.Abstractions.Followers.GetFollowingByUser
                 .Must(x => x != Guid.Empty).WithMessage("User ID must be a valid GUID.");
 
             RuleFor(x => x.PageIndex)
-                .GreaterThanOrEqualTo(0).WithMessage("Page index must be greater than or equal to 0.");
+                .Must(x => x >= 0).WithMessage("Cannot access a negative page")
+                .NotEmpty().WithMessage("Please add the page index.");
 
             RuleFor(x => x.PageSize)
-                .GreaterThan(0).WithMessage("Page size must be greater than 0.");
-        }
+                .Must(x => x >0).WithMessage("Cannot access negative page values")
+                .NotEmpty().WithMessage("Please add the page size.")
+                .Must(x => x < 50).WithMessage("Cannot render more than 50 elements at a time");}
     }
 }
