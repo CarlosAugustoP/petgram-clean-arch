@@ -23,12 +23,7 @@ public class ValidationExceptionMiddleware
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
             context.Response.ContentType = "application/json";
 
-            var response = new ValidationErrorResponse
-            {
-                Type = "ValidationError",
-                Title = "Validation Failed",
-                Status = StatusCodes.Status400BadRequest,
-            };
+            var response = new ValidationErrorResponse();
 
             foreach (var error in ex.Errors)
             {
@@ -39,7 +34,9 @@ public class ValidationExceptionMiddleware
                 response.Errors[error.PropertyName].Add(error.ErrorMessage);
             }
 
-            var jsonResponse = JsonSerializer.Serialize(response);
+            var result = Result.Result<ValidationErrorResponse>.ValidationFailure(response);
+
+            var jsonResponse = JsonSerializer.Serialize(result);
             await context.Response.WriteAsync(jsonResponse);
         }
     }
