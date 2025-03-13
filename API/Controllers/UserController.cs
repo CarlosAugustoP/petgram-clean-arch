@@ -88,6 +88,7 @@ namespace API.Controllers
             });
             return Ok(followers.Items.Select(f => _mapper.Map<UserDto>(f)));
         }
+        
         /// <summary>
         /// Fetches all the users that the current user is following
         /// </summary>

@@ -8,8 +8,8 @@ namespace Application.Services{
         public Task SetObjectAsync<T>(string key, T value, int expiryMinutes);
         public Task<T?> GetObjectAsync<T>(string key);
         public Task<string?> GetCodeAsync(string email);
+        public Task<bool> DeleteAsync(string key); 
         public Task<bool> ValidateAndDeleteCodeAsync(string email, string code);
-        
     }
     public class RedisService : IRedisService{
         private readonly IDatabase _db;
@@ -23,7 +23,6 @@ namespace Application.Services{
             await _db.StringSetAsync(email, code, TimeSpan.FromMinutes(expiryMinutes));
         }
         
-
         public async Task SetObjectAsync<T>(string key, T value, int expiryMinutes){
             var json = JsonSerializer.Serialize(value);
             await _db.StringSetAsync(key, json, TimeSpan.FromMinutes(expiryMinutes));
@@ -44,6 +43,12 @@ namespace Application.Services{
         public async Task<T?> GetObjectAsync<T>(string key){
             var json = await _db.StringGetAsync(key);   
             return json.HasValue ? JsonSerializer.Deserialize<T>(json!) : default;
+        }
+
+        public async Task<bool> DeleteAsync(string key)
+        {
+            await _db.KeyDeleteAsync(key);
+            return true;
         }
     }
 }

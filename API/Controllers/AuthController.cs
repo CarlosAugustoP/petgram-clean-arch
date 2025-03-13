@@ -1,6 +1,7 @@
 ﻿using API.Abstractions.DTOs.User;
 using API.Abstractions.Result;
 using Application.Abstractions.Users.Login;
+using Application.Abstractions.Users.ResendToken;
 using Application.Abstractions.Users.ValidateToken;
 using Application.Services;
 using AutoMapper;
@@ -49,6 +50,14 @@ namespace API.Controllers
             var result = await _mediator.Send(vtc);
             var userDto = _mapper.Map<UserDto>(result);
             return Ok(Result<UserDto>.Success(userDto));
+       }
+
+       [HttpPost]
+       [Route("resend-token/{userId}")]
+       public async Task<IActionResult> ResendToken([FromRoute] Guid userId){
+            return Ok(Result<Dictionary<string,string>>.Success(
+                await _mediator.Send(new ResendTokenCommand(userId)))
+            );
        }
     }
 }

@@ -8,6 +8,7 @@ using Application.Helper;
 using Microsoft.EntityFrameworkCore;
 using Domain.CustomExceptions;
 using Application.Services;
+using System.Security.Cryptography;
 
 namespace Application.Abstractions.Users.AddNewUser
 {
@@ -66,7 +67,7 @@ namespace Application.Abstractions.Users.AddNewUser
             // generate code
             await _redisService.SetObjectAsync(user.Id.ToString(), user, 10);
 
-            var code = new Random().Next(100000, 999999).ToString();
+            var code = RandomNumberGenerator.GetInt32(100000, 999999).ToString();
             try
             {
                 await _redisService.SetCodeAsync(user.Email, code, 10);
@@ -79,7 +80,7 @@ namespace Application.Abstractions.Users.AddNewUser
                 throw new BadRequestException("Seems like your email is invalid!");
             }
 
-            return new Dictionary<string, string> { {user.Id.ToString(), user.Email } };
+            return new Dictionary<string, string> { {"User key", user.Id.ToString() } };
         }
     }
 }

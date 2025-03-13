@@ -10,14 +10,12 @@ namespace Application.Abstractions.Users.ValidateToken {
     public sealed record ValidateTokenCommand : IRequest<User>
     {
         public required string Token {get; init;}
-        public required string EmailKey {get; init;}
         public required Guid UserId {get; init;}
 
         [SetsRequiredMembers]
-        public ValidateTokenCommand(string emailKey, string token, Guid userId)
+        public ValidateTokenCommand( string token, Guid userId)
         {
             Token = token;
-            EmailKey = emailKey;
             UserId = userId;
         }
     }
@@ -36,8 +34,10 @@ namespace Application.Abstractions.Users.ValidateToken {
         {
             var user = await _redisService.GetObjectAsync<User>(request.UserId.ToString())
                 ?? throw new NotFoundException("Could not find the requested email for token validation");
-            if (await _redisService.ValidateAndDeleteCodeAsync(request.EmailKey, request.Token))
+            
+            if (await _redisService.ValidateAndDeleteCodeAsync(user.Email, request.Token))
                 return await _userRepository.CreateUserAsync(user, cancellationToken);
+                
             else throw new BadRequestException("Invalid code. please, generate a new code.");
         }
     }
