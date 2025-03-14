@@ -16,7 +16,7 @@ namespace Application.Services {
 
         public async Task SendEmail(string to, string body, string subject){
             var email = new MimeMessage();
-            email.From.Add(new MailboxAddress("PetGram", "capv2004@gmail.com"));
+            email.From.Add(new MailboxAddress("PetGram", "petgram.network@gmail.com"));
             email.To.Add(new MailboxAddress("", to));
             email.Subject = subject;
             email.Body = new TextPart("html"){Text = body};
