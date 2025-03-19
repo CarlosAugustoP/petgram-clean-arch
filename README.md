@@ -1,3 +1,8 @@
 # PetGram - Clean Architecture + CQRS
 
-Using Asp net core to create a robust web application that serves as a social media for pets. 
+PetGram is a social media for pets! It allows users to have common social media interactions about pets such as posts, messages, comments, likes, and more.
+
+Stacks used: PostgreSQL (Main DB), SQLite (Offline data management), Redis (Caching), ASP.NET Core (back-end), Python (machine learning), Vue js (front-end), Docker (container management), Supabase (image storage).  
+
+Related repositories:
+- Pet discerning model: https://github.com/CarlosAugustoP/petgram-discriminator/tree/main
