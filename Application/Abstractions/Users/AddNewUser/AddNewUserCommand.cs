@@ -80,7 +80,7 @@ namespace Application.Abstractions.Users.AddNewUser
                 throw new BadRequestException("Seems like your email is invalid!");
             }
 
-            return new Dictionary<string, string> { {"User key", user.Id.ToString() } };
+            return new Dictionary<string, string> { {"userKey", user.Id.ToString() } };
         }
     }
 }

@@ -106,7 +106,7 @@ namespace API.Controllers
             });
             return Ok(following.Items.Select(f => _mapper.Map<UserDto>(f)));
         }
-
+    
     }
 }
 
