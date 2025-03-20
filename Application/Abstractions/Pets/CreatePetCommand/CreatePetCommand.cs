@@ -7,6 +7,7 @@ using Domain.Repositorys;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using SharedKernel.Utils.Http;
 
 namespace Application.Abstractions.Pets.CreatePetCommand
 {
@@ -41,14 +42,16 @@ namespace Application.Abstractions.Pets.CreatePetCommand
         private readonly IPetRepository _petRepository;
         private readonly ISupabaseService _supabaseService;
         private readonly IUserRepository _userRepository;
-        public CreatePetCommandHandler(IPetRepository petRepository, ISupabaseService supabaseService, IUserRepository userRepository)
+        private readonly string ApiUrl;
+        public CreatePetCommandHandler(IPetRepository petRepository, ISupabaseService supabaseService, IUserRepository userRepository, string apiUrl)
         {
             _petRepository = petRepository;
             _supabaseService = supabaseService;
             _userRepository = userRepository;
+            ApiUrl = apiUrl;
         }
         
-        internal class PythonResponse {
+        internal class ModelResponse {
             public required string @Class { get; set; }
             public required decimal Confidence { get; set; }
             public required string Message { get; set; }
@@ -65,33 +68,15 @@ namespace Application.Abstractions.Pets.CreatePetCommand
             {
                 { new StringContent(request.Img.FileName), "file" }
             };
-            
-            var req = await client.PostAsync("localhost:5001/send", formData);
-            var resJson = await req.Content.ReadAsStringAsync(cancellationToken);
-            var res = JsonSerializer.Deserialize<PythonResponse>(resJson);
-            
-            if (res == null){
-                throw new BadRequestException("Error while processing image");
-            }
 
-            if (res.@Class == "Cat"){
-                req = await client.PostAsync("localhost:5001/get-cat-breed", formData);
-                resJson = await req.Content.ReadAsStringAsync(cancellationToken);
-                res = JsonSerializer.Deserialize<PythonResponse>(resJson);
-                if (res == null){
-                    throw new BadRequestException("Error while processing image");
-                }
-                breed = res.@Class;
-
-            } else if (res.@Class == "Dog"){
-                req = await client.PostAsync("localhost:5001/get-dog-breed", formData);
-                resJson = await req.Content.ReadAsStringAsync(cancellationToken);
-                res = JsonSerializer.Deserialize<PythonResponse>(resJson);
-                if (res == null){
-                    throw new BadRequestException("Error while processing image");
-                }
-                breed = res.@Class;
+            try 
+            { 
+                var classificationResponse = HttpHelper.HttpPostAsync<ModelResponse>(ApiUrl, formData);
             }
+            catch(Exception e)
+            {
+                throw new BadRequestException(e.Message);
+            };
 
             var pId = Guid.NewGuid();
             var stream = new MemoryStream();
