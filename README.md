@@ -5,4 +5,4 @@ PetGram is a social media for pets! It allows users to have common social media 
 Stacks used: PostgreSQL (Main DB), SQLite (Offline data management), Redis (Caching), ASP.NET Core (back-end), Python (machine learning), Vue js (front-end), Docker (container management), Supabase (image storage).  
 
 Related repositories:
-- Pet discerning model: https://github.com/CarlosAugustoP/petgram-discriminator/tree/main
+- Pet discerning model: https://github.com/CarlosAugustoP/petgram-discriminator/tree/main (used for autofilling a pet registration form based on an image)
