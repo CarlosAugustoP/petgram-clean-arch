@@ -11,7 +11,7 @@ namespace Domain.Models
         public DateTime CreatedAt { get; set; }
         public bool IsRead { get; set; }
         public bool IsEdited { get; set; }  
-        public Message()
+        public Message()    
         {
         }
         

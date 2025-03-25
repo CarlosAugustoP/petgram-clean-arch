@@ -11,8 +11,6 @@ namespace API.Abstractions.Result
             Value = value;
             Error = error;
         }
-
-
         public static Result<T> Success(T value) => new Result<T>(true, value, null);
         public static Result<T> Failure(string error) => new Result<T>(false, default, error);        
         public static Result<T> ValidationFailure(T error) => new Result<T>(false, error, "1 or more validation errors occured.");

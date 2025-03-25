@@ -46,6 +46,20 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.PetController.GetPetType(Application.Abstractions.Pets.GetTypeQuery.GetTypeQuery)">
+            <summary>
+            Gets the type of a pet. Useful for when creating a pet in the form.
+            </summary>
+            <param name="mediaFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.PetController.CreatePet(Application.Abstractions.Pets.CreatePetCommand.CreatePetCommand)">
+            <summary>
+            Creates the pet 
+            </summary>
+            <param name="createPetCommand"></param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.PostController.CreatePost(Application.Abstractions.Posts.CreatePostCommand.CreatePostCommand)">
             <summary>
             Creates a Post based on a user's request

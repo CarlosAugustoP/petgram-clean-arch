@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Abstractions.Followers.StartFollowing;
+﻿using Application.Abstractions.Followers.StartFollowing;
 using Application.Abstractions.Users.AddNewUser;
 using AutoMapper;
 using MediatR;
@@ -106,7 +101,7 @@ namespace API.Controllers
             });
             return Ok(following.Items.Select(f => _mapper.Map<UserDto>(f)));
         }
-
+    
     }
 }
 
