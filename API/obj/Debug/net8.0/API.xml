@@ -46,7 +46,7 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.PetController.GetPetType(Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:API.Controllers.PetController.GetPetType(Application.Abstractions.Pets.GetTypeQuery.GetTypeQuery)">
             <summary>
             Gets the type of a pet. Useful for when creating a pet in the form.
             </summary>

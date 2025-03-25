@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 using Application.Services;
 using Domain.CustomExceptions;
 using MediatR;
@@ -18,7 +19,7 @@ namespace Application.Abstractions.Pets.GetTypeQuery
         } 
     }
 
-    public sealed record GetTypeQuery : IRequest<Dictionary<string, string>>
+    public sealed class GetTypeQuery : IRequest<Dictionary<string, string>>
     {
         public required IFormFile File {get; set;}
         [SetsRequiredMembers]
@@ -26,12 +27,18 @@ namespace Application.Abstractions.Pets.GetTypeQuery
         {
             File = file;
         }
+        public GetTypeQuery(){
+
+        }
     }
 
     internal class ModelResponse
     {
+        [JsonPropertyName("class")]
         public required string Class { get; set; }
+        [JsonPropertyName("confidence")]
         public required decimal Confidence { get; set; }
+        [JsonPropertyName("message")]
         public required string Message { get; set; }
 
     }
@@ -48,20 +55,19 @@ namespace Application.Abstractions.Pets.GetTypeQuery
 
         public async Task<Dictionary<string, string>> Handle(GetTypeQuery request, CancellationToken cancellationToken)
         {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Api-Key", _externalApiConfiguration.ApiKey);
-            var content = new MultipartFormDataContent
-            {
-                { new StringContent(request.File.FileName), "file" }
-            };
+            var content = new MultipartFormDataContent();
+            var fileContent = new StreamContent(request.File.OpenReadStream());
+            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(request.File.ContentType);
+            content.Add(fileContent, "file", request.File.FileName);
             object response;
             try
             {
-                response = await HttpHelper.HttpPostAsync<ModelResponse>(_externalApiConfiguration.ApiUrl!, content);
+                response = await HttpHelper.HttpPostAsync<ModelResponse>(_externalApiConfiguration.ApiUrl! + "/predict",
+                    new Dictionary<string, string>{{"Api-Key", _externalApiConfiguration.ApiKey}}, content);
             }
             catch (Exception e)
             {
-                throw new ApiException("Failed to send the image to foreign API." + e.Message);
+                throw new ApiException("Failed to send the image to foreign API: " + e.Message);
             }
             if (response is ModelResponse modelResponse)
             {

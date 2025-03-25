@@ -26,10 +26,10 @@ namespace API.Controllers
         /// </summary>
         /// <param name="mediaFile"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("get-type")]
-        public async Task<IActionResult> GetPetType([FromForm] IFormFile mediaFile){
-            return Ok(await _mediator.Send(new GetTypeQuery(mediaFile)));
+        public async Task<IActionResult> GetPetType([FromForm] GetTypeQuery mediaFile){
+            return Ok(await _mediator.Send(mediaFile));
         }
 
         /// <summary>
