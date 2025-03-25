@@ -18,7 +18,7 @@ namespace Application.Abstractions.Pets
             RuleFor(x => x.Species)
                 .NotNull()
                 .WithMessage("Species is required.");
-            RuleFor(x => x.Img)
+            RuleFor(x => x.ImgUrl)
                 .NotNull()
                 .WithMessage("Image is required.");
             RuleFor(x => x.UserId)

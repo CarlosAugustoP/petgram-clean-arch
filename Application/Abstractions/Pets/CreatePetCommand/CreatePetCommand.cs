@@ -14,7 +14,7 @@ namespace Application.Abstractions.Pets.CreatePetCommand
     public sealed record CreatePetCommand : IRequest<Pet>
     {
         public Guid UserId { get; private set; }
-        public required IFormFile Img { get; set; }
+        public required string ImgUrl { get; set; }
         public required string Name { get; set; }
         public string? Description { get; set; }
         public required string Species { get; set; }
@@ -22,9 +22,9 @@ namespace Application.Abstractions.Pets.CreatePetCommand
         public string? Breed { get; set; }
 
         [SetsRequiredMembers]
-        public CreatePetCommand(IFormFile img, string name, string species, string? description = null, DateTime? birthDate = null)
+        public CreatePetCommand(string imgUrl, string name, string species, string? description = null, DateTime? birthDate = null)
         {
-            Img = img;
+            ImgUrl = imgUrl;
             Name = name;
             Species = species;
             Description = description;
@@ -40,57 +40,24 @@ namespace Application.Abstractions.Pets.CreatePetCommand
     internal sealed class CreatePetCommandHandler : IRequestHandler<CreatePetCommand, Pet>
     {
         private readonly IPetRepository _petRepository;
-        private readonly ISupabaseService _supabaseService;
         private readonly IUserRepository _userRepository;
-        private readonly string ApiUrl;
-        public CreatePetCommandHandler(IPetRepository petRepository, ISupabaseService supabaseService, IUserRepository userRepository, string apiUrl)
+        public CreatePetCommandHandler(IPetRepository petRepository, IUserRepository userRepository)
         {
             _petRepository = petRepository;
-            _supabaseService = supabaseService;
             _userRepository = userRepository;
-            ApiUrl = apiUrl;
         }
         
-        internal class ModelResponse {
-            public required string @Class { get; set; }
-            public required decimal Confidence { get; set; }
-            public required string Message { get; set; }
-
-        }
+        
 
         public async Task<Pet> Handle(CreatePetCommand request, CancellationToken cancellationToken)
         {
-            string breed = null!;
-
-            var client = new HttpClient();
-            
-            var formData = new MultipartFormDataContent
-            {
-                { new StringContent(request.Img.FileName), "file" }
-            };
-
-            try 
-            { 
-                var classificationResponse = HttpHelper.HttpPostAsync<ModelResponse>(ApiUrl, formData);
-            }
-            catch(Exception e)
-            {
-                throw new BadRequestException(e.Message);
-            };
-
-            var pId = Guid.NewGuid();
-            var stream = new MemoryStream();
-            await request.Img.CopyToAsync(stream, cancellationToken);
-
-            var imgUrl = await _supabaseService.UploadFileAsync(stream, $"{pId}_{request.Name}", "petgram-pets"); ;
-
             var newPet = new Pet(
-                id: pId,
+                id: Guid.NewGuid(),
                 ownerId: request.UserId,
                 owner: await _userRepository.GetByIdAsync(request.UserId, cancellationToken),
                 name: request.Name,
-                imgUrl: imgUrl,
-                breed: breed ?? request.Breed ?? "Unknown",  
+                imgUrl: request.ImgUrl ,
+                breed: request.Breed ?? "Unknown",  
                 species: request.Species,
                 description: request.Description,
                 createdAt: DateTime.UtcNow,

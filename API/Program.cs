@@ -34,6 +34,8 @@ using Application.Abstractions.Comments.CreateReplyCommand;
 using Application.Abstractions.Comments.GetCommentsFromPostQuery;
 using Application.Abstractions.Comments.LikeCommentCommand;
 using Application.Abstractions.Comments.UpdateCommentCommand;
+using Application.Abstractions.Pets.GetTypeQuery;
+using Infrastructure.PetData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,6 +67,15 @@ builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 builder.Services.AddScoped<IMediaRepository, MediaRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ProfanityFilter.ProfanityFilter>();
+builder.Services.AddSingleton<ExternalApiConfiguration>(sp =>
+{
+    var apiUrl = Environment.GetEnvironmentVariable("EXTERNAL_API_URL") ?? throw new ArgumentNullException("Missing API URL");
+    var apiKey = Environment.GetEnvironmentVariable("EXTERNAL_API_KEY") ?? throw new ArgumentNullException("Missing API Key");
+
+    return new ExternalApiConfiguration(apiUrl, apiKey);
+});
+
+builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMediatR(cfg =>
