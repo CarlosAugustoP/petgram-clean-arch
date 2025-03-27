@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Abstractions.Comments.CreateCommentCommand;
 using Application.Abstractions.Comments.GetCommentsFromPostQuery;
+using Application.Abstractions.Feed;
 
 namespace API.Controllers
 {
@@ -119,7 +120,16 @@ namespace API.Controllers
             return Ok(Result<List<CommentDto>>.Success(commentsDto));
         }
 
-
-        
+        /// <summary>
+        /// Returns the feed 
+        /// </summary>
+        [HttpGet]
+        [Route("feed")]
+        public async Task<IActionResult> GetFeed([FromQuery] PageRequest pageRequest){
+            var r = await _mediator.Send(new GetFeedQuery(
+                CurrentUser.Id,pageRequest.PageIndex, pageRequest.PageSize
+            ));
+            return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
+        }        
     }
 }

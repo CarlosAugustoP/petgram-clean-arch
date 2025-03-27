@@ -1,13 +1,23 @@
 using Domain.Models;
 using Domain.Repositorys;
+using Infrastructure.DB;
 
 namespace Infrastructure.PetData 
 {
     public class PetRepository : IPetRepository
     {
-        public Task<Pet> CreateAsync(Pet pet, CancellationToken cancellationToken)
+        private readonly MainDBContext _db;
+        
+        public PetRepository(MainDBContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
+        }
+
+        public async Task<Pet> CreateAsync(Pet pet, CancellationToken cancellationToken)
+        {
+            _db.Pets.Add(pet);
+            await _db.SaveChangesAsync(cancellationToken);
+            return pet;
         }
 
         public Task DeleteAsync(Guid id, CancellationToken cancellationToken)

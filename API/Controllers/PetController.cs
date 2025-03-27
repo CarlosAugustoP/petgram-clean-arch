@@ -29,7 +29,7 @@ namespace API.Controllers
         [HttpPost]
         [Route("get-type")]
         public async Task<IActionResult> GetPetType([FromForm] GetTypeQuery mediaFile){
-            return Ok(await _mediator.Send(mediaFile));
+            return Ok(Result<Dictionary<string,string>>.Success(await _mediator.Send(mediaFile)));
         }
 
         /// <summary>

@@ -31,6 +31,5 @@ namespace SharedKernel.Common
                 ToListAsync(cancellationToken);
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
-        
     }
 }
