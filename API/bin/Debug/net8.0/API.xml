@@ -105,6 +105,11 @@
             <param name="postId"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.PostController.GetFeed(API.Abstractions.Requests.PageRequest)">
+            <summary>
+            Returns the feed 
+            </summary>
+        </member>
         <member name="M:API.Controllers.UserController.UserFollowUser(System.Guid)">
             <summary>
             Follows a user
