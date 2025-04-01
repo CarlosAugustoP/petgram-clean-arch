@@ -45,6 +45,9 @@ namespace Infrastructure.DB
                 .WithMany(p => p.Medias)
                 .HasForeignKey(m => m.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Media>()
+                .HasMany(m => m.MentionedPets)
+                .WithMany(p => p.Medias);
         }
 
     }

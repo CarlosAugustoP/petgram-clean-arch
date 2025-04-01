@@ -63,7 +63,7 @@ namespace Application.Abstractions.Pets.CreatePetCommand
                 createdAt: DateTime.UtcNow,
                 birthDate: request.BirthDate,
                 cuteMeter: 0,
-                posts: null
+                medias:null
             );
 
             return await _petRepository.CreateAsync(newPet, cancellationToken);

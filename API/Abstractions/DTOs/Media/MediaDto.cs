@@ -8,12 +8,15 @@ namespace API.Abstractions.DTOs.Media
         public Guid Id { get; set; }
         public string Url { get; set; }
         public string Type { get; set; }
+        public List<ReducedPetDto> Pets { get; set; }
 
-        public MediaDTO(Guid id, string url, string type)
+
+        public MediaDTO(Guid id, string url, string type, List<ReducedPetDto> pets)
         {
             Id = id;
             Url = url;
             Type = type;
+            Pets = pets;
         }
     }
 }

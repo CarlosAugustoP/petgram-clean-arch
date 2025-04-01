@@ -41,7 +41,7 @@ namespace API.Controllers
         /// </returns>
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromForm] CreatePostCommand command){
-            var req = new CreatePostCommand(command.Title, command.MediaFiles, command.Content);
+            var req = new CreatePostCommand(command.Title, command.Medias, command.Content);
             req.SetUserId(CurrentUser.Id);
             var result = await _mediator.Send(req);
             var postDto = new PostDto().Map(result);

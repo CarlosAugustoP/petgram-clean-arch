@@ -296,9 +296,6 @@ namespace Infrastructure.Migrations
                     b.Property<int>("LikesCount")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("PetId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Shares")
                         .HasColumnType("integer");
 
@@ -309,8 +306,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("PetId");
 
                     b.ToTable("Posts");
                 });
@@ -418,6 +413,21 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MediaPet", b =>
+                {
+                    b.Property<Guid>("MediasId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("MentionedPetsId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("MediasId", "MentionedPetsId");
+
+                    b.HasIndex("MentionedPetsId");
+
+                    b.ToTable("MediaPet");
                 });
 
             modelBuilder.Entity("MomentReport", b =>
@@ -598,10 +608,6 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Pet", null)
-                        .WithMany("Posts")
-                        .HasForeignKey("PetId");
-
                     b.Navigation("Author");
                 });
 
@@ -625,6 +631,21 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Reporter");
+                });
+
+            modelBuilder.Entity("MediaPet", b =>
+                {
+                    b.HasOne("Domain.Models.Media", null)
+                        .WithMany()
+                        .HasForeignKey("MediasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Pet", null)
+                        .WithMany()
+                        .HasForeignKey("MentionedPetsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MomentReport", b =>
@@ -682,11 +703,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Moment", b =>
                 {
                     b.Navigation("Likes");
-                });
-
-            modelBuilder.Entity("Domain.Models.Pet", b =>
-                {
-                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("Domain.Models.Post", b =>

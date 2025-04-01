@@ -21,6 +21,7 @@ namespace Domain.Models
         public int LikesCount { get; set; }
         public int CommentsCount { get; set; }
         public int Shares { get; set; }
+        
         public Post()
         {
             

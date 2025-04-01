@@ -1,6 +1,7 @@
 using Domain.Models;
 using Domain.Repositorys;
 using Infrastructure.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.PetData 
 {
@@ -23,6 +24,11 @@ namespace Infrastructure.PetData
         public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return _db.Pets.AnyAsync(p => p.Id == id, cancellationToken);
         }
 
         public Task<List<Pet>> GetAllAsync(CancellationToken cancellationToken)
