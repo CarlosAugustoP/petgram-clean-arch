@@ -23,7 +23,7 @@ namespace Infrastructure.UserData
             var followersQuery = _db.Users
                 .Where(u => u.Id == userId)
                 .Include(u => u.Followers)
-                .SelectMany(u => u.Followers)
+                .SelectMany(u => u.Followers!)
                 .AsQueryable();
 
             return await PaginatedList<User>.CreateAsync(followersQuery, pageIndex, pageSize, cancellationToken);
@@ -34,7 +34,7 @@ namespace Infrastructure.UserData
             var followingQuery = _db.Users
                 .Where(u => u.Id == userId)
                 .Include(u => u.Following)
-                .SelectMany(u => u.Following)
+                .SelectMany(u => u.Following!)
                 .AsQueryable();
             return await PaginatedList<User>.CreateAsync(followingQuery, pageIndex, pageSize, cancellationToken);
         }
@@ -42,8 +42,8 @@ namespace Infrastructure.UserData
 
         public async Task<User> AddUserToFollowersAsync(User follower, User followed, CancellationToken cancellationToken)
         {
-            followed.Followers.Add(follower);
-            follower.Following.Add(followed);
+            followed.Followers!.Add(follower);
+            follower.Following!.Add(followed);
             await _db.SaveChangesAsync(cancellationToken);
             return followed;
         }
@@ -65,5 +65,25 @@ namespace Infrastructure.UserData
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
 
+        public async Task<bool> RemoveUserFromFollowersAsync(User unfollower, User unfollowed, CancellationToken cancellationToken)
+        {
+            unfollower.Following!.Remove(unfollowed);
+            unfollowed.Followers!.Remove(unfollower);
+            await _db.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+
+        public async Task<User> IsFollowingAsync(Guid userId, User followed, CancellationToken cancellationToken)
+        {
+            var follower = await _db.Users
+                .Include(u => u.Following)
+                .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+                
+            if (followed.Followers!.Contains(follower!))
+            {
+                return follower!;
+            }
+            return null!;
+        }
     }
 }

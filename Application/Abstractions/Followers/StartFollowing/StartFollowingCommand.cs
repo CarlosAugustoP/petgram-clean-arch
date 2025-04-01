@@ -26,6 +26,16 @@ namespace Application.Abstractions.Followers.StartFollowing
             var followed = await _userRepository.GetByIdAsync(command.FollowedId, cancellationToken)
                 ?? throw new NotFoundException("Followed not found!");
             
+            if (followed.Id == follower.Id)
+                throw new BadRequestException("You can't follow yourself!");
+            
+            var unfollower = await _userRepository.IsFollowingAsync(follower.Id, followed, cancellationToken);
+            
+            if (unfollower != null){
+                await _userRepository.RemoveUserFromFollowersAsync(unfollower, followed, cancellationToken);
+                return followed;
+            }
+            
             await _userRepository.AddUserToFollowersAsync(follower, followed, cancellationToken);
             return followed;
         }
