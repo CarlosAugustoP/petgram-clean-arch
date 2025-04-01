@@ -40,6 +40,7 @@ namespace API.Controllers
         [HttpPost]
         [Route("create-pet")]
         public async Task<IActionResult> CreatePet([FromBody] CreatePetCommand createPetCommand){
+            createPetCommand.SetUserId(CurrentUser.Id);     
             var result = await _mediator.Send(createPetCommand);
             return Ok(Result<PetDto>.Success(_mapper.Map<PetDto>(result)));
         }
