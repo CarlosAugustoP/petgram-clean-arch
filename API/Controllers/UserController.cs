@@ -10,6 +10,7 @@ using Application.Abstractions.Followers.GetFollowers;
 using Application.Abstractions.Followers.GetFollowingByUser;
 using API.Abstractions.Requests;
 using API.Abstractions.DTOs.User;
+using Microsoft.AspNetCore.RateLimiting;
 namespace API.Controllers
 {
 
@@ -29,7 +30,7 @@ namespace API.Controllers
         /// <summary>
         /// Follows a user
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="followedId"></param>
         /// <returns></returns>
         [HttpPost]
         [Authorize]
@@ -51,6 +52,7 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
+        [EnableRateLimiting("signup")]
         [Route("signup")]
         public async Task<IActionResult> Signup([FromBody] AddNewUserCommand command)
         {

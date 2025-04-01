@@ -36,6 +36,8 @@ using Application.Abstractions.Comments.LikeCommentCommand;
 using Application.Abstractions.Comments.UpdateCommentCommand;
 using Application.Abstractions.Pets.GetTypeQuery;
 using Infrastructure.PetData;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -145,6 +147,29 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 #endregion
+#region[RateLimiting]
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("login", limiter =>
+    {
+        limiter.PermitLimit = 5; 
+        limiter.Window = TimeSpan.FromMinutes(1); 
+        limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+    options.AddFixedWindowLimiter("signup", limiter =>
+    {
+        limiter.PermitLimit = 1; 
+        limiter.Window = TimeSpan.FromMinutes(5); 
+        limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+    options.AddFixedWindowLimiter("resend-token", limiter =>
+    {
+        limiter.PermitLimit = 1; 
+        limiter.Window = TimeSpan.FromSeconds(40); 
+        limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+});
+#endregion
 
 #region[DataBase]
 var localhost = Environment.GetEnvironmentVariable("DB_HOST") ?? throw new ArgumentNullException("DB_HOST");
@@ -199,7 +224,10 @@ app.UseMiddleware<CustomExceptionsCatchingMiddleware>();
 app.UseMiddleware<UserValidationMiddleware>();
 #endregion
 
+#region[App]
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseRateLimiter();
 
 app.Run();
+#endregion

@@ -7,6 +7,7 @@ using Application.Services;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace API.Controllers
 {
@@ -31,6 +32,7 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
+        [EnableRateLimiting("login")]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
@@ -53,6 +55,7 @@ namespace API.Controllers
        }
 
        [HttpPost]
+       [EnableRateLimiting("resend-token")]
        [Route("resend-token/{userId}")]
        public async Task<IActionResult> ResendToken([FromRoute] Guid userId){
             return Ok(Result<Dictionary<string,string>>.Success(
