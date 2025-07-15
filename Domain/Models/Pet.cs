@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Models.UserAggregate;
 
 namespace Domain.Models
 {
@@ -19,12 +20,12 @@ namespace Domain.Models
         public DateTime CreatedAt { get; set; }
         public DateTime? BirthDate { get; set; }
         public int CuteMeter { get; set; }
-        public List<Post>? Posts { get; set; } = new List<Post>();
+        public List<Media> Medias { get; set; } = new List<Media>();
         public Pet()
         {
         }
 
-        public Pet(Guid id, Guid ownerId, User owner, string name, string imgUrl, string? breed, string species, string? description, DateTime createdAt, DateTime? birthDate, int cuteMeter, List<Post>? posts)
+        public Pet(Guid id, Guid ownerId, User owner, string name, string imgUrl, string? breed, string species, string? description, DateTime createdAt, DateTime? birthDate, int cuteMeter, List<Media>? medias)
         {
             Id = id;
             OwnerId = ownerId;
@@ -37,7 +38,9 @@ namespace Domain.Models
             CreatedAt = createdAt;
             BirthDate = birthDate;
             CuteMeter = cuteMeter;
-            Posts = posts ?? new List<Post>();
+            Medias = medias ?? new List<Media>();
         }
+
+        
     }
 }

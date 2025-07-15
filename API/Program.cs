@@ -36,6 +36,14 @@ using Application.Abstractions.Comments.LikeCommentCommand;
 using Application.Abstractions.Comments.UpdateCommentCommand;
 using Application.Abstractions.Pets.GetTypeQuery;
 using Infrastructure.PetData;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
+using Application.Notifications;
+using Infrastructure.NotificationData;
+using Application.Notifications.WebSockets;
+using Application.Abstractions.Users.Passwords;
+using Application.Abstractions.Users.BanUser;
+using Application.UserManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,8 +74,13 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 builder.Services.AddScoped<IMediaRepository, MediaRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<NotificationFactory>();
+builder.Services.AddScoped<IUserBanRepository, UserBanRepository>();
+builder.Services.AddScoped<IBanHammer, BanHammer>();
 builder.Services.AddScoped<ProfanityFilter.ProfanityFilter>();
-builder.Services.AddSingleton<ExternalApiConfiguration>(sp =>
+builder.Services.AddSingleton(sp =>
 {
     var apiUrl = Environment.GetEnvironmentVariable("EXTERNAL_API_URL") ?? throw new ArgumentNullException("Missing API URL");
     var apiKey = Environment.GetEnvironmentVariable("EXTERNAL_API_KEY") ?? throw new ArgumentNullException("Missing API Key");
@@ -77,7 +90,7 @@ builder.Services.AddSingleton<ExternalApiConfiguration>(sp =>
 
 builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(AddNewUserCommand).Assembly);
@@ -100,6 +113,10 @@ builder.Services.AddValidatorsFromAssembly(typeof(CreateReplyCommandValidator).A
 builder.Services.AddValidatorsFromAssembly(typeof(GetCommentsFromPostQueryValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(LikeCommentCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(UpdateCommentCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(GetTypeQueryValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CallNewPasswordCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(AccessLinkCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(BanUserCommandValidator).Assembly);
 
 
 var smtpKey = Environment.GetEnvironmentVariable("SMTP_KEY") ?? throw new ArgumentNullException("Invalid smtp key");
@@ -145,6 +162,29 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 #endregion
+#region[RateLimiting]
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("login", limiter =>
+    {
+        limiter.PermitLimit = 5; 
+        limiter.Window = TimeSpan.FromMinutes(1); 
+        limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+    options.AddFixedWindowLimiter("signup", limiter =>
+    {
+        limiter.PermitLimit = 1; 
+        limiter.Window = TimeSpan.FromMinutes(5); 
+        limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+    options.AddFixedWindowLimiter("resend-token", limiter =>
+    {
+        limiter.PermitLimit = 1; 
+        limiter.Window = TimeSpan.FromSeconds(40); 
+    limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+});
+#endregion
 
 #region[DataBase]
 var localhost = Environment.GetEnvironmentVariable("DB_HOST") ?? throw new ArgumentNullException("DB_HOST");
@@ -166,7 +206,28 @@ builder.Services.AddSingleton(ConnectionMultiplexer.Connect($"localhost:6379, pa
 builder.Services.AddScoped<IRedisService, RedisService>();
 #endregion
 
+#region [SignalR]
+builder.Services.AddSignalR();
+
+builder.Services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/notificationHub"))
+            {
+                context.Token = accessToken;
+            }
+            return Task.CompletedTask;
+        }
+    };
+});
+#endregion
 var app = builder.Build();
+app.MapHub<NotificationHub>("/notificationHub");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -197,9 +258,12 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ValidationExceptionMiddleware>();
 app.UseMiddleware<CustomExceptionsCatchingMiddleware>();
 app.UseMiddleware<UserValidationMiddleware>();
+app.UseMiddleware<Admin>();
 #endregion
 
+#region[App]
 app.UseHttpsRedirection();
 app.MapControllers();
-
+app.UseRateLimiter();
 app.Run();
+#endregion

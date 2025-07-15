@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.CustomExceptions;
 using Application.Services;
 using System.Security.Cryptography;
+using Domain.Models.UserAggregate;
 
 namespace Application.Abstractions.Users.AddNewUser
 {

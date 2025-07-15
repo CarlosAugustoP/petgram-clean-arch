@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Models.UserAggregate;
 
 namespace Domain.Models
 {
@@ -21,6 +22,7 @@ namespace Domain.Models
         public int LikesCount { get; set; }
         public int CommentsCount { get; set; }
         public int Shares { get; set; }
+        
         public Post()
         {
             

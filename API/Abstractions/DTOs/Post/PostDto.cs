@@ -34,7 +34,7 @@ namespace API.Abstractions.DTOs
         {
             var mediaList = new List<MediaDTO>(); 
             foreach (var media in post.Medias){
-                mediaList.Add(new MediaDTO(media.Id, media.Url, media.Type));
+                mediaList.Add(new MediaDTO(media.Id, media.Url, media.Type, media.MentionedPets.Select(pet => new ReducedPetDto(pet.Id, pet.Name, pet.ImgUrl, pet.Species)).ToList()));
             }
             return new PostDto(post.Id, post.AuthorId, post.Title, post.Content,
                 post.LikesCount, post.Shares, mediaList, post.CommentsCount);

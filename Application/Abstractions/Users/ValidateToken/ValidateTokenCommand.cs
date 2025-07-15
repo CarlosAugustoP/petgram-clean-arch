@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Application.Services;
 using Domain.CustomExceptions;
 using Domain.Models;
+using Domain.Models.UserAggregate;
 using Domain.Repositorys;
 using MediatR;
 

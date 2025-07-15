@@ -1,6 +1,7 @@
 using Domain.Models;
 using Domain.Repositorys;
 using Infrastructure.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.PetData 
 {
@@ -25,14 +26,19 @@ namespace Infrastructure.PetData
             throw new NotImplementedException();
         }
 
+        public Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return _db.Pets.AnyAsync(p => p.Id == id, cancellationToken);
+        }
+
         public Task<List<Pet>> GetAllAsync(CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Pet> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        public Task<Pet?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return _db.Pets.Include(x => x.Owner).FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         }
 
         public Task<List<Pet>> GetPetsBySpeciesAsync(string Species, CancellationToken cancellationToken)

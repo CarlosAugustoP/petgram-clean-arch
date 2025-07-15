@@ -3,6 +3,7 @@ using Domain.Models;
 using Domain.Repositorys;
 using Infrastructure.DB;
 using Microsoft.EntityFrameworkCore;
+using Domain.Models.UserAggregate;
 
 namespace Infrastructure.UserData
 {
@@ -13,7 +14,7 @@ namespace Infrastructure.UserData
             _db = db;
         }
 
-        public async Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
@@ -60,7 +61,7 @@ namespace Infrastructure.UserData
             return user;
         }
 
-        public async Task<User> GetUserByEmailAsync (string email, CancellationToken cancellationToken = default)
+        public async Task<User?> GetUserByEmailAsync (string email, CancellationToken cancellationToken = default)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
@@ -84,6 +85,12 @@ namespace Infrastructure.UserData
                 return follower!;
             }
             return null!;
+        }
+
+        public Task UpdateUserAsync(User user, CancellationToken cancellationToken)
+        {
+            _db.Users.Update(user);
+            return _db.SaveChangesAsync(cancellationToken);
         }
     }
 }

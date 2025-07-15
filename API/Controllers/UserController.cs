@@ -10,6 +10,11 @@ using Application.Abstractions.Followers.GetFollowers;
 using Application.Abstractions.Followers.GetFollowingByUser;
 using API.Abstractions.Requests;
 using API.Abstractions.DTOs.User;
+using Microsoft.AspNetCore.RateLimiting;
+using Application.Abstractions.Users.Passwords;
+using Domain.Models.UserAggregate;
+using API.Middlewares;
+using Application.Abstractions.Users.BanUser;
 namespace API.Controllers
 {
 
@@ -29,7 +34,7 @@ namespace API.Controllers
         /// <summary>
         /// Follows a user
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="followedId"></param>
         /// <returns></returns>
         [HttpPost]
         [Authorize]
@@ -51,6 +56,7 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
+        [EnableRateLimiting("signup")]
         [Route("signup")]
         public async Task<IActionResult> Signup([FromBody] AddNewUserCommand command)
         {
@@ -58,9 +64,10 @@ namespace API.Controllers
             if (result is string)
             {
                 return Ok(Result<string>.Success(result.ToString()!));
-            }else if (result is Dictionary<string,string>)
-            { 
-                return Created("api/User/signup", Result<Dictionary<string,string>>.Success(
+            }
+            else if (result is Dictionary<string, string>)
+            {
+                return Created("api/User/signup", Result<Dictionary<string, string>>.Success(
                     (Dictionary<string, string>)result));
             }
             else return StatusCode(500, "Internal Server Error");
@@ -75,15 +82,15 @@ namespace API.Controllers
         [Route("followers")]
         public async Task<IActionResult> GetFollowers([FromQuery] PageRequest pageRequest)
         {
-          var followers = await _mediator.Send(new GetFollowersByUserQuery
+            var followers = await _mediator.Send(new GetFollowersByUserQuery
             {
                 UserId = CurrentUser.Id,
                 PageIndex = pageRequest.PageIndex,
-                PageSize = pageRequest.PageSize 
+                PageSize = pageRequest.PageSize
             });
             return Ok(followers.Items.Select(f => _mapper.Map<UserDto>(f)));
         }
-        
+
         /// <summary>
         /// Fetches all the users that the current user is following
         /// </summary>
@@ -101,7 +108,43 @@ namespace API.Controllers
             });
             return Ok(following.Items.Select(f => _mapper.Map<UserDto>(f)));
         }
-    
+        /// <summary>
+        /// Requests a password change for a user by sending an email with a link to reset the password
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("request-password-change/{email}")]
+        public async Task<IActionResult> RequestPasswordChange([FromRoute] string email)
+        {
+            var result = await _mediator.Send(new CallNewPasswordCommand(email));
+            return Ok(Result<bool>.Success(true));
+        }
+        /// <summary>
+        /// Resets the password for a user using an access link
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] AccessLinkCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(Result<bool>.Success(result));
+        }
+
+        /// <summary>
+        /// Bans a user from the platform
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("ban-user")]
+        [Admin]
+        public async Task<IActionResult> BanUser([FromBody] BanUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(Result<bool>.Success(result));
+        }
     }
 }
 
