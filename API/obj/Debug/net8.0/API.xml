@@ -136,5 +136,26 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.UserController.RequestPasswordChange(System.String)">
+            <summary>
+            Requests a password change for a user by sending an email with a link to reset the password
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserController.ResetPassword(Application.Abstractions.Users.Passwords.AccessLinkCommand)">
+            <summary>
+            Resets the password for a user using an access link
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserController.BanUser(Application.Abstractions.Users.BanUser.BanUserCommand)">
+            <summary>
+            Bans a user from the platform
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
