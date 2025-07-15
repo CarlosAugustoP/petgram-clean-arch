@@ -13,6 +13,8 @@ using API.Abstractions.DTOs.User;
 using Microsoft.AspNetCore.RateLimiting;
 using Application.Abstractions.Users.Passwords;
 using Domain.Models.UserAggregate;
+using API.Middlewares;
+using Application.Abstractions.Users.BanUser;
 namespace API.Controllers
 {
 
@@ -106,7 +108,11 @@ namespace API.Controllers
             });
             return Ok(following.Items.Select(f => _mapper.Map<UserDto>(f)));
         }
-
+        /// <summary>
+        /// Requests a password change for a user by sending an email with a link to reset the password
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("request-password-change/{email}")]
         public async Task<IActionResult> RequestPasswordChange([FromRoute] string email)
@@ -114,7 +120,11 @@ namespace API.Controllers
             var result = await _mediator.Send(new CallNewPasswordCommand(email));
             return Ok(Result<bool>.Success(true));
         }
-
+        /// <summary>
+        /// Resets the password for a user using an access link
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] AccessLinkCommand command)
@@ -123,7 +133,18 @@ namespace API.Controllers
             return Ok(Result<bool>.Success(result));
         }
 
-    
+        /// <summary>
+        /// Bans a user from the platform
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("ban-user")]
+        [Admin]
+        public async Task<IActionResult> BanUser([FromBody] BanUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(Result<bool>.Success(result));
+        }
     }
 }
 

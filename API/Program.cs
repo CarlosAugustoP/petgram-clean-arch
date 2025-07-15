@@ -42,6 +42,8 @@ using Application.Notifications;
 using Infrastructure.NotificationData;
 using Application.Notifications.WebSockets;
 using Application.Abstractions.Users.Passwords;
+using Application.Abstractions.Users.BanUser;
+using Application.UserManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +77,8 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<NotificationFactory>();
+builder.Services.AddScoped<IUserBanRepository, UserBanRepository>();
+builder.Services.AddScoped<IBanHammer, BanHammer>();
 builder.Services.AddScoped<ProfanityFilter.ProfanityFilter>();
 builder.Services.AddSingleton(sp =>
 {
@@ -112,6 +116,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(UpdateCommentCommandValidator)
 builder.Services.AddValidatorsFromAssembly(typeof(GetTypeQueryValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(CallNewPasswordCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(AccessLinkCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(BanUserCommandValidator).Assembly);
 
 
 var smtpKey = Environment.GetEnvironmentVariable("SMTP_KEY") ?? throw new ArgumentNullException("Invalid smtp key");
@@ -253,6 +258,7 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ValidationExceptionMiddleware>();
 app.UseMiddleware<CustomExceptionsCatchingMiddleware>();
 app.UseMiddleware<UserValidationMiddleware>();
+app.UseMiddleware<Admin>();
 #endregion
 
 #region[App]

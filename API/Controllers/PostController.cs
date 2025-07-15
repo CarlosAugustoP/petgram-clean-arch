@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Abstractions.Comments.CreateCommentCommand;
 using Application.Abstractions.Comments.GetCommentsFromPostQuery;
 using Application.Abstractions.Feed;
+using Domain.Models;
 
 namespace API.Controllers
 {

@@ -17,7 +17,7 @@ namespace API.Abstractions.DTOs.Likes
             Id = id;
             Author = author;
         }
-
+        
         public LikeDto()
         {
         }

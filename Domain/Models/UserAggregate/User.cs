@@ -16,11 +16,12 @@
         public List<Post>? Posts { get; set; } = new List<Post>();
         public List<Moment>? Moments { get; set; } = new List<Moment>();
         public List<Pet>? Pets { get; set; } = new List<Pet>();
+        public UserRole Role { get; set; } = UserRole.COMMON;
         public Preference Preference { get; set; }
         public User()
         {
         }
-
+        
         public void BanUser()
         {
             Status = UserStatus.BANNED;

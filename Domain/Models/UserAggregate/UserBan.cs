@@ -15,6 +15,7 @@ namespace Domain.Models.UserAggregate
         public DateTime BannedAt { get; set; }
         public string? Remark { get; set; }
         public DateTime ToBeUnbannedAt { get; set; }
+        public BanStatus Status { get; private set; } = BanStatus.ACTIVE;
 
         public UserBan() { }
 
@@ -27,6 +28,15 @@ namespace Domain.Models.UserAggregate
             BannedAt = bannedAt;
             ToBeUnbannedAt = unbannedAt;
             Remark = remark;
+        }
+
+        public void RevokeBan()
+        {
+            Status = BanStatus.REVOKED;
+        }
+        public void ExpireBan()
+        {
+            Status = BanStatus.EXPIRED;
         }
     }
 }

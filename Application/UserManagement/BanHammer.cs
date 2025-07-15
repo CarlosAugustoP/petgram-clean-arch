@@ -1,8 +1,7 @@
 using Domain.CustomExceptions;
-using Domain.Models;
 using Domain.Models.UserAggregate;
 using Domain.Repositorys;
-using Microsoft.AspNetCore.Diagnostics;
+
 
 namespace Application.UserManagement
 {
@@ -33,22 +32,37 @@ namespace Application.UserManagement
                 options?.BanDuration.ToDateTime() ?? BanTimeEnum.ONEWEEK.ToDateTime(),
                 options?.Remark
             );
-            
-            await _userBanRepository.CreateBanAsync(userBan);
+
+            await _userBanRepository.CreateBanAsync(userBan, cancellationToken);
             await _userRepository.UpdateUserAsync(user, cancellationToken);
 
         }
 
-        public Task UnBanUserAsync(Guid userId, CancellationToken cancellationToken)
+        public async Task UnBanUserAsync(Guid userId, CancellationToken cancellationToken, bool isSystemCall = false)
         {
-            // Implementation for unbanning a user
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
+            if (user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+            user.InactiveUser();
+            var userBan = await _userBanRepository.GetByIdAsync(userId, cancellationToken);
+
+            if (isSystemCall) userBan.ExpireBan();
+            else userBan.RevokeBan();
+
+            await _userRepository.UpdateUserAsync(user, cancellationToken);
+            await _userBanRepository.UpdateBanAsync(userBan, cancellationToken);
         }
 
         public Task<bool> IsUserBannedAsync(Guid userId, CancellationToken cancellationToken)
         {
-            // Implementation to check if a user is banned
-            throw new NotImplementedException();
+            return _userRepository.GetByIdAsync(userId, cancellationToken)
+                .ContinueWith(task =>
+                {
+                    var user = task.Result;
+                    return user != null && user.IsBanned();
+                }, cancellationToken);
         }
         
     }
