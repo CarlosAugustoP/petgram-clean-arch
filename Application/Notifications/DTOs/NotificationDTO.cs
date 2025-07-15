@@ -1,5 +1,5 @@
 using AutoMapper;
-using Domain.Models.Notification;
+using Domain.Models.NotificationAggregate;
 
 namespace Application.Notifications.DTOs
 {
@@ -9,14 +9,14 @@ namespace Application.Notifications.DTOs
     {
         public string Title { get; set; }
         public string Message { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime SentAt { get; set; }
         public bool IsRead { get; set; } = false;
 
         public NotificationDTO(string title, string message, DateTime createdAt)
         {
             Title = title;
             Message = message;
-            CreatedAt = createdAt;
+            SentAt = createdAt;
         }
     }
 }

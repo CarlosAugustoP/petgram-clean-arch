@@ -5,6 +5,6 @@ namespace API.Abstractions.Helpers
 {
     public class PetGramController : ControllerBase
     {
-        public new UserDto CurrentUser => (UserDto)HttpContext.Items["User"];
+        public UserDto CurrentUser => (UserDto)HttpContext.Items["User"]!;
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharedKernel.Common;
 using Domain.Models;
+using Domain.Models.UserAggregate;
 
 namespace Domain.Repositorys
 {

@@ -1,5 +1,6 @@
 using Domain.CustomExceptions;
 using Domain.Models;
+using Domain.Models.UserAggregate;
 using Domain.Repositorys;
 using MediatR;
 using SharedKernel.Common;

@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using API.Abstractions.DTOs.User;
 using AutoMapper;
+using Domain.CustomExceptions;
 using Domain.Repositorys;
 
 namespace API.Middlewares
@@ -26,9 +27,14 @@ namespace API.Middlewares
                 {
 
                     var user = await userRepository.GetByIdAsync(Guid.Parse(userId), CancellationToken.None);
-                    
-                    if (user != null) 
+                    if (user != null)
+                    {
+                        if (user.IsBanned())
+                        {
+                            throw new ForbiddenException("You are currently banned from using PetGram.");
+                        }
                         context.Items["User"] = _mapper.Map<UserDto>(user);
+                    }
                 }
             }
             await _next(context);

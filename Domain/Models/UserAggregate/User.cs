@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Models
+﻿namespace Domain.Models.UserAggregate
 {
     public class User
     {
         public Guid Id { get; set; }
-
+        public UserStatus Status { get; private set; }
         public string Email { get; set; }
         public string? ProfileImgUrl { get; set; }
         public string Password { get; set; }
@@ -27,5 +20,27 @@ namespace Domain.Models
         public User()
         {
         }
+
+        public void BanUser()
+        {
+            Status = UserStatus.BANNED;
+        }
+        public void ActivateUser()
+        {
+            Status = UserStatus.ACTIVE;
+        }
+        public void InactiveUser()
+        {
+            Status = UserStatus.INACTIVE;
+        }
+        public void ArchiveUser()
+        {
+            Status = UserStatus.ARCHIVED;
+        }
+        public bool IsBanned()
+        {
+            return Status == UserStatus.BANNED;
+        }
+
     }
 }

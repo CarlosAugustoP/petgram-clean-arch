@@ -3,6 +3,7 @@ using Domain.Models;
 using Domain.Repositorys;
 using Infrastructure.DB;
 using Microsoft.EntityFrameworkCore;
+using Domain.Models.UserAggregate;
 
 namespace Infrastructure.UserData
 {
@@ -84,6 +85,12 @@ namespace Infrastructure.UserData
                 return follower!;
             }
             return null!;
+        }
+
+        public Task UpdateUserAsync(User user, CancellationToken cancellationToken)
+        {
+            _db.Users.Update(user);
+            return _db.SaveChangesAsync(cancellationToken);
         }
     }
 }

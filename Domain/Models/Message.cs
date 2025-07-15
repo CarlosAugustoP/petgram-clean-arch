@@ -1,3 +1,5 @@
+using Domain.Models.UserAggregate;
+
 namespace Domain.Models
 {
     public class Message

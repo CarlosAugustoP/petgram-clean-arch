@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Notifications.Implementations;
-using Domain.Models.Notification;
+using Domain.Models.NotificationAggregate;
 
 namespace Application.Notifications
 {

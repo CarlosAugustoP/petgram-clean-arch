@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.UserAggregate;
 using Domain.Repositorys;
 using Infrastructure.DB;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,7 @@ namespace Infrastructure.PostData
 
         public async Task<Post?> GetPostByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _db.Posts.Include(x => x.Medias).FirstOrDefaultAsync(p => p.Id == id);
+            return await _db.Posts.Include(x => x.Medias).Include(x=> x.Author).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Post> UpdatePostAsync(Post post, CancellationToken cancellationToken)

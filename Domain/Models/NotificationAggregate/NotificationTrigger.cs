@@ -1,4 +1,4 @@
-namespace Domain.Models.Notification
+namespace Domain.Models.NotificationAggregate
 {
     public enum NotificationTrigger
     {
@@ -6,7 +6,6 @@ namespace Domain.Models.Notification
         COMMENTED_POST,
         NEW_FOLLOWER,
         NEW_MESSAGE,
-        POST_SHARED,
         POST_FINISHED_UPLOAD
     }
 }

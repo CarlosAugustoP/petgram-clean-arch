@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Models.Notification;
+using Domain.Models.NotificationAggregate;
 
 namespace Domain.Repositorys
 {
@@ -11,6 +7,7 @@ namespace Domain.Repositorys
         Task AddAsync(Notification notification);
         Task<IEnumerable<Notification>> GetByUserIdAsync(Guid userId);
         Task MarkAsReadAsync(Guid notificationId);
+        Task MarkManyAsReadAsync(IEnumerable<Guid> notificationIds);
         Task DeleteAsync(Guid notificationId);
         Task<int> GetUnreadCountAsync(Guid userId);
         Task AddRangeAsync(IEnumerable<Notification> notifications);

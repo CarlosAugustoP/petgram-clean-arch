@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using Application.Services;
 using Domain.CustomExceptions;
 using Domain.Models;
+using Domain.Models.UserAggregate;
 using MediatR;
 
 namespace Application.Abstractions.Users.ResendToken 

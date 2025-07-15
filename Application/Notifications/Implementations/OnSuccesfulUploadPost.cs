@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.Models;
-using Domain.Models.Notification;
+using Domain.Models.NotificationAggregate;
+using Domain.Models.UserAggregate;
 
 namespace Application.Notifications.Implementations
 {
     public class OnSuccessfulUploadPost : INotification
     {
         private readonly NotificationService _notificationService;
-        private readonly NotificationTrigger _type = NotificationTrigger.POST_FINISHED_UPLOAD;
+        private static readonly NotificationTrigger _type = NotificationTrigger.POST_FINISHED_UPLOAD;
         private readonly List<Notification> _notifications = [];
 
         public OnSuccessfulUploadPost(NotificationService notificationService)

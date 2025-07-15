@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
+using Domain.Models.NotificationAggregate;
+using Domain.Models.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.DB
 {
@@ -23,11 +25,11 @@ namespace Infrastructure.DB
         public DbSet<Message> Messages { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Moment> Moments { get; set; }
+        public DbSet<UserBan> UserBans { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //TODO: RECONFIGURE MODEL BUILDER
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();

@@ -3,7 +3,7 @@ using System.Linq;
 using Application.Notifications.Request;
 using Domain.CustomExceptions;
 using Domain.Repositorys;
-using Domain.Models.Notification;
+using Domain.Models.NotificationAggregate;
 using Application.Notifications.WebSockets;
 using AutoMapper;
 

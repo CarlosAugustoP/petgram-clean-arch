@@ -4,7 +4,7 @@ using SharedKernel.Common;
 using Domain.Models;
 namespace Application.Abstractions.Likes.GetLikesByPostQuery
 {
-    public sealed record GetLikesByPostQuery : IRequest<PaginatedList<Domain.Models.Like>>
+    public sealed record GetLikesByPostQuery : IRequest<PaginatedList<Like>>
     {
         public Guid PostId { get; init; }
         public int PageIndex { get; init; }

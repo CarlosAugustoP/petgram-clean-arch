@@ -11,6 +11,8 @@ using Application.Abstractions.Followers.GetFollowingByUser;
 using API.Abstractions.Requests;
 using API.Abstractions.DTOs.User;
 using Microsoft.AspNetCore.RateLimiting;
+using Application.Abstractions.Users.Passwords;
+using Domain.Models.UserAggregate;
 namespace API.Controllers
 {
 
@@ -60,9 +62,10 @@ namespace API.Controllers
             if (result is string)
             {
                 return Ok(Result<string>.Success(result.ToString()!));
-            }else if (result is Dictionary<string,string>)
-            { 
-                return Created("api/User/signup", Result<Dictionary<string,string>>.Success(
+            }
+            else if (result is Dictionary<string, string>)
+            {
+                return Created("api/User/signup", Result<Dictionary<string, string>>.Success(
                     (Dictionary<string, string>)result));
             }
             else return StatusCode(500, "Internal Server Error");
@@ -77,15 +80,15 @@ namespace API.Controllers
         [Route("followers")]
         public async Task<IActionResult> GetFollowers([FromQuery] PageRequest pageRequest)
         {
-          var followers = await _mediator.Send(new GetFollowersByUserQuery
+            var followers = await _mediator.Send(new GetFollowersByUserQuery
             {
                 UserId = CurrentUser.Id,
                 PageIndex = pageRequest.PageIndex,
-                PageSize = pageRequest.PageSize 
+                PageSize = pageRequest.PageSize
             });
             return Ok(followers.Items.Select(f => _mapper.Map<UserDto>(f)));
         }
-        
+
         /// <summary>
         /// Fetches all the users that the current user is following
         /// </summary>
@@ -103,6 +106,23 @@ namespace API.Controllers
             });
             return Ok(following.Items.Select(f => _mapper.Map<UserDto>(f)));
         }
+
+        [HttpPost]
+        [Route("request-password-change/{email}")]
+        public async Task<IActionResult> RequestPasswordChange([FromRoute] string email)
+        {
+            var result = await _mediator.Send(new CallNewPasswordCommand(email));
+            return Ok(Result<bool>.Success(true));
+        }
+
+        [HttpPost]
+        [Route("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] AccessLinkCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(Result<bool>.Success(result));
+        }
+
     
     }
 }

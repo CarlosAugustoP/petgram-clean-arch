@@ -2,7 +2,7 @@
 using Domain.Models;
 namespace API.Abstractions.DTOs.User
 {
-    [AutoMap(typeof(Domain.Models.User))]
+    [AutoMap(typeof(Domain.Models.UserAggregate.User))]
     public class UserDto
     {
         public Guid Id { get; set; }

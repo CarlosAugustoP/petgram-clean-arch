@@ -4,7 +4,7 @@ using Application.Notifications.Implementations;
 using Application.Services;
 using Domain.CustomExceptions;
 using Domain.Models;
-using Domain.Models.Notification;
+using Domain.Models.NotificationAggregate;
 using Domain.Repositorys;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -101,14 +101,12 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                 }
                 try 
                 {
-                    //send the file to the cloud
                     var mediaId = Guid.NewGuid();
                     var nameOfFile = $"{Guid.NewGuid()}_media";
                     var bytes = Convert.FromBase64String(media.Base64String);
                     using var stream = new MemoryStream(bytes);
                     var url = await _supabaseService.UploadFileAsync(stream, nameOfFile, "petgram-posts");
                     
-                    //for each media we add the array of pets
                     var mediaDb = await _mediaRepository.CreateMediaAsync(
                         new Media(mediaId, post.Id, null!, nameOfFile,
                             url, fileType, null, DateTime.UtcNow, petList)
