@@ -17,11 +17,12 @@
         public List<Moment>? Moments { get; set; } = new List<Moment>();
         public List<Pet>? Pets { get; set; } = new List<Pet>();
         public UserRole Role { get; set; } = UserRole.COMMON;
+        public DateTime? LastLogin { get; private set; }
         public Preference Preference { get; set; }
         public User()
         {
         }
-        
+
         public void BanUser()
         {
             Status = UserStatus.BANNED;
@@ -41,6 +42,10 @@
         public bool IsBanned()
         {
             return Status == UserStatus.BANNED;
+        }
+        public void SetLastLogin(DateTime lastLogin)
+        {
+            LastLogin = lastLogin;
         }
 
     }
