@@ -29,10 +29,17 @@ namespace API.Middlewares
                     var user = await userRepository.GetByIdAsync(Guid.Parse(userId), CancellationToken.None);
                     if (user != null)
                     {
-                        if (user.IsBanned())
+                        if (user.LastLogin != DateTime.UtcNow.Date)
                         {
-                            throw new ForbiddenException("You are currently banned from using PetGram.");
+                            // Update last login date
+                            user.SetLastLogin(DateTime.UtcNow.Date);
+                            await userRepository.UpdateUserAsync(user, CancellationToken.None);
                         }
+                        
+                        if (user.IsBanned())
+                            {
+                                throw new ForbiddenException("You are currently banned from using PetGram.");
+                            }
                         context.Items["User"] = _mapper.Map<UserDto>(user);
                     }
                 }
