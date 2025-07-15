@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Application.Notifications.Implementations;
+using Domain.Models.Notification;
+
+namespace Application.Notifications
+{
+    public class NotificationFactory
+    {
+        private readonly NotificationService _notificationService;
+
+        public NotificationFactory(NotificationService notificationService)
+        {
+            _notificationService = notificationService;
+        }
+        public INotification Create(NotificationTrigger type)
+        {
+            return type switch 
+            {
+                NotificationTrigger.POST_FINISHED_UPLOAD => new OnSuccessfulUploadPost(_notificationService),
+                _ => throw new ArgumentException($"Notification type {type} is not supported.")
+            };
+        }
+    }
+}

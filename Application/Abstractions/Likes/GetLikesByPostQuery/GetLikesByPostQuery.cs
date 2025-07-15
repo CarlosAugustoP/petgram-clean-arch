@@ -1,6 +1,7 @@
+using Domain.Repositorys;
 using MediatR;
 using SharedKernel.Common;
-
+using Domain.Models;
 namespace Application.Abstractions.Likes.GetLikesByPostQuery
 {
     public sealed record GetLikesByPostQuery : IRequest<PaginatedList<Domain.Models.Like>>
@@ -16,15 +17,15 @@ namespace Application.Abstractions.Likes.GetLikesByPostQuery
         }
     }
 
-    internal sealed class GetLikesByPostQueryHandler : IRequestHandler<GetLikesByPostQuery, PaginatedList<Domain.Models.Like>>
+    internal sealed class GetLikesByPostQueryHandler : IRequestHandler<GetLikesByPostQuery, PaginatedList<Like>>
     {
-        private readonly Domain.Repositorys.ILikeRepository _likeRepository;
+        private readonly ILikeRepository _likeRepository;
 
-        public GetLikesByPostQueryHandler(Domain.Repositorys.ILikeRepository likeRepository)
+        public GetLikesByPostQueryHandler(ILikeRepository likeRepository)
         {
             _likeRepository = likeRepository;
         }
-        public async Task<PaginatedList<Domain.Models.Like>> Handle(GetLikesByPostQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedList<Like>> Handle(GetLikesByPostQuery request, CancellationToken cancellationToken)
         {
             var likes = await _likeRepository.GetLikesByPostIdAsync(request.PostId, request.PageIndex, request.PageSize, cancellationToken);
             return likes;

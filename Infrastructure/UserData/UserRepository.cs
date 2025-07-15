@@ -13,7 +13,7 @@ namespace Infrastructure.UserData
             _db = db;
         }
 
-        public async Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
@@ -60,7 +60,7 @@ namespace Infrastructure.UserData
             return user;
         }
 
-        public async Task<User> GetUserByEmailAsync (string email, CancellationToken cancellationToken = default)
+        public async Task<User?> GetUserByEmailAsync (string email, CancellationToken cancellationToken = default)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }

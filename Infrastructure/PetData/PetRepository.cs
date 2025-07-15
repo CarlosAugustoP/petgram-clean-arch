@@ -36,9 +36,9 @@ namespace Infrastructure.PetData
             throw new NotImplementedException();
         }
 
-        public Task<Pet> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        public Task<Pet?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return _db.Pets.Include(x => x.Owner).FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         }
 
         public Task<List<Pet>> GetPetsBySpeciesAsync(string Species, CancellationToken cancellationToken)

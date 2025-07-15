@@ -114,7 +114,7 @@
             <summary>
             Follows a user
             </summary>
-            <param name="command"></param>
+            <param name="followedId"></param>
             <returns></returns>
         </member>
         <member name="M:API.Controllers.UserController.Signup(Application.Abstractions.Users.AddNewUser.AddNewUserCommand)">
