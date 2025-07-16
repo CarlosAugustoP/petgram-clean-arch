@@ -7,16 +7,20 @@ namespace Application.Notifications.DTOs
 
     public class NotificationDTO
     {
-        public string Title { get; set; }
+        public Guid Id { get; set; }
         public string Message { get; set; }
         public DateTime SentAt { get; set; }
+        public NotificationTrigger Type { get; set; }
         public bool IsRead { get; set; } = false;
+        
+        public NotificationDTO() { }
 
-        public NotificationDTO(string title, string message, DateTime createdAt)
+        public NotificationDTO(Guid id,string message, DateTime createdAt, NotificationTrigger type)
         {
-            Title = title;
+            Id = id;
             Message = message;
             SentAt = createdAt;
+            Type = type;
         }
     }
 }

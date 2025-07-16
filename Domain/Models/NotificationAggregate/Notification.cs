@@ -13,7 +13,7 @@ namespace Domain.Models.NotificationAggregate
         public DateTime SentAt { get; set; }
         public string Message { get; set; }
         public NotificationTrigger Type { get; set; }
-        public Guid? ReceiverId { get; set; }
+        public Guid ReceiverId { get; set; }
         public User? Receiver { get; set; }
         public bool IsRead { get; set; } = false;
         public Notification() { }

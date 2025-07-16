@@ -45,8 +45,10 @@ namespace Application.UserManagement
             {
                 throw new NotFoundException("User not found");
             }
-            user.InactiveUser();
-            var userBan = await _userBanRepository.GetByIdAsync(userId, cancellationToken);
+            user.InactivateUser();
+
+            var userBan = await _userBanRepository.GetByIdAsync(userId, cancellationToken)
+                ?? throw new NotFoundException("User ban not found");
 
             if (isSystemCall) userBan.ExpireBan();
             else userBan.RevokeBan();

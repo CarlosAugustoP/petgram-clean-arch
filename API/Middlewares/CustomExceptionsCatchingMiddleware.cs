@@ -28,6 +28,16 @@ namespace API.Middlewares
                 var jsonResponse = JsonSerializer.Serialize(response);
                 await context.Response.WriteAsync(jsonResponse);
             }
+            // catch (Exception ex)
+            // {
+            //     context.Response.ContentType = "application/json";
+            //     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+            //     var response = Abstractions.Result.Result<string>.Failure("An unexpected error occurred.");
+            //     Console.WriteLine("An unexpected error occurred: " + ex.Message);
+            //     var jsonResponse = JsonSerializer.Serialize(response);
+            //     await context.Response.WriteAsync(jsonResponse);
+            // }
         }
     }
 }

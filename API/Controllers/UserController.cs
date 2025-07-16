@@ -56,7 +56,6 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
-        [EnableRateLimiting("signup")]
         [Route("signup")]
         public async Task<IActionResult> Signup([FromBody] AddNewUserCommand command)
         {

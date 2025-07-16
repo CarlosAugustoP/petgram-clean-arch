@@ -31,7 +31,7 @@
         {
             Status = UserStatus.ACTIVE;
         }
-        public void InactiveUser()
+        public void InactivateUser()
         {
             Status = UserStatus.INACTIVE;
         }

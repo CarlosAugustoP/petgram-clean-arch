@@ -14,14 +14,5 @@ namespace Application.Notifications.WebSockets
         {
             await base.OnDisconnectedAsync(exception);
         }
-
-        public async Task SendNotification(Guid userId, NotificationDTO notification)
-        {
-            await Clients.User(userId.ToString()).SendAsync("ReceiveNotification", notification);
-        }
-    }
-
-    public class NotificationDTO
-    {
     }
 }

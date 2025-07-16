@@ -44,6 +44,8 @@ using Application.Notifications.WebSockets;
 using Application.Abstractions.Users.Passwords;
 using Application.Abstractions.Users.BanUser;
 using Application.UserManagement;
+using Application.Notifications.DTOs;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,6 +93,7 @@ builder.Services.AddSingleton(sp =>
 builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(AddNewUserCommand).Assembly);
@@ -171,12 +174,12 @@ builder.Services.AddRateLimiter(options =>
         limiter.Window = TimeSpan.FromMinutes(1); 
         limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
     });
-    options.AddFixedWindowLimiter("signup", limiter =>
-    {
-        limiter.PermitLimit = 1; 
-        limiter.Window = TimeSpan.FromMinutes(5); 
-        limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-    });
+    // options.AddFixedWindowLimiter("signup", limiter =>
+    // {
+    //     limiter.PermitLimit = 1; 
+    //     limiter.Window = TimeSpan.FromMinutes(5); 
+    //     limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    // });
     options.AddFixedWindowLimiter("resend-token", limiter =>
     {
         limiter.PermitLimit = 1; 
@@ -258,7 +261,6 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ValidationExceptionMiddleware>();
 app.UseMiddleware<CustomExceptionsCatchingMiddleware>();
 app.UseMiddleware<UserValidationMiddleware>();
-app.UseMiddleware<Admin>();
 #endregion
 
 #region[App]

@@ -17,10 +17,12 @@ namespace Application.Notifications
         }
         public INotification Create(NotificationTrigger type)
         {
-            return type switch 
+            return type switch
             {
                 NotificationTrigger.POST_FINISHED_UPLOAD => new OnSuccessfulUploadPost(_notificationService),
+                NotificationTrigger.NEW_USER => new OnNewUser(_notificationService),
                 _ => throw new ArgumentException($"Notification type {type} is not supported.")
+                
             };
         }
     }

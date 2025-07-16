@@ -10,6 +10,7 @@ using Domain.CustomExceptions;
 using Application.Services;
 using System.Security.Cryptography;
 using Domain.Models.UserAggregate;
+using Application.Notifications;
 
 namespace Application.Abstractions.Users.AddNewUser
 {
@@ -49,6 +50,7 @@ namespace Application.Abstractions.Users.AddNewUser
                 Email = command.Email,
                 Password = _passwordHasher.HashPassword(command.Password),
                 Name = command.Name,
+                CreatedAt = DateTime.UtcNow,
                 // TODO change to default URL for profile image
                 ProfileImgUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
             };
@@ -80,8 +82,9 @@ namespace Application.Abstractions.Users.AddNewUser
             {
                 throw new BadRequestException("Seems like your email is invalid!");
             }
+            
 
-            return new Dictionary<string, string> { {"userKey", user.Id.ToString() } };
+            return new Dictionary<string, string> { { "userKey", user.Id.ToString() } };
         }
     }
 }
