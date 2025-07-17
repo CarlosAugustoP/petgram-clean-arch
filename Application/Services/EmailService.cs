@@ -3,7 +3,8 @@ using MimeKit;
 
 namespace Application.Services {
 
-    public interface IEmailService {
+    public interface IEmailService
+    {
         Task SendEmail(string to, string body, string subject);
     };
     public class EmailService : IEmailService

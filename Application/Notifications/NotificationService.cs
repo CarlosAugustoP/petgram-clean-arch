@@ -73,7 +73,7 @@ namespace Application.Notifications
                 var notification = await notificationTask;
                 await _notificationRepository.AddAsync(notification);
                 await _notificationHub.Clients.User(notification.ReceiverId.ToString())
-            .SendAsync("ReceiveNotification", notification);
+                    .SendAsync("ReceiveNotification", notification);
             }            
         }
         

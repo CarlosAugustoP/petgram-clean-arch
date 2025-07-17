@@ -15,6 +15,7 @@ using Application.Abstractions.Users.Passwords;
 using Domain.Models.UserAggregate;
 using API.Middlewares;
 using Application.Abstractions.Users.BanUser;
+using Application.Abstractions.Users.GetProfile;
 namespace API.Controllers
 {
 
@@ -143,6 +144,25 @@ namespace API.Controllers
         {
             var result = await _mediator.Send(command);
             return Ok(Result<bool>.Success(result));
+        }
+
+        [HttpGet("profile")]
+        [Authorize]
+        public async Task<IActionResult> GetProfile()
+        {
+            var command = new GetProfileQuery(CurrentUser.Id);
+            var result = await _mediator.Send(command);
+            var dto = new UserProfileDto
+            (
+                result.Item1.Id,
+                result.Item1.ProfileImgUrl,
+                result.Item1.Name,
+                result.Item1.Role,
+                result.Item1.Bio,
+                result.Item2,
+                result.Item3
+            );
+            return Ok(Result<UserProfileDto>.Success(dto));
         }
     }
 }

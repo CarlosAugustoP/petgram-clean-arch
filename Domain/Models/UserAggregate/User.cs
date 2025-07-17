@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public UserStatus Status { get; private set; }
         public string Email { get; set; }
-        public string? ProfileImgUrl { get; set; }
+        public string ProfileImgUrl { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public string? Bio { get; set; }

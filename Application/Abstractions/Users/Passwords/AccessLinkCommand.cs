@@ -37,6 +37,7 @@ namespace Application.Abstractions.Users.Passwords
             {
                 throw new UnauthorizedAccessException("Invalid token provided.");
             }
+            
             user.Password = _passwordHasher.HashPassword(request.NewPassword);
             await _userRepository.UpdateUserAsync(user, cancellationToken);
             await _redisService.DeleteAsync(redisKey);
