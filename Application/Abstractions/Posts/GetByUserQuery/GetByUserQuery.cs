@@ -5,12 +5,7 @@ using SharedKernel.Common;
 
 namespace Application.Abstractions.Posts.GetByUserQuery
 {
-    public sealed record GetByUserQuery : IRequest<PaginatedList<Post>>
-    {
-        public Guid UserId { get; init; }
-        public int PageIndex { get; init; } = 0;
-        public int PageSize { get; init; } = 10;
-    }
+    public sealed record GetByUserQuery(Guid UserId, int PageIndex = 0, int PageSize = 10) : IRequest<PaginatedList<Post>>;
     internal sealed class GetByUserQueryHandler : IRequestHandler<GetByUserQuery, PaginatedList<Post>>
     {
         private readonly IPostRepository _postRepository;

@@ -18,6 +18,7 @@ using Application.Abstractions.Comments.CreateCommentCommand;
 using Application.Abstractions.Comments.GetCommentsFromPostQuery;
 using Application.Abstractions.Feed;
 using Domain.Models;
+using Application.Abstractions.Posts.GetByUserQuery;
 
 namespace API.Controllers
 {
@@ -41,7 +42,9 @@ namespace API.Controllers
         /// The Created Post
         /// </returns>
         [HttpPost]
-        public async Task<IActionResult> CreatePost([FromForm] CreatePostCommand command){
+        [Authorize]
+        public async Task<IActionResult> CreatePost([FromForm] CreatePostCommand command)
+        {
             var req = new CreatePostCommand(command.Title, command.Medias, command.Content);
             req.SetUserId(CurrentUser.Id);
             var result = await _mediator.Send(req);
@@ -56,7 +59,8 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetPostById(Guid id){
+        public async Task<IActionResult> GetPostById(Guid id)
+        {
             var result = await _mediator.Send(new GetPostByIdQuery(id));
             var postDto = new PostDto().Map(result);
             return Ok(Result<PostDto>.Success(postDto));
@@ -69,8 +73,10 @@ namespace API.Controllers
         [HttpPost]
         [Authorize]
         [Route("like/{postId}")]
-        public async Task<IActionResult> LikePostById(Guid postId){
-            var command = new LikePostCommand {
+        public async Task<IActionResult> LikePostById(Guid postId)
+        {
+            var command = new LikePostCommand
+            {
                 UserId = CurrentUser.Id,
                 PostId = postId
             };
@@ -86,7 +92,8 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("view-likes/{postId}")]
-        public async Task<IActionResult> GetLikesByPostId([FromRoute] Guid postId, [FromQuery] PageRequest query){
+        public async Task<IActionResult> GetLikesByPostId([FromRoute] Guid postId, [FromQuery] PageRequest query)
+        {
             var result = await _mediator.Send(new GetLikesByPostQuery(postId, query.PageIndex, query.PageSize));
             var likesDto = result.Items.Select(l => new LikeDto().Map(l)).ToList();
             return Ok(Result<List<LikeDto>>.Success(likesDto));
@@ -99,8 +106,9 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        [Route("comments")] 
-        public async Task<IActionResult> CreatePostComment([FromBody] CreateCommentCommand command){
+        [Route("comments")]
+        public async Task<IActionResult> CreatePostComment([FromBody] CreateCommentCommand command)
+        {
             command.SetUserId(CurrentUser.Id);
             var result = await _mediator.Send(command);
             var commentDto = new CommentDto().Map(result);
@@ -125,12 +133,35 @@ namespace API.Controllers
         /// Returns the feed 
         /// </summary>
         [HttpGet]
+        [Authorize]
         [Route("feed")]
-        public async Task<IActionResult> GetFeed([FromQuery] PageRequest pageRequest){
+        public async Task<IActionResult> GetFeed([FromQuery] PageRequest pageRequest)
+        {
             var r = await _mediator.Send(new GetFeedQuery(
-                CurrentUser.Id,pageRequest.PageIndex, pageRequest.PageSize
+                CurrentUser.Id, pageRequest.PageIndex, pageRequest.PageSize
             ));
             return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
-        }        
+        }
+
+        [HttpGet]
+        [Route("by-user/{userId}")]
+        public async Task<IActionResult> GetFeedByUserId([FromRoute] Guid userId, [FromQuery] PageRequest pageRequest)
+        {
+            var r = await _mediator.Send(new GetByUserQuery(
+                userId, pageRequest.PageIndex, pageRequest.PageSize
+            ));
+            return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
+        }
+
+        [HttpGet]
+        [Route("by-user")]
+        [Authorize]
+        public async Task<IActionResult> GetFeedByCurrentUser([FromQuery] PageRequest pageRequest)
+        {
+            var r = await _mediator.Send(new GetByUserQuery(
+                CurrentUser.Id, pageRequest.PageIndex, pageRequest.PageSize
+            ));
+            return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
+        }
     }
 }
