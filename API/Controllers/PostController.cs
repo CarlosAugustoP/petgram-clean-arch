@@ -143,6 +143,12 @@ namespace API.Controllers
             return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
         }
 
+        /// <summary>
+        /// Gets the feed for a specific user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageRequest"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("by-user/{userId}")]
         public async Task<IActionResult> GetFeedByUserId([FromRoute] Guid userId, [FromQuery] PageRequest pageRequest)
@@ -153,6 +159,11 @@ namespace API.Controllers
             return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
         }
 
+        /// <summary>
+        /// Gets the feed for the current user
+        /// </summary>
+        /// <param name="pageRequest"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("by-user")]
         [Authorize]

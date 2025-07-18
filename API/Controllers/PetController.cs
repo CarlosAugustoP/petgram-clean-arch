@@ -51,6 +51,11 @@ namespace API.Controllers
             return Ok(Result<PetDto>.Success(_mapper.Map<PetDto>(result)));
         }
 
+        /// <summary>
+        /// Deletes a pet by its ID
+        /// </summary>
+        /// <param name="petId"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Authorize]
         [Route("delete-pet/{petId}")]
@@ -60,6 +65,11 @@ namespace API.Controllers
             return Ok(Result<bool>.Success(result));
         }
 
+        /// <summary>
+        /// Updates the pet information
+        /// </summary>
+        /// <param name="updatePetCommand"></param>
+        /// <returns></returns>
         [HttpPatch]
         [Authorize]
         [Route("update-pet")]

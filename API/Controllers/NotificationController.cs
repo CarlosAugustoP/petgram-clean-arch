@@ -24,6 +24,10 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Gets notifications for the current user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("by-user")]
         [Authorize]
         public async Task<IActionResult> GetNotificationsByUser()
@@ -32,6 +36,9 @@ namespace API.Controllers
             return Ok(Result<List<NotificationDTO>>.Success(result));
         }
 
+        /// <summary>
+        /// Marks notifications as read for the current user
+        /// </summary>
         [HttpPost("mark-as-read")]
         [Authorize]
         public async Task<IActionResult> MarkNotificationsAsRead([FromBody] List<Guid> notificationIds)
@@ -40,7 +47,9 @@ namespace API.Controllers
             var result = await _mediator.Send(command);
             return Ok(Result<bool>.Success(result));
         }
-
+        /// <summary>
+        /// Gets the count of unread notifications for the current user
+        /// </summary>
         [HttpGet("unread-count")]
         [Authorize]
         public async Task<IActionResult> GetUnreadCount()
