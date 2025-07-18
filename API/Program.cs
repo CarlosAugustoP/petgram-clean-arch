@@ -46,6 +46,7 @@ using Application.Abstractions.Users.BanUser;
 using Application.UserManagement;
 using Application.Notifications.DTOs;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Abstractions.Pets.UpdatePetCommand;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -120,6 +121,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(GetTypeQueryValidator).Assembl
 builder.Services.AddValidatorsFromAssembly(typeof(CallNewPasswordCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(AccessLinkCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(BanUserCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(UpdatePetCommandValidator).Assembly);
 
 
 var smtpKey = Environment.GetEnvironmentVariable("SMTP_KEY") ?? throw new ArgumentNullException("Invalid smtp key");

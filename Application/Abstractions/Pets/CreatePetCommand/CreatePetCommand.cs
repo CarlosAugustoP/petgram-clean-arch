@@ -54,7 +54,8 @@ namespace Application.Abstractions.Pets.CreatePetCommand
             var newPet = new Pet(
                 id: Guid.NewGuid(),
                 ownerId: request.UserId,
-                owner: await _userRepository.GetByIdAsync(request.UserId, cancellationToken) ?? throw new NotFoundException("User not found!"),
+                owner: await _userRepository.GetByIdAsync(request.UserId, cancellationToken)
+                    ?? throw new NotFoundException("User not found"),
                 name: request.Name,
                 imgUrl: request.ImgUrl ,
                 breed: request.Breed ?? "Unknown",  
@@ -62,7 +63,6 @@ namespace Application.Abstractions.Pets.CreatePetCommand
                 description: request.Description,
                 createdAt: DateTime.UtcNow,
                 birthDate: request.BirthDate,
-                cuteMeter: 0,
                 medias:null
             );
 

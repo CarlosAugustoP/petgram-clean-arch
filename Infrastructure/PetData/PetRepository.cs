@@ -23,7 +23,9 @@ namespace Infrastructure.PetData
 
         public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var pet = _db.Pets.Find(id);
+            _db.Pets.Remove(pet!);
+            return _db.SaveChangesAsync(cancellationToken);
         }
 
         public Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
@@ -38,7 +40,7 @@ namespace Infrastructure.PetData
 
         public Task<Pet?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return _db.Pets.Include(x => x.Owner).FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            return _db.Pets.Include(x => x.Owner).Include(x => x.Medias).FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         }
 
         public Task<List<Pet>> GetPetsBySpeciesAsync(string Species, CancellationToken cancellationToken)

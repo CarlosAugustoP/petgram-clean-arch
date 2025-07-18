@@ -44,7 +44,7 @@ namespace Application.Notifications
             );
 
 
-            await _notificationRepository.AddAsync(notification);
+            await _notificationRepository.AddAsync(notification, cancellationToken);
 
         }
 
@@ -71,7 +71,7 @@ namespace Application.Notifications
             foreach (var notificationTask in notifications)
             {
                 var notification = await notificationTask;
-                await _notificationRepository.AddAsync(notification);
+                await _notificationRepository.AddAsync(notification, cancellationToken);
                 await _notificationHub.Clients.User(notification.ReceiverId.ToString())
                     .SendAsync("ReceiveNotification", notification);
             }            

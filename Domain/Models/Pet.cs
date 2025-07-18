@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Models.UserAggregate;
+﻿using Domain.Models.UserAggregate;
 
 namespace Domain.Models
 {
@@ -19,13 +14,12 @@ namespace Domain.Models
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? BirthDate { get; set; }
-        public int CuteMeter { get; set; }
         public List<Media> Medias { get; set; } = new List<Media>();
         public Pet()
         {
         }
 
-        public Pet(Guid id, Guid ownerId, User owner, string name, string imgUrl, string? breed, string species, string? description, DateTime createdAt, DateTime? birthDate, int cuteMeter, List<Media>? medias)
+        public Pet(Guid id, Guid ownerId, User owner, string name, string imgUrl, string? breed, string species, string? description, DateTime createdAt, DateTime? birthDate, List<Media>? medias)
         {
             Id = id;
             OwnerId = ownerId;
@@ -37,7 +31,6 @@ namespace Domain.Models
             Description = description;
             CreatedAt = createdAt;
             BirthDate = birthDate;
-            CuteMeter = cuteMeter;
             Medias = medias ?? new List<Media>();
         }
 
