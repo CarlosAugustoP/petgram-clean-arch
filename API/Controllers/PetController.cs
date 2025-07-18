@@ -63,7 +63,7 @@ namespace API.Controllers
         [HttpPatch]
         [Authorize]
         [Route("update-pet")]
-        public async Task<IActionResult> UpdatePet([FromBody] UpdatePetCommand updatePetCommand)
+        public async Task<IActionResult> UpdatePet([FromForm] UpdatePetCommand updatePetCommand)
         {
             updatePetCommand.SetUserId(CurrentUser.Id);
             var result = await _mediator.Send(updatePetCommand);
