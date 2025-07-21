@@ -23,7 +23,7 @@ using Application.Abstractions.Posts.GetByUserQuery;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/posts")]
     public class PostController : PetGramController
     {
         private readonly IMediator _mediator;

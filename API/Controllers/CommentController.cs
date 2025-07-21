@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [ApiController]
+    [Route("api/comments")]
     public class CommentController : PetGramController
     {
         private readonly IMediator _mediator;
@@ -23,7 +25,7 @@ namespace API.Controllers
             _mediator = mediator;
             _mapper = mapper;
         }
-        
+
         /// <summary>
         /// Replies to a comment
         /// </summary>
@@ -39,7 +41,7 @@ namespace API.Controllers
             var commentDto = new CommentDto().Map(result);
             return Created("api/Comment", Result<CommentDto>.Success(commentDto));
         }
-        
+
         /// <summary>
         /// Adds a like to a comment
         /// </summary>
@@ -54,7 +56,7 @@ namespace API.Controllers
             var commentDto = new CommentDto().Map(result);
             return Ok(Result<CommentDto>.Success(commentDto));
         }
-        
+
         /// <summary>
         /// Deletes a comment or reply
         /// </summary>
@@ -69,7 +71,7 @@ namespace API.Controllers
             var commentDto = new CommentDto().Map(result);
             return Ok(Result<CommentDto>.Success(commentDto));
         }
-        
+
         /// <summary>
         /// Edits a comment
         /// </summary>

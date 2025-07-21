@@ -33,6 +33,7 @@ namespace API.Middlewares
                         {
                             // Update last login date
                             user.SetLastLogin(DateTime.UtcNow.Date);
+                            if (!user.IsActive()) user.ActivateUser();
                             await userRepository.UpdateUserAsync(user, CancellationToken.None);
                         }
                         

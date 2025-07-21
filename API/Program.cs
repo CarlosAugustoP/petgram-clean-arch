@@ -44,9 +44,10 @@ using Application.Notifications.WebSockets;
 using Application.Abstractions.Users.Passwords;
 using Application.Abstractions.Users.BanUser;
 using Application.UserManagement;
-using Application.Notifications.DTOs;
-using Microsoft.Extensions.DependencyInjection;
 using Application.Abstractions.Pets.UpdatePetCommand;
+using Hangfire;
+using Hangfire.PostgreSql;
+using Application.Workers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -231,7 +232,36 @@ builder.Services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationSch
     };
 });
 #endregion
+# region [HangFire]
+builder.Services.AddHangfire(configuration =>
+{
+    configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                 .UseSimpleAssemblyNameTypeSerializer()
+                 .UseRecommendedSerializerSettings()
+                 .UsePostgreSqlStorage(options =>
+                 {
+                     options.UseNpgsqlConnection(connectionString);
+                 });
+
+});
+builder.Services.AddHangfireServer();
+builder.Services.AddSingleton<IBackgroundJobClient, BackgroundJobClient>();
+builder.Services.AddSingleton<IRecurringJobManager, RecurringJobManager>();
+builder.Services.AddSingleton<InactivateUserJob>();
+builder.Services.AddSingleton<NotificationForInactiveUsersJob>();
+
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var userManageBanJob = scope.ServiceProvider.GetRequiredService<UserManageBanJob>();
+    userManageBanJob.ScheduleUnBanUsersJob();
+    var inactivateUserJob = scope.ServiceProvider.GetRequiredService<InactivateUserJob>();
+    inactivateUserJob.Schedule();
+    var notificationForInactiveUsersJob = scope.ServiceProvider.GetRequiredService<NotificationForInactiveUsersJob>();
+    notificationForInactiveUsersJob.ScheduleNotificationJob();
+}
+app.UseHangfireDashboard("/hangfire");
+#endregion
 app.MapHub<NotificationHub>("/notificationHub");
 
 using (var scope = app.Services.CreateScope())

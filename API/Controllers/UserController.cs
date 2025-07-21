@@ -20,7 +20,7 @@ namespace API.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UserController : PetGramController
     {
         private readonly IMediator _mediator;

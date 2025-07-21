@@ -1,0 +1,63 @@
+@using Application.Templates.VerifyToken
+@model VerifyModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add these to your template head -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <title>Petgram - Verification Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fb;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .token {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ff7c54;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #aaa;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff7c54;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🐾 Petgram</div>
+
+        <h2>Your verification code</h2>
+
+        <p>Use the code below to verify your Petgram account:</p>
+
+        <div class="token">@Model.Token</div>
+
+        <p>This code is valid for 15 minutes. If you didn't request this, please ignore this email.</p>
+
+        <div class="footer">
+            &copy; @DateTime.Now.Year Petgram. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

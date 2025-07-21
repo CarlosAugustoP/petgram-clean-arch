@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/pets")]
     public class PetController : PetGramController
     {
         private readonly IMediator _mediator;

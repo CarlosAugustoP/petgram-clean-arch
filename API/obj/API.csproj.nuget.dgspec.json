@@ -67,6 +67,18 @@
               "target": "Package",
               "version": "[11.11.0, )"
             },
+            "Hangfire": {
+              "target": "Package",
+              "version": "[1.8.20, )"
+            },
+            "Hangfire.AspNetCore": {
+              "target": "Package",
+              "version": "[1.8.20, )"
+            },
+            "Hangfire.PostgreSql": {
+              "target": "Package",
+              "version": "[1.20.12, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[12.4.1, )"
@@ -188,6 +200,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[11.7.0, )"
+            },
+            "Hangfire": {
+              "target": "Package",
+              "version": "[1.8.20, )"
             },
             "MailKit": {
               "target": "Package",
