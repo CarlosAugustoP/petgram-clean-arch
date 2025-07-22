@@ -11,5 +11,6 @@ namespace Domain.Repositorys
         public Task<UserBan?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
         public Task<UserBan> CreateBanAsync(UserBan userBan, CancellationToken cancellationToken);
         public Task<UserBan> UpdateBanAsync(UserBan userBan, CancellationToken cancellationToken);
+        public Task<List<UserBan>> GetExpiredBansAsync(CancellationToken cancellationToken);
     }
 }

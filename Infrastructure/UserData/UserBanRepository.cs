@@ -28,6 +28,13 @@ namespace Infrastructure.UserData
             return await _db.UserBans.FirstOrDefaultAsync(ub => ub.Id == id, cancellationToken);
         }
 
+        public Task<List<UserBan>> GetExpiredBansAsync(CancellationToken cancellationToken)
+        {
+            return _db.UserBans
+                .Where(ub => ub.ToBeUnbannedAt < DateTime.UtcNow)
+                .ToListAsync(cancellationToken);
+        }
+
         public async Task<UserBan> UpdateBanAsync(UserBan userBan, CancellationToken cancellationToken)
         {
             _db.UserBans.Update(userBan);

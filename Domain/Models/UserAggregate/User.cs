@@ -47,6 +47,10 @@
         {
             LastLogin = lastLogin;
         }
+        public bool IsActive()
+        {
+            return Status == UserStatus.ACTIVE;
+        }
 
     }
 }

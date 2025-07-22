@@ -19,5 +19,7 @@ namespace Domain.Repositorys
         Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
         Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
         Task UpdateUserAsync(User user, CancellationToken cancellationToken);
+        Task<List<User>> GetInactiveUsersAsync(CancellationToken cancellationToken = default);
+        Task<IQueryable<User>> GetAllUsersAsync(CancellationToken cancellationToken = default);
     }
 }

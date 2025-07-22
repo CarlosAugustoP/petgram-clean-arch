@@ -7,6 +7,7 @@ namespace Domain.Models.NotificationAggregate
         NEW_FOLLOWER,
         NEW_MESSAGE,
         POST_FINISHED_UPLOAD,
-        NEW_USER
+        NEW_USER,
+        INACTIVE_USER_REMINDER,
     }
 }

@@ -10,7 +10,8 @@ namespace Infrastructure.UserData
     public class UserRepository : IUserRepository
     {
         private readonly MainDBContext _db;
-        public UserRepository(MainDBContext db) {
+        public UserRepository(MainDBContext db)
+        {
             _db = db;
         }
 
@@ -61,7 +62,7 @@ namespace Infrastructure.UserData
             return user;
         }
 
-        public async Task<User?> GetUserByEmailAsync (string email, CancellationToken cancellationToken = default)
+        public async Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
@@ -79,7 +80,7 @@ namespace Infrastructure.UserData
             var follower = await _db.Users
                 .Include(u => u.Following)
                 .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
-                
+
             if (followed.Followers!.Contains(follower!))
             {
                 return follower!;
@@ -91,6 +92,18 @@ namespace Infrastructure.UserData
         {
             _db.Users.Update(user);
             return _db.SaveChangesAsync(cancellationToken);
+        }
+
+        public Task<List<User>> GetInactiveUsersAsync(CancellationToken cancellationToken = default)
+        {
+            return _db.Users
+                .Where(u => u.IsActive() == false)
+                .ToListAsync(cancellationToken);
+        }
+        
+        public Task<IQueryable<User>> GetAllUsersAsync(CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(_db.Users.AsQueryable());
         }
     }
 }

@@ -48,6 +48,8 @@ using Application.Abstractions.Pets.UpdatePetCommand;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Application.Workers;
+using Application.Abstractions.Reports;
+using Infrastructure.MomentData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,6 +84,9 @@ builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<NotificationFactory>();
 builder.Services.AddScoped<IUserBanRepository, UserBanRepository>();
+// Add these lines to your service configuration
+builder.Services.AddScoped<IReportUserRepository, ReportUserRepository>();
+builder.Services.AddScoped<IMomentRepository, MomentRepository>();
 builder.Services.AddScoped<IBanHammer, BanHammer>();
 builder.Services.AddScoped<ProfanityFilter.ProfanityFilter>();
 builder.Services.AddSingleton(sp =>
@@ -123,6 +128,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(CallNewPasswordCommandValidato
 builder.Services.AddValidatorsFromAssembly(typeof(AccessLinkCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(BanUserCommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(UpdatePetCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(ReportUserCommandValidator).Assembly);
 
 
 var smtpKey = Environment.GetEnvironmentVariable("SMTP_KEY") ?? throw new ArgumentNullException("Invalid smtp key");
@@ -249,6 +255,7 @@ builder.Services.AddSingleton<IBackgroundJobClient, BackgroundJobClient>();
 builder.Services.AddSingleton<IRecurringJobManager, RecurringJobManager>();
 builder.Services.AddSingleton<InactivateUserJob>();
 builder.Services.AddSingleton<NotificationForInactiveUsersJob>();
+builder.Services.AddSingleton<UserManageBanJob>();
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())

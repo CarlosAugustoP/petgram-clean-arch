@@ -21,6 +21,7 @@ namespace Application.Notifications
             {
                 NotificationTrigger.POST_FINISHED_UPLOAD => new OnSuccessfulUploadPost(_notificationService),
                 NotificationTrigger.NEW_USER => new OnNewUser(_notificationService),
+                NotificationTrigger.INACTIVE_USER_REMINDER => new OnInactiveUserReminded(_notificationService),
                 _ => throw new ArgumentException($"Notification type {type} is not supported.")
                 
             };

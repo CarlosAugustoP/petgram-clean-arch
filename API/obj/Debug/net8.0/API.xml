@@ -46,6 +46,40 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.MomentController.CreateMoment(Application.Abstractions.Moments.CreateMomentCommand)">
+            <summary>
+            Creates a new moment for the current user
+            </summary>
+        </member>
+        <member name="M:API.Controllers.MomentController.GetFeed">
+            <summary>
+            Gets Feed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.MomentController.GetUserMoments(System.Guid)">
+            <summary>
+            Gets moments by userId
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.NotificationController.GetNotificationsByUser">
+            <summary>
+            Gets notifications for the current user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.NotificationController.MarkNotificationsAsRead(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            Marks notifications as read for the current user
+            </summary>
+        </member>
+        <member name="M:API.Controllers.NotificationController.GetUnreadCount">
+            <summary>
+            Gets the count of unread notifications for the current user
+            </summary>
+        </member>
         <member name="M:API.Controllers.PetController.GetPetType(Application.Abstractions.Pets.GetTypeQuery.GetTypeQuery)">
             <summary>
             Gets the type of a pet. Useful for when creating a pet in the form.
@@ -58,6 +92,20 @@
             Creates the pet 
             </summary>
             <param name="createPetCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.PetController.DeletePet(System.Guid)">
+            <summary>
+            Deletes a pet by its ID
+            </summary>
+            <param name="petId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.PetController.UpdatePet(Application.Abstractions.Pets.UpdatePetCommand.UpdatePetCommand)">
+            <summary>
+            Updates the pet information
+            </summary>
+            <param name="updatePetCommand"></param>
             <returns></returns>
         </member>
         <member name="M:API.Controllers.PostController.CreatePost(Application.Abstractions.Posts.CreatePostCommand.CreatePostCommand)">
@@ -109,6 +157,21 @@
             <summary>
             Returns the feed 
             </summary>
+        </member>
+        <member name="M:API.Controllers.PostController.GetFeedByUserId(System.Guid,API.Abstractions.Requests.PageRequest)">
+            <summary>
+            Gets the feed for a specific user
+            </summary>
+            <param name="userId"></param>
+            <param name="pageRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.PostController.GetFeedByCurrentUser(API.Abstractions.Requests.PageRequest)">
+            <summary>
+            Gets the feed for the current user
+            </summary>
+            <param name="pageRequest"></param>
+            <returns></returns>
         </member>
         <member name="M:API.Controllers.UserController.UserFollowUser(System.Guid)">
             <summary>
