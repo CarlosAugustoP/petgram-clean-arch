@@ -40,7 +40,7 @@ namespace API.Controllers
 
         [Admin]
         [HttpGet("reports/count/{userId}")]
-        public async Task<IActionResult> GetReportsCountByUser([FromRoute]Guid userId)
+        public async Task<IActionResult> GetReportsCountByUser([FromRoute] Guid userId)
         {
             var reports = await _mediator.Send(new GetReportsByUserQuery(userId, 1, int.MaxValue));
             return Ok(Result<int>.Success(reports.Count));
@@ -54,6 +54,19 @@ namespace API.Controllers
             var l = result.Select(_mapper.Map<UserDashboardDto>).ToList();
             return Ok(Result<List<UserDashboardDto>>.Success(l));
         }
+        //TODOTODO
+        // [Admin]
+        // [HttpGet("set-admin/{userId}")]
+        // public async Task<IActionResult> SetUserAsAdmin([FromRoute] Guid userId)
+        // {
+        //     var command = new SetUserAsAdminCommand(userId);
+        //     var result = await _mediator.Send(command);
+        //     if (result)
+        //     {
+        //         return Ok(Result<bool>.Success(true));
+        //     }
+        //     return BadRequest(Result<bool>.Failure("Failed to set user as admin."));
+        // }
 
     }
 }
