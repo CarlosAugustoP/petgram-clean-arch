@@ -16,6 +16,7 @@ using Domain.Models.UserAggregate;
 using API.Middlewares;
 using Application.Abstractions.Users.BanUser;
 using Application.Abstractions.Users.GetProfile;
+using Application.Abstractions.Users.ArchiveOrDeleteProfile;
 namespace API.Controllers
 {
 
@@ -164,6 +165,25 @@ namespace API.Controllers
             );
             return Ok(Result<UserProfileDto>.Success(dto));
         }
+
+        [HttpPost("request-archive-profile")]
+        [Authorize]
+        public async Task<IActionResult> RequestArchiveProfile([FromBody] string Password)
+        {
+            var command = new ArchiveOrDeleteProfileSolicitationCommand(CurrentUser.Id, UserStatus.ARCHIVED, Password);
+            var result = await _mediator.Send(command);
+            return Ok(Result<bool>.Success(result));
+        }
+
+        [HttpPost("request-delete-profile")]
+        [Authorize]
+        public async Task<IActionResult> RequestDeleteProfile([FromBody] string Password)
+        {
+            var command = new ArchiveOrDeleteProfileSolicitationCommand(CurrentUser.Id, UserStatus.DELETED, Password);
+            var result = await _mediator.Send(command);
+            return Ok(Result<bool>.Success(result));
+        }
+
     }
 }
 

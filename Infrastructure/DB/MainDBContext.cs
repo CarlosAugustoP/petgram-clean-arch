@@ -38,10 +38,6 @@ namespace Infrastructure.DB
                 .WithMany(u => u.Moments)
                 .HasForeignKey(m => m.AuthorId)
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Preference)
-                .WithOne(p => p.User)
-                .HasForeignKey<Preference>(p => p.UserId);
             modelBuilder.Entity<Media>()
                 .HasOne(m => m.Post)
                 .WithMany(p => p.Medias)

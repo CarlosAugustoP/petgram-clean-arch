@@ -8,18 +8,18 @@ using Domain.Models.UserAggregate;
 
 namespace API.Abstractions.DTOs.Moment
 {
-    public class MomentDTO
+    public class MomentDto
     {
         public string? Content { get; set; }
         public MediaDTO Media { get; set; }
         public MiniUserDto User { get; set; }
         
 
-        public MomentDTO() { }
-        public MomentDTO Map (Domain.Models.Moment moment)
+        public MomentDto() { }
+        public MomentDto Map (Domain.Models.Moment moment)
         {
             var user = moment.Author;
-            return new MomentDTO
+            return new MomentDto
             {
                 Content = moment.Content,
                 Media = new MediaDTO(moment.Media.Id, moment.Media.Url, moment.Media.Type, moment.Media.MentionedPets.Select(x => new ReducedPetDto(x.Id, x.Name, x.ImgUrl, x.Species)).ToList()),

@@ -28,7 +28,7 @@ namespace API.Controllers
         {
             command.SetAuthorId(CurrentUser.Id);
             var result = await _mediator.Send(command);
-            return Ok(Result<MomentDTO>.Success(new MomentDTO().Map(result)));
+            return Ok(Result<MomentDto>.Success(new MomentDto().Map(result)));
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace API.Controllers
         {
             var command = new GetMomentFeedQuery(CurrentUser.Id);
             var result = await _mediator.Send(command);
-            return Ok(Result<List<MomentDTO>>.Success(result.Select(x => new MomentDTO().Map(x)).ToList()));
+            return Ok(Result<List<MomentDto>>.Success(result.Select(x => new MomentDto().Map(x)).ToList()));
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace API.Controllers
         {
             var command = new GetMomentsByUserQuery(userId);
             var result = await _mediator.Send(command);
-            return Ok(Result<List<MomentDTO>>.Success(result.Select(x => new MomentDTO().Map(x)).ToList()));
+            return Ok(Result<List<MomentDto>>.Success(result.Select(x => new MomentDto().Map(x)).ToList()));
         }
     }
 }

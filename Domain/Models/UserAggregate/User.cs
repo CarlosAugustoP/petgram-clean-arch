@@ -18,7 +18,6 @@
         public List<Pet>? Pets { get; set; } = new List<Pet>();
         public UserRole Role { get; set; } = UserRole.COMMON;
         public DateTime? LastLogin { get; private set; }
-        public Preference Preference { get; set; }
         public User()
         {
         }
@@ -39,6 +38,10 @@
         {
             Status = UserStatus.ARCHIVED;
         }
+        public void DeleteUser()
+        {
+            Status = UserStatus.DELETED;
+        }
         public bool IsBanned()
         {
             return Status == UserStatus.BANNED;
@@ -50,6 +53,18 @@
         public bool IsActive()
         {
             return Status == UserStatus.ACTIVE;
+        }
+        public bool IsArchived()
+        {
+            return Status == UserStatus.ARCHIVED;
+        }
+        public bool IsDeleted()
+        {
+            return Status == UserStatus.DELETED;
+        }
+        public bool IsVisible()
+        {
+            return Status != UserStatus.DELETED && Status != UserStatus.ARCHIVED;
         }
 
     }

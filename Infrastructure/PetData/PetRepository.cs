@@ -53,11 +53,7 @@ namespace Infrastructure.PetData
             throw new NotImplementedException();
         }
 
-        public Task<List<Pet>> GetPetsByUserPreferenceAsync(Preference preference, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
+    
         public Task<Pet> UpdateAsync(Pet pet, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();

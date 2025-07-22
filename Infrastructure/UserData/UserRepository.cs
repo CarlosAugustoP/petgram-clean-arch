@@ -17,13 +17,13 @@ namespace Infrastructure.UserData
 
         public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _db.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Id == id && u.IsVisible(), cancellationToken);
         }
 
         public async Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
         {
             var followersQuery = _db.Users
-                .Where(u => u.Id == userId)
+                .Where(u => u.Id == userId && u.IsVisible())
                 .Include(u => u.Followers)
                 .SelectMany(u => u.Followers!)
                 .AsQueryable();
@@ -34,7 +34,7 @@ namespace Infrastructure.UserData
         public async Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
         {
             var followingQuery = _db.Users
-                .Where(u => u.Id == userId)
+                .Where(u => u.Id == userId && u.IsVisible())
                 .Include(u => u.Following)
                 .SelectMany(u => u.Following!)
                 .AsQueryable();
@@ -52,7 +52,7 @@ namespace Infrastructure.UserData
 
         public async Task<List<User>> GetAllUsers()
         {
-            return await _db.Users.ToListAsync();
+            return await _db.Users.Where(x => !x.IsVisible()).ToListAsync();
         }
 
         public async Task<User> CreateUserAsync(User user, CancellationToken cancellationToken = default)
@@ -64,7 +64,7 @@ namespace Infrastructure.UserData
 
         public async Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
-            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email && u.IsVisible(), cancellationToken);
         }
 
         public async Task<bool> RemoveUserFromFollowersAsync(User unfollower, User unfollowed, CancellationToken cancellationToken)
@@ -79,6 +79,7 @@ namespace Infrastructure.UserData
         {
             var follower = await _db.Users
                 .Include(u => u.Following)
+                .Where(u => u.IsVisible())
                 .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
 
             if (followed.Followers!.Contains(follower!))
@@ -101,9 +102,14 @@ namespace Infrastructure.UserData
                 .ToListAsync(cancellationToken);
         }
         
+        /// <summary>
+        /// For admin. Retrieves all except deleted users.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public Task<IQueryable<User>> GetAllUsersAsync(CancellationToken cancellationToken = default)
         {
-            return Task.FromResult(_db.Users.AsQueryable());
+            return Task.FromResult(_db.Users.Include(u => u.Followers).Include(u => u.Following).Where(x => !x.IsDeleted()).AsQueryable());
         }
     }
 }

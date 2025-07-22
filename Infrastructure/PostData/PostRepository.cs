@@ -63,10 +63,7 @@ namespace Infrastructure.PostData
             return list;
         }
 
-        public Task<PaginatedList<Post>> GetPostsByUserPreferenceAsync(Preference preference, CancellationToken cancellationToken, List<Post> posts)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public async Task<PaginatedList<Post>> GetPostByFollowingAsync(List<User> following, int pageIndex, int pageSize, CancellationToken cancellationToken)
         {

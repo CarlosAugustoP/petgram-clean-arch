@@ -38,9 +38,18 @@ namespace API.Middlewares
                         }
                         
                         if (user.IsBanned())
-                            {
-                                throw new ForbiddenException("You are currently banned from using PetGram.");
-                            }
+                        {
+                            throw new ForbiddenException("You are currently banned from using PetGram.");
+                        }
+
+                        if (user.IsArchived())
+                        {
+                            throw new ForbiddenException("Your account is archived");
+                        }
+                        if (user.IsDeleted())
+                        {
+                            throw new ForbiddenException("Your account has been permanently deleted");
+                        }
                         context.Items["User"] = _mapper.Map<UserDto>(user);
                     }
                 }

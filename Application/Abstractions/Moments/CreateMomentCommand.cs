@@ -16,9 +16,9 @@ namespace Application.Abstractions.Moments
             AuthorId = authorId;
         }
         public IFormFile Media { get; set; }
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
-        public CreateMomentCommand(Guid authorId, IFormFile media, string content)
+        public CreateMomentCommand(Guid authorId, IFormFile media, string? content)
         {
             AuthorId = authorId;
             Media = media;

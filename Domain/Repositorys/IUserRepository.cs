@@ -21,5 +21,6 @@ namespace Domain.Repositorys
         Task UpdateUserAsync(User user, CancellationToken cancellationToken);
         Task<List<User>> GetInactiveUsersAsync(CancellationToken cancellationToken = default);
         Task<IQueryable<User>> GetAllUsersAsync(CancellationToken cancellationToken = default);
+        
     }
 }

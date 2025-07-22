@@ -15,7 +15,6 @@ namespace Domain.Repositorys
         Task<Post> UpdatePostAsync(Post post, CancellationToken cancellationToken);
         Task<Post> DeletePostAsync(Post post, CancellationToken cancellationToken);
         Task<Post?> GetPostByIdAsync(Guid id, CancellationToken cancellationToken);
-        Task<PaginatedList<Post>> GetPostsByUserPreferenceAsync(Preference preference, CancellationToken cancellationToken, List<Post> posts);
         Task<PaginatedList<Post>> GetPostsByUserAsync(Guid userId, int pageIndex, int pageSize, CancellationToken cancellationToken);
         Task<PaginatedList<Pet>> GetPostsByPetIdAsync(Guid id, CancellationToken cancellationToken);
         Task<PaginatedList<Post>> GetPostByFollowingAsync(List<User> following, int pageIndex, int pageSize, CancellationToken cancellationToken);

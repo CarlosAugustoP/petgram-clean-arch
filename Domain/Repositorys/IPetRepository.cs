@@ -12,6 +12,5 @@ namespace Domain.Repositorys
         Task DeleteAsync(Guid id, CancellationToken cancellationToken);
         Task<List<Pet>> GetPetsByUserIdAsync(Guid userId, CancellationToken cancellationToken);
         Task<List<Pet>> GetPetsBySpeciesAsync(string Species, CancellationToken cancellationToken);
-        Task<List<Pet>> GetPetsByUserPreferenceAsync(Preference preference, CancellationToken cancellationToken);
     }
 }
