@@ -12,5 +12,6 @@ namespace Domain.Repositorys
         Task<Message> UpdateAsync(Message message, CancellationToken cancellationToken);
         Task DeleteAsync(Guid id, CancellationToken cancellationToken);
         Task<PaginatedList<Message>> GetMessagesByUserChatAsync(Guid userIdSender, Guid userIdReceiver, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
+        Task<int> GetUnreadMessageCountAsync(Guid userId, CancellationToken cancellationToken);
     }
 }

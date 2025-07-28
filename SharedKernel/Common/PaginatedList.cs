@@ -32,6 +32,16 @@ namespace SharedKernel.Common
                 ToListAsync(cancellationToken);
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
+        /// <summary>
+        /// Selects items from the paginated list and returns a new PaginatedList of the specified type.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="selector"></param>
+        /// <returns></returns>
+        public PaginatedList<TResult> Select<TResult>(Func<T, TResult> selector)
+        {
+            return new PaginatedList<TResult>(Items.Select(selector).ToList(), TotalCount, PageIndex, Size);
+        }
 
         public int GetCount()
         {

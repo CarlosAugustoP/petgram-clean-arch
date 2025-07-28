@@ -23,7 +23,7 @@ namespace Infrastructure.MessageData
 
         public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var message = await _db.Messages.FindAsync(new object[] { id }, cancellationToken);
+            var message = await _db.Messages.FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
             if (message != null)
             {
                 _db.Messages.Remove(message);
@@ -54,6 +54,11 @@ namespace Infrastructure.MessageData
                 .OrderByDescending(m => m.CreatedAt);
 
             return await PaginatedList<Message>.CreateAsync(query, pageIndex, pageSize, cancellationToken);
+        }
+
+        public async Task<int> GetUnreadMessageCountAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _db.Messages.CountAsync(m => m.ReceiverId == userId && !m.IsRead, cancellationToken);
         }
 
         public async Task<Message> UpdateAsync(Message message, CancellationToken cancellationToken)

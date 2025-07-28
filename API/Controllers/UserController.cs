@@ -18,6 +18,7 @@ using Application.Abstractions.Users.BanUser;
 using Application.Abstractions.Users.GetProfile;
 using Application.Abstractions.Users.ArchiveOrDeleteProfile;
 using Application.Abstractions.Users.UpdateUser;
+using SharedKernel.Common;
 namespace API.Controllers
 {
 
@@ -90,7 +91,7 @@ namespace API.Controllers
                 PageIndex = pageRequest.PageIndex,
                 PageSize = pageRequest.PageSize
             });
-            return Ok(followers.Items.Select(f => _mapper.Map<UserDto>(f)));
+            return Ok(Result<PaginatedList<UserDto>>.Success(followers.Select(f => _mapper.Map<UserDto>(f))));
         }
 
         /// <summary>
@@ -108,7 +109,7 @@ namespace API.Controllers
                 PageIndex = pageRequest.PageIndex,
                 PageSize = pageRequest.PageSize
             });
-            return Ok(following.Items.Select(f => _mapper.Map<UserDto>(f)));
+            return Ok(Result<PaginatedList<UserDto>>.Success(following.Select(f => _mapper.Map<UserDto>(f))));
         }
         /// <summary>
         /// Requests a password change for a user by sending an email with a link to reset the password

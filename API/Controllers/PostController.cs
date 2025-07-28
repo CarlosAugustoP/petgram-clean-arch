@@ -19,6 +19,7 @@ using Application.Abstractions.Comments.GetCommentsFromPostQuery;
 using Application.Abstractions.Feed;
 using Domain.Models;
 using Application.Abstractions.Posts.GetByUserQuery;
+using SharedKernel.Common;
 
 namespace API.Controllers
 {
@@ -95,8 +96,8 @@ namespace API.Controllers
         public async Task<IActionResult> GetLikesByPostId([FromRoute] Guid postId, [FromQuery] PageRequest query)
         {
             var result = await _mediator.Send(new GetLikesByPostQuery(postId, query.PageIndex, query.PageSize));
-            var likesDto = result.Items.Select(l => new LikeDto().Map(l)).ToList();
-            return Ok(Result<List<LikeDto>>.Success(likesDto));
+            var likesDto = result.Select(l => new LikeDto().Map(l));
+            return Ok(Result<PaginatedList<LikeDto>>.Success(likesDto));
         }
 
         /// <summary>
@@ -125,8 +126,8 @@ namespace API.Controllers
         public async Task<IActionResult> GetPostComments([FromQuery] PageRequest pageRequest, [FromRoute] Guid postId)
         {
             var result = await _mediator.Send(new GetCommentsFromPostQuery(postId, pageRequest.PageIndex, pageRequest.PageSize));
-            var commentsDto = result.Items.Select(c => new CommentDto().Map(c)).ToList();
-            return Ok(Result<List<CommentDto>>.Success(commentsDto));
+            var commentsDto = result.Select(c => new CommentDto().Map(c));
+            return Ok(Result<PaginatedList<CommentDto>>.Success(commentsDto));
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace API.Controllers
             var r = await _mediator.Send(new GetFeedQuery(
                 CurrentUser.Id, pageRequest.PageIndex, pageRequest.PageSize
             ));
-            return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
+            return Ok(Result<PaginatedList<PostDto>>.Success(r.Select(x => new PostDto().Map(x))));
         }
 
         /// <summary>
@@ -156,7 +157,7 @@ namespace API.Controllers
             var r = await _mediator.Send(new GetByUserQuery(
                 userId, pageRequest.PageIndex, pageRequest.PageSize
             ));
-            return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
+            return Ok(Result<PaginatedList<PostDto>>.Success(r.Select(x => new PostDto().Map(x))));
         }
 
         /// <summary>
@@ -172,7 +173,7 @@ namespace API.Controllers
             var r = await _mediator.Send(new GetByUserQuery(
                 CurrentUser.Id, pageRequest.PageIndex, pageRequest.PageSize
             ));
-            return Ok(Result<List<PostDto>>.Success(r.Items.Select(x => new PostDto().Map(x)).ToList()));
+            return Ok(Result<PaginatedList<PostDto>>.Success(r.Select(x => new PostDto().Map(x))));
         }
     }
 }

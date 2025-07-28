@@ -1,6 +1,7 @@
 using API.Abstractions.Helpers;
 using API.Abstractions.Requests;
 using API.Abstractions.Result;
+using Application.Abstractions.Messages;
 using Application.Messages;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -33,7 +34,7 @@ namespace API.Controllers
         /// </summary>
         [HttpGet("chat/{userId}")]
         [Authorize]
-        public async Task<IActionResult> GetMessageHistory(string userId)
+        public async Task<IActionResult> GetMessageHistory([FromRoute] string userId)
         {
             var query = new MessageHistoryQuery(CurrentUser.Id, userId);
             var result = await _mediator.Send(query);
@@ -62,11 +63,11 @@ namespace API.Controllers
             return Ok(Result<List<MessageDto>>.Success(result));
         }
 
-        [HttpGet("mark-as-read/{userId}")]
+        [HttpPatch("update/{messageId}")]
         [Authorize]
-        public async Task<IActionResult> MarkMessagesAsRead(string userId)
+        public async Task<IActionResult> UpdateMessage([FromRoute] string messageId, [FromBody] MessageRequest request)
         {
-            var command = new MarkMessagesAsReadCommand(CurrentUser.Id, userId);
+            var command = new UpdateMessageCommand(CurrentUser.Id, messageId, request.Content);
             var result = await _mediator.Send(command);
             return Ok(Result.Success(result));
         }
