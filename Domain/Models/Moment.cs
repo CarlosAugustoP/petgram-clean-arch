@@ -18,7 +18,6 @@ namespace Domain.Models
         public List<Like> Likes { get; set; } = new List<Like>();
         public List<Report>? Reports {get; set;} = new List<Report>();
         public int Shares { get; set; }
-        public bool IsVisible { get; set; } = true;
         public Moment()
         {
 

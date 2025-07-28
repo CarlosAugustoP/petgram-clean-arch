@@ -44,7 +44,7 @@ namespace Application.Abstractions.Moments
                 allMoments.AddRange(moments);
             }
 
-            await _redisService.SetObjectAsync(cacheKey, allMoments, 60); // Cache for 60 minutes
+            await _redisService.SetObjectAsync(cacheKey, allMoments, 10); // Cache for 10 minutes
 
             return allMoments;
         }

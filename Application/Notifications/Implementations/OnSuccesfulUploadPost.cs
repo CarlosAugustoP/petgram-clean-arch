@@ -37,9 +37,10 @@ namespace Application.Notifications.Implementations
                 {
                     Id = Guid.NewGuid(),
                     SentAt = DateTime.UtcNow,
-                    Message = $"A user created a post mentioning your pet {pet.Name} aren't they adorable?.",
+                    Message = $"A user created a post mentioning your pet {pet.Name}! Aren't they adorable?",
                     Type = NotificationTrigger.POST_FINISHED_UPLOAD,
                     Receiver = pet.Owner,
+                    ReceiverId = pet.Owner.Id,
                     IsRead = false
                 };
 
@@ -53,6 +54,7 @@ namespace Application.Notifications.Implementations
                 Message = $"Your post was succesfully uploaded!",
                 Type = NotificationTrigger.POST_FINISHED_UPLOAD,
                 Receiver = context.Creator,
+                ReceiverId = context.Creator.Id,
                 IsRead = false
             });
         }

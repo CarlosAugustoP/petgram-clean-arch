@@ -59,7 +59,6 @@ namespace Application.Abstractions.Moments
                 Content = request.Content,
                 CreatedAt = DateTime.UtcNow,
                 Shares = 0,
-                IsVisible = true,
                 Author = await _userRepository.GetByIdAsync(request.AuthorId, cancellationToken) ?? throw new NotFoundException("User not found!")
             };
 

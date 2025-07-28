@@ -1,6 +1,10 @@
-﻿using Domain.CustomExceptions;
+﻿using Application.Notifications;
+using Application.Notifications.Implementations;
+using Domain.CustomExceptions;
+using Domain.Models.NotificationAggregate;
 using Domain.Repositorys;
 using MediatR;
+using static Application.Notifications.Implementations.OnFollowUser;
 
 namespace Application.Abstractions.Followers.StartFollowing
 {
@@ -12,9 +16,11 @@ namespace Application.Abstractions.Followers.StartFollowing
     internal sealed class StartFollowingCommandHandler : IRequestHandler<StartFollowingCommand, object>
     {
         private readonly IUserRepository _userRepository;
+        private readonly NotificationFactory _notificationFactory;
 
-        public StartFollowingCommandHandler(IUserRepository userRepository)
+        public StartFollowingCommandHandler(IUserRepository userRepository, NotificationFactory notificationFactory)
         {
+            _notificationFactory = notificationFactory;
             _userRepository = userRepository;
         }
 
@@ -37,6 +43,9 @@ namespace Application.Abstractions.Followers.StartFollowing
             }
             
             await _userRepository.AddUserToFollowersAsync(follower, followed, cancellationToken);
+
+            await _notificationFactory.Create(NotificationTrigger.NEW_FOLLOWER).ExecuteAsync(new OnFollowUserContext(follower, followed.Id), cancellationToken);
+
             return followed;
         }
     }

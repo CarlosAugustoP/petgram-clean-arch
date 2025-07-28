@@ -43,7 +43,7 @@ namespace API.Controllers
         public async Task<IActionResult> GetReportsCountByUser([FromRoute] Guid userId)
         {
             var reports = await _mediator.Send(new GetReportsByUserQuery(userId, 1, int.MaxValue));
-            return Ok(Result<int>.Success(reports.Count));
+            return Ok(Result<int>.Success(reports.TotalCount));
         }
 
         [Admin]
