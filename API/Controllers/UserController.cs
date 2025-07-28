@@ -17,6 +17,7 @@ using API.Middlewares;
 using Application.Abstractions.Users.BanUser;
 using Application.Abstractions.Users.GetProfile;
 using Application.Abstractions.Users.ArchiveOrDeleteProfile;
+using Application.Abstractions.Users.UpdateUser;
 namespace API.Controllers
 {
 
@@ -147,6 +148,10 @@ namespace API.Controllers
             return Ok(Result<bool>.Success(result));
         }
 
+    /// <summary>
+    /// Gets the profile of the current user
+    /// </summary>
+    /// <returns></returns>
         [HttpGet("profile")]
         [Authorize]
         public async Task<IActionResult> GetProfile()
@@ -166,6 +171,25 @@ namespace API.Controllers
             return Ok(Result<UserProfileDto>.Success(dto));
         }
 
+        /// <summary>
+        /// Updates the profile of the current user
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPatch("profile")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateUserCommand command)
+        {
+            command.SetUserId(CurrentUser.Id);
+            var result = await _mediator.Send(command);
+            return Ok(Result<bool>.Success(result));
+        }
+
+        /// <summary>
+        /// Requests to archive the user's profile, which will set the status to archived after a confirmation
+        /// </summary>
+        /// <param name="Password"></param>
+        /// <returns></returns>
         [HttpPost("request-archive-profile")]
         [Authorize]
         public async Task<IActionResult> RequestArchiveProfile([FromBody] string Password)
@@ -175,6 +199,11 @@ namespace API.Controllers
             return Ok(Result<bool>.Success(result));
         }
 
+        /// <summary>
+        /// Requests to delete the user's profile, which will set the status to deleted after a confirmation
+        /// </summary>
+        /// <param name="Password"></param>
+        /// <returns></returns>
         [HttpPost("request-delete-profile")]
         [Authorize]
         public async Task<IActionResult> RequestDeleteProfile([FromBody] string Password)

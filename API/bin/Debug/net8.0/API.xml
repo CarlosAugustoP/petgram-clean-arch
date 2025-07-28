@@ -220,5 +220,32 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.UserController.GetProfile">
+            <summary>
+            Gets the profile of the current user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserController.UpdateProfile(Application.Abstractions.Users.UpdateUser.UpdateUserCommand)">
+            <summary>
+            Updates the profile of the current user
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserController.RequestArchiveProfile(System.String)">
+            <summary>
+            Requests to archive the user's profile, which will set the status to archived after a confirmation
+            </summary>
+            <param name="Password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserController.RequestDeleteProfile(System.String)">
+            <summary>
+            Requests to delete the user's profile, which will set the status to deleted after a confirmation
+            </summary>
+            <param name="Password"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
