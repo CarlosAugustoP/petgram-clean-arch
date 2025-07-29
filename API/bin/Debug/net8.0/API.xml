@@ -46,6 +46,23 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.MessageController.CreateMessage(API.Abstractions.Requests.MessageRequest)">
+            <summary>
+            Creates a new message and sends it to the specified user.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.MessageController.GetMessageHistory(System.Guid,API.Abstractions.Requests.PageRequest)">
+            <summary>
+            Retrieves the message history between the current user and the specified user. 
+            </summary>
+        </member>
+        <member name="M:API.Controllers.MessageController.GetLatestMessages(API.Abstractions.Requests.PageRequest)">
+            <summary>
+            Retrieves the list of messages sent by the current user.
+            </summary>
+        </member>
         <member name="M:API.Controllers.MomentController.CreateMoment(Application.Abstractions.Moments.CreateMomentCommand)">
             <summary>
             Creates a new moment for the current user

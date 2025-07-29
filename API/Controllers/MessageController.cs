@@ -6,6 +6,7 @@ using Application.Messages;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Common;
 
 namespace API.Controllers
 {
@@ -34,14 +35,17 @@ namespace API.Controllers
         /// </summary>
         [HttpGet("chat/{userId}")]
         [Authorize]
-        public async Task<IActionResult> GetMessageHistory([FromRoute] string userId)
+        public async Task<IActionResult> GetMessageHistory([FromRoute] Guid userId, [FromQuery] PageRequest pageRequest)
         {
-            var query = new MessageHistoryQuery(CurrentUser.Id, userId);
+            var query = new MessageHistoryQuery(CurrentUser.Id, userId, pageRequest.PageIndex, pageRequest.PageSize);
             var result = await _mediator.Send(query);
             return Ok(Result<List<MessageDto>>.Success(result));
         }
 
-
+        /// <summary>
+        /// Retrieves the count of unread messages for the current user.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("unread-count")]
         [Authorize]
         public async Task<IActionResult> GetUnreadMessageCount()
@@ -56,20 +60,26 @@ namespace API.Controllers
         /// </summary>
         [HttpGet("latest")]
         [Authorize]
-        public async Task<IActionResult> GetLatestMessages()
+        public async Task<IActionResult> GetLatestMessages([FromQuery] PageRequest pageRequest)
         {
-            var query = new LatestMessagesQuery(CurrentUser.Id);
+            var query = new LatestMessagesQuery(CurrentUser.Id, pageRequest.PageIndex, pageRequest.PageSize);
             var result = await _mediator.Send(query);
-            return Ok(Result<List<MessageDto>>.Success(result));
+            return Ok(Result<PaginatedList<MessageHeaderDto>>.Success(result));
         }
 
+        /// <summary>
+        /// Updates the content of a message sent by the current user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="messageId"></param>
+        /// <returns></returns>
         [HttpPatch("update/{messageId}")]
         [Authorize]
-        public async Task<IActionResult> UpdateMessage([FromRoute] string messageId, [FromBody] MessageRequest request)
+        public async Task<IActionResult> UpdateMessage([FromBody] MessageRequest request, [FromRoute] Guid messageId)
         {
-            var command = new UpdateMessageCommand(CurrentUser.Id, messageId, request.Content);
+            var command = new UpdateMessageCommand(request.Content, messageId, CurrentUser.Id);
             var result = await _mediator.Send(command);
-            return Ok(Result.Success(result));
+            return Ok(Result<bool>.Success(result));
         }
     }
 }

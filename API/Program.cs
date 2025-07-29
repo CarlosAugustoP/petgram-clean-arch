@@ -50,6 +50,8 @@ using Hangfire.PostgreSql;
 using Application.Workers;
 using Application.Abstractions.Reports;
 using Infrastructure.MomentData;
+using Application.Messages;
+using Infrastructure.MessageData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,6 +79,8 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<MessageService>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 builder.Services.AddScoped<IMediaRepository, MediaRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
@@ -229,7 +233,8 @@ builder.Services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationSch
         {
             var accessToken = context.Request.Query["access_token"];
             var path = context.HttpContext.Request.Path;
-            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/notificationHub"))
+            if (!string.IsNullOrEmpty(accessToken) && 
+                (path.StartsWithSegments("/notificationHub") || path.StartsWithSegments("/messageHub")))
             {
                 context.Token = accessToken;
             }
@@ -270,6 +275,7 @@ using (var scope = app.Services.CreateScope())
 app.UseHangfireDashboard("/hangfire");
 #endregion
 app.MapHub<NotificationHub>("/notificationHub");
+app.MapHub<MessageHub>("/messageHub");
 
 using (var scope = app.Services.CreateScope())
 {

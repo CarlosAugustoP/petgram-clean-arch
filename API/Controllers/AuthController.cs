@@ -54,6 +54,11 @@ namespace API.Controllers
             return Ok(Result<UserDto>.Success(userDto));
        }
 
+        /// <summary>
+        /// Resends the validation token to the user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
        [HttpPost]
        [EnableRateLimiting("resend-token")]
        [Route("resend-token/{userId}")]

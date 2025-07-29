@@ -46,6 +46,28 @@ namespace Infrastructure.MessageData
             return await _db.Messages.FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
         }
 
+        public Task<int> GetByUserChatCountAsync(Guid userIdSender, Guid userIdReceiver, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<PaginatedList<(Message, int)>> GetLatestMessagesAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
+        {
+            var query = _db.Messages
+                .Include(m => m.Receiver)
+                .Include(m => m.Sender)
+                .Where(m => m.ReceiverId == userId || m.SenderId == userId)
+                .OrderByDescending(m => m.CreatedAt)
+                .GroupBy(m => new { m.SenderId, m.ReceiverId })
+                .Select(g => new
+                {
+                    Message = g.OrderByDescending(m => m.CreatedAt).FirstOrDefault(),
+                    UnreadCount = g.Count(m => !m.IsRead && m.ReceiverId == userId)
+                })
+                .Select(x => new ValueTuple<Message, int>(x.Message!, x.UnreadCount));
+            return await PaginatedList<(Message, int)>.CreateAsync(query, pageIndex, pageSize, cancellationToken);
+        }
+
         public async Task<PaginatedList<Message>> GetMessagesByUserChatAsync(Guid userIdSender, Guid userIdReceiver, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
         {
              var query = _db.Messages

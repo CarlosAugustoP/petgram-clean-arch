@@ -29,6 +29,13 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Retrieves the evaluation history for a specific user.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [Admin]
         [HttpGet("reports/{userId}")]
         public async Task<IActionResult> GetReportsByUser([FromRoute] Guid userId, [FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
@@ -38,6 +45,11 @@ namespace API.Controllers
             return Ok(Result<List<ReportDto>>.Success(result.Select(_mapper.Map<ReportDto>).ToList()));
         }
 
+        /// <summary>
+        /// Retrieves the count of reports for a specific user.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [Admin]
         [HttpGet("reports/count/{userId}")]
         public async Task<IActionResult> GetReportsCountByUser([FromRoute] Guid userId)
@@ -46,6 +58,11 @@ namespace API.Controllers
             return Ok(Result<int>.Success(reports.TotalCount));
         }
 
+        /// <summary>
+        /// Retrieves a list of all users in the system.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [Admin]
         [HttpGet("all-users")]
         public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQuery query)
