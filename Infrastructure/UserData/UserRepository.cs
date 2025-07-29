@@ -64,7 +64,7 @@ namespace Infrastructure.UserData
 
         public async Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
-            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email && u.IsVisible(), cancellationToken);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email && u.Status != UserStatus.DELETED && u.Status != UserStatus.ARCHIVED, cancellationToken);
         }
 
         public async Task<bool> RemoveUserFromFollowersAsync(User unfollower, User unfollowed, CancellationToken cancellationToken)

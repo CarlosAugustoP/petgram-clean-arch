@@ -73,6 +73,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(key)
         };
     });
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll", builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+    });
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddScoped<IPasswordHasher, PasswordHelper>();
 builder.Services.AddScoped<IJwtService, JwtService>();
@@ -312,5 +321,6 @@ app.UseMiddleware<UserValidationMiddleware>();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.UseRateLimiter();
+app.UseCors("AllowAll");
 app.Run();
 #endregion

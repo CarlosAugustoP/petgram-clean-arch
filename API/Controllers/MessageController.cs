@@ -39,7 +39,7 @@ namespace API.Controllers
         {
             var query = new MessageHistoryQuery(CurrentUser.Id, userId, pageRequest.PageIndex, pageRequest.PageSize);
             var result = await _mediator.Send(query);
-            return Ok(Result<List<MessageDto>>.Success(result));
+            return Ok(Result<PaginatedList<MessageDto>>.Success(result));
         }
 
         /// <summary>

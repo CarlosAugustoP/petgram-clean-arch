@@ -19,6 +19,7 @@ using Application.Abstractions.Users.GetProfile;
 using Application.Abstractions.Users.ArchiveOrDeleteProfile;
 using Application.Abstractions.Users.UpdateUser;
 using SharedKernel.Common;
+using API.Abstractions.DTOs.Reports;
 namespace API.Controllers
 {
 
@@ -149,10 +150,10 @@ namespace API.Controllers
             return Ok(Result<bool>.Success(result));
         }
 
-    /// <summary>
-    /// Gets the profile of the current user
-    /// </summary>
-    /// <returns></returns>
+        /// <summary>
+        /// Gets the profile of the current user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("profile")]
         [Authorize]
         public async Task<IActionResult> GetProfile()
@@ -214,6 +215,27 @@ namespace API.Controllers
             return Ok(Result<bool>.Success(result));
         }
 
+        /// <summary>
+        /// Reports a user for inappropriate behavior or content
+        /// </summary>
+        /// <param name="reportedId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("report/{reportedId}")]
+        [Authorize]
+        public async Task<IActionResult> ReportUser([FromRoute] Guid reportedId, [FromBody] ReportUserRequest request)
+        {
+            var command = new Application.Abstractions.Reports.ReportUserCommand(
+                ReporterId: CurrentUser.Id,
+                ReportedId: reportedId,
+                ReasonText: request.ReasonText,
+                ReasonType: request.ReasonType,
+                PostIds: request.PostIds,
+                MomentIds: request.MomentIds
+            );
+            var result = await _mediator.Send(command);
+            return Ok(Result<ReportDto>.Success(_mapper.Map<ReportDto>(result)));
+        }
     }
 }
 

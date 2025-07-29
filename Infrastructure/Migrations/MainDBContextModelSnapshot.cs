@@ -175,7 +175,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
@@ -240,9 +239,6 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("CuteMeter")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -304,44 +300,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Domain.Models.Preference", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("BirdMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CatMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DogMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FishMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("InsectMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ReptileMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RodentMeter")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Preference");
-                });
-
             modelBuilder.Entity("Domain.Models.Report", b =>
                 {
                     b.Property<Guid>("Id")
@@ -354,9 +312,12 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("Reason")
+                    b.Property<string>("ReasonText")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("ReasonType")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("ReportedId")
                         .HasColumnType("uuid");
@@ -402,6 +363,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ProfileImgUrl")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Role")
@@ -641,17 +603,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("Domain.Models.Preference", b =>
-                {
-                    b.HasOne("Domain.Models.UserAggregate.User", "User")
-                        .WithOne("Preference")
-                        .HasForeignKey("Domain.Models.Preference", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.Models.Report", b =>
                 {
                     b.HasOne("Domain.Models.UserAggregate.User", "Reporter")
@@ -762,9 +713,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Pets");
 
                     b.Navigation("Posts");
-
-                    b.Navigation("Preference")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

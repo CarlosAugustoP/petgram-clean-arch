@@ -18,6 +18,13 @@
             <param name="vtc"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.AuthController.ResendToken(System.Guid)">
+            <summary>
+            Resends the validation token to the user
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.CommentController.ReplyToComment(Application.Abstractions.Comments.CreateReplyCommand.CreateReplyCommand)">
             <summary>
             Replies to a comment
@@ -58,10 +65,24 @@
             Retrieves the message history between the current user and the specified user. 
             </summary>
         </member>
+        <member name="M:API.Controllers.MessageController.GetUnreadMessageCount">
+            <summary>
+            Retrieves the count of unread messages for the current user.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.MessageController.GetLatestMessages(API.Abstractions.Requests.PageRequest)">
             <summary>
             Retrieves the list of messages sent by the current user.
             </summary>
+        </member>
+        <member name="M:API.Controllers.MessageController.UpdateMessage(API.Abstractions.Requests.MessageRequest,System.Guid)">
+            <summary>
+            Updates the content of a message sent by the current user.
+            </summary>
+            <param name="request"></param>
+            <param name="messageId"></param>
+            <returns></returns>
         </member>
         <member name="M:API.Controllers.MomentController.CreateMoment(Application.Abstractions.Moments.CreateMomentCommand)">
             <summary>
@@ -262,6 +283,37 @@
             Requests to delete the user's profile, which will set the status to deleted after a confirmation
             </summary>
             <param name="Password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserController.ReportUser(System.Guid,API.Abstractions.Requests.ReportUserRequest)">
+            <summary>
+            Reports a user for inappropriate behavior or content
+            </summary>
+            <param name="reportedId"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserEvaluationController.GetReportsByUser(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            Retrieves the evaluation history for a specific user.
+            </summary>
+            <param name="userId"></param>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserEvaluationController.GetReportsCountByUser(System.Guid)">
+            <summary>
+            Retrieves the count of reports for a specific user.
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserEvaluationController.GetAllUsers(Application.Abstractions.Users.GetAllUsersQuery.GetAllUsersQuery)">
+            <summary>
+            Retrieves a list of all users in the system.
+            </summary>
+            <param name="query"></param>
             <returns></returns>
         </member>
     </members>
