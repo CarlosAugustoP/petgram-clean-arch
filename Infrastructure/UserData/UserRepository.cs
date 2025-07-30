@@ -17,13 +17,13 @@ namespace Infrastructure.UserData
 
         public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _db.Users.FirstOrDefaultAsync(u => u.Id == id && u.IsVisible(), cancellationToken);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Id == id && u.Status != UserStatus.DELETED && u.Status != UserStatus.ARCHIVED, cancellationToken);
         }
 
         public async Task<PaginatedList<User>> GetUserFollowersAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
         {
             var followersQuery = _db.Users
-                .Where(u => u.Id == userId && u.IsVisible())
+                .Where(u => u.Id == userId && u.Status != UserStatus.DELETED && u.Status != UserStatus.ARCHIVED)
                 .Include(u => u.Followers)
                 .SelectMany(u => u.Followers!)
                 .AsQueryable();
@@ -34,7 +34,7 @@ namespace Infrastructure.UserData
         public async Task<PaginatedList<User>> GetUserFollowingAsync(Guid userId, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
         {
             var followingQuery = _db.Users
-                .Where(u => u.Id == userId && u.IsVisible())
+                .Where(u => u.Id == userId && u.Status != UserStatus.DELETED && u.Status != UserStatus.ARCHIVED)
                 .Include(u => u.Following)
                 .SelectMany(u => u.Following!)
                 .AsQueryable();
@@ -52,7 +52,7 @@ namespace Infrastructure.UserData
 
         public async Task<List<User>> GetAllUsers()
         {
-            return await _db.Users.Where(x => !x.IsVisible()).ToListAsync();
+            return await _db.Users.Where(x => !x.Status.Equals(UserStatus.DELETED)).ToListAsync();
         }
 
         public async Task<User> CreateUserAsync(User user, CancellationToken cancellationToken = default)
@@ -79,7 +79,7 @@ namespace Infrastructure.UserData
         {
             var follower = await _db.Users
                 .Include(u => u.Following)
-                .Where(u => u.IsVisible())
+                .Where(u => u.Status != UserStatus.DELETED && u.Status != UserStatus.ARCHIVED)
                 .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
 
             if (followed.Followers!.Contains(follower!))

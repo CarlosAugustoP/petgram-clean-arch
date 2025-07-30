@@ -65,10 +65,12 @@ namespace API.Controllers
         public async Task<IActionResult> Signup([FromBody] AddNewUserCommand command)
         {
             var result = await _mediator.Send(command);
+            //Returns a string saying user already made 
             if (result is string)
             {
                 return Ok(Result<string>.Success(result.ToString()!));
             }
+            //Returns userKey : userguid so the fe knows what key to send when validate
             else if (result is Dictionary<string, string>)
             {
                 return Created("api/User/signup", Result<Dictionary<string, string>>.Success(

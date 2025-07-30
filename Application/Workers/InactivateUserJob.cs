@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Models.UserAggregate;
 using Domain.Repositorys;
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,7 @@ namespace Application.Workers
             var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
 
             var users = await userRepository.GetAllUsersAsync();
-            var toDeactivate = users.Where(u => u.LastLogin < DateTime.UtcNow.AddDays(-30) && u.IsActive()).ToList();
+            var toDeactivate = users.Where(u => u.LastLogin < DateTime.UtcNow.AddDays(-30) && u.Status == UserStatus.ACTIVE).ToList();
             foreach (var user in toDeactivate)
             {
                 user.InactivateUser();
