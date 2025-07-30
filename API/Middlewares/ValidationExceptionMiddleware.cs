@@ -37,8 +37,7 @@ namespace API.Middlewares
                 }
 
                 var result = Result<ValidationErrorResponse>.ValidationFailure(response);
-
-                var jsonResponse = JsonSerializer.Serialize(result);
+                var jsonResponse = JsonSerializer.Serialize(result, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
                 await context.Response.WriteAsync(jsonResponse);
             }
         }
