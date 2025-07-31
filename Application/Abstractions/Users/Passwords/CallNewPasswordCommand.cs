@@ -36,10 +36,10 @@ namespace Application.Abstractions.Users.Passwords
                 var token = Convert.ToBase64String(tokenBytes);
 
                 var redisKey = $"password-reset:{user.Id}";
-                await _redisService.SetObjectAsync(redisKey, token, 15);
+                await _redisService.SetStringAsync(redisKey, token, 15);
 
                 await _emailService.SendEmail(user.Email, $"To reset your password, please access the following link: " +
-                    $"https://localhost:3000/reset-password?token={token}&userId={user.Id}", "Password Reset Request"
+                    $"http://localhost:8080/reset-password?token={token}&userId={user.Id}", "Password Reset Request"
                 );
 
                 return true;

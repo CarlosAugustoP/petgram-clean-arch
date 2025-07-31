@@ -27,7 +27,7 @@ namespace Application.Abstractions.Users.Passwords
                 ?? throw new NotFoundException("User not found for the given id");
 
             var redisKey = $"password-reset:{request.UserId}";
-            var token = await _redisService.GetObjectAsync<string>(redisKey);
+            var token = await _redisService.GetStringAsync(redisKey);
 
             if (token == null)
             {
@@ -35,7 +35,7 @@ namespace Application.Abstractions.Users.Passwords
             }
             if (token != request.Token)
             {
-                throw new UnauthorizedAccessException("Invalid token provided.");
+                throw new ForbiddenException("Invalid token provided.");
             }
             
             user.Password = _passwordHasher.HashPassword(request.NewPassword);

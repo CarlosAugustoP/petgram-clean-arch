@@ -6,6 +6,8 @@ namespace Application.Services{
     public interface IRedisService {
         public Task SetCodeAsync(string email, string code, int expiryMinutes);
         public Task SetObjectAsync<T>(string key, T value, int expiryMinutes);
+        public Task SetStringAsync(string key, string value, int expiryMinutes = 15);
+        public Task<string?> GetStringAsync(string key);
         public Task<T?> GetObjectAsync<T>(string key);
         public Task<string?> GetCodeAsync(string email);
         public Task<bool> DeleteAsync(string key); 
@@ -49,6 +51,17 @@ namespace Application.Services{
         {
             await _db.KeyDeleteAsync(key);
             return true;
+        }
+
+        public Task SetStringAsync(string key, string value, int expiryMinutes = 15)
+        {
+            return _db.StringSetAsync(key, value, TimeSpan.FromMinutes(expiryMinutes));
+        }
+
+        public async Task<string?> GetStringAsync(string key)
+        {
+            var result = await _db.StringGetAsync(key);
+            return result.HasValue ? result.ToString() : null;
         }
     }
 }
