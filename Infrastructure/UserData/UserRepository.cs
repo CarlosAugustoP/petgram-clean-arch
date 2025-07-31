@@ -98,7 +98,7 @@ namespace Infrastructure.UserData
         public Task<List<User>> GetInactiveUsersAsync(CancellationToken cancellationToken = default)
         {
             return _db.Users
-                .Where(u => u.IsActive() == false)
+                .Where(u => u.Status == UserStatus.INACTIVE)
                 .ToListAsync(cancellationToken);
         }
         
@@ -109,7 +109,7 @@ namespace Infrastructure.UserData
         /// <returns></returns>
         public Task<IQueryable<User>> GetAllUsersAsync(CancellationToken cancellationToken = default)
         {
-            return Task.FromResult(_db.Users.Include(u => u.Followers).Include(u => u.Following).Where(x => !x.IsDeleted()).AsQueryable());
+            return Task.FromResult(_db.Users.Include(u => u.Followers).Include(u => u.Following).Where(x => x.Status != UserStatus.DELETED).AsQueryable());
         }
     }
 }

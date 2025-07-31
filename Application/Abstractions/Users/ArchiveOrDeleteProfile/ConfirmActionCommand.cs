@@ -33,11 +33,8 @@ namespace Application.Abstractions.Users.ArchiveOrDeleteProfile
                 throw new ForbiddenException("Invalid or expired token");
             }
 
-            var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
-            if (user == null)
-            {
-                throw new NotFoundException("User not found");
-            }
+            var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken)
+                ?? throw new NotFoundException("User not found");
 
             if (tokenData.Status == UserStatus.ARCHIVED)
             {

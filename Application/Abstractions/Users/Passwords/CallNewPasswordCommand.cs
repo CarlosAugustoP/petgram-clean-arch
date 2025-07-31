@@ -26,9 +26,8 @@ namespace Application.Abstractions.Users.Passwords
         {
             try
             {
-                var user = await _userRepository.GetUserByEmailAsync(request.Email, cancellationToken)
-                    ?? throw new NotFoundException("User not found for the given id");
-
+                var user = await _userRepository.GetUserByEmailAsync(request.Email, cancellationToken);
+                if (user == null) return true;
                 var tokenBytes = new byte[32];
                 using (var rng = RandomNumberGenerator.Create())
                 {
