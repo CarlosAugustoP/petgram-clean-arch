@@ -46,8 +46,6 @@ namespace Application.Abstractions.Pets.CreatePetCommand
             _petRepository = petRepository;
             _userRepository = userRepository;
         }
-        
-        
 
         public async Task<Pet> Handle(CreatePetCommand request, CancellationToken cancellationToken)
         {

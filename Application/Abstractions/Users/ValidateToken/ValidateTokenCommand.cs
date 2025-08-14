@@ -19,6 +19,7 @@ namespace Application.Abstractions.Users.ValidateToken {
             UserId = userId;
         }
     }
+    
     internal sealed class ValidateTokenCommandHandler : IRequestHandler<ValidateTokenCommand, User>
     {
 

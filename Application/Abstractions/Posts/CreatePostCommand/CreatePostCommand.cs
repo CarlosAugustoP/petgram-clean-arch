@@ -104,12 +104,10 @@ namespace Application.Abstractions.Posts.CreatePostCommand
                     
                     medias.Add(mediaDb);
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
-                    throw new ApiException(e.Message);
-                };
-               
-               
+                    throw new ApiException("Failure to send the file to the cloud");
+                };             
             });
             post.Medias = medias.ToList();
             await _postRepository.UpdatePostAsync(post, cancellationToken);

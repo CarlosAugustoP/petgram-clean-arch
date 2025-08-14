@@ -42,7 +42,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Actually creates the user, moving the object from redis to 
+        /// Actually creates the user, moving the object from redis to postgres.
         /// </summary>
         /// <param name="vtc"></param>
         /// <returns></returns>

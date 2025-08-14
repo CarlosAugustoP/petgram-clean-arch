@@ -39,6 +39,7 @@ namespace API.Controllers
         /// <returns>
         /// The Created Post
         /// </returns>
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromForm] CreatePostCommand command){
             var req = new CreatePostCommand(command.Title, command.Medias, command.Content);
