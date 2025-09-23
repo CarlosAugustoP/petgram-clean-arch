@@ -41,7 +41,3 @@ While this architecture introduces additional complexity that might seem unneces
 ## Getting Started
 
 Coming soon: setup instructions, API docs, and usage examples.
-
----
-
-Made with ❤️ by [Carlos Augusto](https://www.linkedin.com/in/carlosaugustop/)
