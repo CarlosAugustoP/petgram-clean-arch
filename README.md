@@ -31,6 +31,7 @@ On PetGram, users can:
 - **Factory + Strategy**: For creating notifications without polluting the service layer.
 - **CQRS**: Commands and queries are separated, with a mediator layer for clean separation of concerns (even though only one database is used).
 - **Result Pattern**: Standardizes HTTP responses.
+- **Mediator Pattern**: Manages Commands and queries.
 
 ## Motivation
 
